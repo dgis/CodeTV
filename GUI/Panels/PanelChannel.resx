@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="contextMenuStripChannels.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="switchOnToolStripMenuItem.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt, style=Bold</value>
+  </data>
+  <data name="switchOnToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="switchOnToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Tune</value>
+  </data>
+  <data name="rebuildTheGraphAndTuneToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="rebuildTheGraphAndTuneToolStripMenuItem.Text" xml:space="preserve">
+    <value>Rebuild The &amp;Graph and Tune</value>
+  </data>
+  <data name="tuneAllChannelInMosaicToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="tuneAllChannelInMosaicToolStripMenuItem.Text" xml:space="preserve">
+    <value>Tune All Channels In &amp;Mosaic</value>
+  </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 6</value>
+  </data>
+  <data name="loadReplaceAllChannleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="loadReplaceAllChannleToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Load &amp;&amp; Replace All Channels...</value>
+  </data>
+  <data name="insertChannelsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="insertChannelsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Insert Channels...</value>
+  </data>
+  <data name="saveAllChannelsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="saveAllChannelsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Save All Channels...</value>
+  </data>
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 6</value>
+  </data>
+  <data name="addFolderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="addFolderToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Add Folder</value>
+  </data>
+  <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Delete</value>
+  </data>
+  <data name="renameToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="renameToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Rename...</value>
+  </data>
+  <data name="numberiToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="numberiToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Numbering...</value>
+  </data>
+  <data name="propertyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 22</value>
+  </data>
+  <data name="propertyToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Properties</value>
+  </data>
+  <data name="contextMenuStripChannels.Size" type="System.Drawing.Size, System.Drawing">
+    <value>222, 258</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripChannels.Name" xml:space="preserve">
+    <value>contextMenuStripChannels</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripChannels.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="treeViewChannel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="treeViewChannel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9pt</value>
+  </data>
+  <data name="treeViewChannel.ImageKey" xml:space="preserve">
+    <value>FolderClosed</value>
+  </data>
+  <data name="treeViewChannel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="treeViewChannel.SelectedImageKey" xml:space="preserve">
+    <value>FolderOpened</value>
+  </data>
+  <data name="treeViewChannel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 266</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="treeViewChannel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;treeViewChannel.Name" xml:space="preserve">
+    <value>treeViewChannel</value>
+  </data>
+  <data name="&gt;&gt;treeViewChannel.Type" xml:space="preserve">
+    <value>CodeTV.Controls.MultiTreeView, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;treeViewChannel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;treeViewChannel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>292, 266</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AKlxUanDjmj/wItm/76IZP+7hWH/uYNf/7R+XP+yfFr/sXtY/655V/+tdlb/q3VU/6lz
+        U/+pcVH/qXFRqf///wDIkmz////////////////////////////cp3v/////////////////////////
+        /////////////6lyUf////8AypRu///////z8/P/u7u7/7u7u///////3Kd7///////+/vz//v78//7+
+        +v/+/vr//Pz5//////+qc1P/////AMyXb///////8/Pz/7u7u////////////9yne////////f36//39
+        +v/9/fr//Pz3//v79v//////rHVU/////wDRnHP///////Pz8/+7u7v/u7u7///////cp3v///////39
+        +P/7+/n/+/r3//v69v/7+PT//////7B6WP////8A1J51///////z8/P/u7u7////////////3Kd7////
+        ///7+ff/+/n1//v49P/79/L/+/Xy//////+yfFr/////ANWgdv//////u7u7/7u7u/+7u7v//////9yn
+        e///////+/j0//v38//79fL/+vPv//jy7P//////tX5c/////wDYonn//////7u7u///////////////
+        ///cp3v///////v28f/49O7/9/Lr//fw6v/27Oj//////7eBXv////8A2aN5//////+2trb/u7u7////
+        ////////3Kd7///////38+3/9u/q//Xr5//z6uT/8ufe//////+6hWD/////ANukev//////////////
+        /////////////9yne///////////////////////////////////////vYdj/////wDcp3v/3Kd7/9yn
+        e//cp3v/3Kd7/9yne//cp3v/3Kd7/9yne//cp3v/3Kd7/9yne//cp3v/3Kd7/8CLZv////8A3ayF/ei5
+        kv/ouZL/6LmS/+i5kv/ouZL/6LmS/+i5kv/ouZL/6LmS/+i5kv/ouZL/6LmS/+i5kv/BkG/9////AKlx
+        UWvdsY303Kd7/9ymev/apHr/2KJ5/9Wgdv/UnnX/0p1z/8+acv/OmXD/y5Zv/8mUbP/Emnr0qXFRa///
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A//8AAP//AACAAwAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAIAD
+        AADABwAA//8AAA==
+</value>
+  </data>
+  <data name="$this.TabText" xml:space="preserve">
+    <value>Channels</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Channels</value>
+  </data>
+  <data name="&gt;&gt;switchOnToolStripMenuItem.Name" xml:space="preserve">
+    <value>switchOnToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;switchOnToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rebuildTheGraphAndTuneToolStripMenuItem.Name" xml:space="preserve">
+    <value>rebuildTheGraphAndTuneToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;rebuildTheGraphAndTuneToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tuneAllChannelInMosaicToolStripMenuItem.Name" xml:space="preserve">
+    <value>tuneAllChannelInMosaicToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;tuneAllChannelInMosaicToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
+    <value>toolStripMenuItem2</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;loadReplaceAllChannleToolStripMenuItem.Name" xml:space="preserve">
+    <value>loadReplaceAllChannleToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;loadReplaceAllChannleToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;insertChannelsToolStripMenuItem.Name" xml:space="preserve">
+    <value>insertChannelsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;insertChannelsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveAllChannelsToolStripMenuItem.Name" xml:space="preserve">
+    <value>saveAllChannelsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;saveAllChannelsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
+    <value>toolStripMenuItem3</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addFolderToolStripMenuItem.Name" xml:space="preserve">
+    <value>addFolderToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addFolderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;deleteToolStripMenuItem.Name" xml:space="preserve">
+    <value>deleteToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;deleteToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;renameToolStripMenuItem.Name" xml:space="preserve">
+    <value>renameToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;renameToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numberiToolStripMenuItem.Name" xml:space="preserve">
+    <value>numberiToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;numberiToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;propertyToolStripMenuItem.Name" xml:space="preserve">
+    <value>propertyToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;propertyToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>PanelChannel</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>CodeTV.PanelDockBase, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+</root>

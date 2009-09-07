@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonChannelUpdatePid.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonChannelUpdatePid.Location" type="System.Drawing.Point, System.Drawing">
+    <value>44, 236</value>
+  </data>
+  <data name="buttonChannelUpdatePid.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 23</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonChannelUpdatePid.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="buttonChannelUpdatePid.Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="&gt;&gt;buttonChannelUpdatePid.Name" xml:space="preserve">
+    <value>buttonChannelUpdatePid</value>
+  </data>
+  <data name="&gt;&gt;buttonChannelUpdatePid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonChannelUpdatePid.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonChannelUpdatePid.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonPropertyApply.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonPropertyApply.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonPropertyApply.Location" type="System.Drawing.Point, System.Drawing">
+    <value>244, 236</value>
+  </data>
+  <data name="buttonPropertyApply.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 23</value>
+  </data>
+  <data name="buttonPropertyApply.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="buttonPropertyApply.Text" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="&gt;&gt;buttonPropertyApply.Name" xml:space="preserve">
+    <value>buttonPropertyApply</value>
+  </data>
+  <data name="&gt;&gt;buttonPropertyApply.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonPropertyApply.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonPropertyApply.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="buttonNewChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="buttonNewChannel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>248, 23</value>
+  </data>
+  <data name="buttonNewChannel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 23</value>
+  </data>
+  <data name="buttonNewChannel.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="buttonNewChannel.Text" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="&gt;&gt;buttonNewChannel.Name" xml:space="preserve">
+    <value>buttonNewChannel</value>
+  </data>
+  <data name="&gt;&gt;buttonNewChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonNewChannel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonNewChannel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="buttonAddChannelToFavorite.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonAddChannelToFavorite.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 236</value>
+  </data>
+  <data name="buttonAddChannelToFavorite.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="buttonAddChannelToFavorite.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="buttonAddChannelToFavorite.Text" xml:space="preserve">
+    <value>&amp;Add</value>
+  </data>
+  <data name="&gt;&gt;buttonAddChannelToFavorite.Name" xml:space="preserve">
+    <value>buttonAddChannelToFavorite</value>
+  </data>
+  <data name="&gt;&gt;buttonAddChannelToFavorite.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddChannelToFavorite.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonAddChannelToFavorite.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="labelChannelType.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelChannelType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-1, 9</value>
+  </data>
+  <data name="labelChannelType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 13</value>
+  </data>
+  <data name="labelChannelType.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="labelChannelType.Text" xml:space="preserve">
+    <value>Channel Type</value>
+  </data>
+  <data name="&gt;&gt;labelChannelType.Name" xml:space="preserve">
+    <value>labelChannelType</value>
+  </data>
+  <data name="&gt;&gt;labelChannelType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelChannelType.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelChannelType.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="buttonChannelTest.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonChannelTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 236</value>
+  </data>
+  <data name="buttonChannelTest.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 23</value>
+  </data>
+  <data name="buttonChannelTest.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="buttonChannelTest.Text" xml:space="preserve">
+    <value>&amp;Test</value>
+  </data>
+  <data name="&gt;&gt;buttonChannelTest.Name" xml:space="preserve">
+    <value>buttonChannelTest</value>
+  </data>
+  <data name="&gt;&gt;buttonChannelTest.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonChannelTest.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonChannelTest.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="comboBoxTunerType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="comboBoxTunerType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 25</value>
+  </data>
+  <data name="comboBoxTunerType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 21</value>
+  </data>
+  <data name="comboBoxTunerType.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTunerType.Name" xml:space="preserve">
+    <value>comboBoxTunerType</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTunerType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTunerType.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTunerType.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="propertyGridChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="contextMenuStripPropertyGrid.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="resetChannelPropertyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 22</value>
+  </data>
+  <data name="resetChannelPropertyToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Reset</value>
+  </data>
+  <data name="contextMenuStripPropertyGrid.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 26</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripPropertyGrid.Name" xml:space="preserve">
+    <value>contextMenuStripPropertyGrid</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripPropertyGrid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="propertyGridChannel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 52</value>
+  </data>
+  <data name="propertyGridChannel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 178</value>
+  </data>
+  <data name="propertyGridChannel.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="&gt;&gt;propertyGridChannel.Name" xml:space="preserve">
+    <value>propertyGridChannel</value>
+  </data>
+  <data name="&gt;&gt;propertyGridChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PropertyGrid, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;propertyGridChannel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;propertyGridChannel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>292, 266</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAD///8A////ANaecsTTmW700ZZo/86SY//Ljl7/yYpb/8eHVv/DhFL/w4RS/8OEUv/DhFL/w4RS/8OE
+        Uv+7d0Kw////AP///wDXoXX/+PLt//fw6v/27eb/9Ori//Pn3v/x5Nv/8OLY//Di2P/w4tj/8OLY//Di
+        2P/w4tj/xYpd/f///wD///8A2aR6//nz7v/r0r7//////+vTv//////////////////qx63/////////
+        ////////8OLY/8aMX/////8A////AN2ofv/58+//69C6/+vQu//r0Lv/69C7/+vQu//r0b3/6s21/+rN
+        tf/qzbX/6s21//Di2P/Gilz/////AP///wDfqoL/+fPv/+rOt///////69C7/////////////////+rP
+        uv/79vL////////////w4tj/yI1f/////wCgoKAF2KyK/+Pe2//Su6n/28Kt/+PHsP/qzLP/6syz/+rO
+        t//ox6z/6Mes/+jIsP/oyK7/8OLY/8SGVP+mpqYGo6Ojaq+knP+rq6r/pKCc/6enp/+2p5z/8/Pz////
+        ////////6Mes//////////////////Hl2//GhlX/qampqcvLy//q6ur/8PDw//Ly8v/s7Oz/ysrK/5qV
+        kf/pya7/6cmw/+jHrP/pybD/6Miw/+jMtf/y597/yIpZ/6ysrPD6+vr/19fX/+Li4v/Kysr/z8/P////
+        //+Tk5P////////////ox6z/////////////////9/Hr/8uPX/+urq7o+Pj4/9HR0f/s7Oz/xcXF/8bG
+        xv//////mpqa/+nDpv/pw6b/6cOm/+nDpv/pw6b/6cOm//v39P/Ok2T/sbGx6Pj4+P/V1dX/7+/v/8vL
+        y//Ly8v//////56env/////////////////////////////////79/T/0Zdq/7S0tOj4+Pj/29vb/+/v
+        7//Q0ND/0NDQ//////+ioqL/i8uT/4fJjv+Cxon/fsOE/3rBgP92vnz/+/f0/9Sbb/+2trbp8vLy/9nZ
+        2f/k5OT/4uLi/8jIyP/x8fH/paWl//v39P/79/T/+/f0//v39P/79/T/+/f0//v39P/XoHT4uLi47fb2
+        9v/09PT/+fn5//v7+//29vb/9vb2/6ioqP/nt5P/5rWQ/+SyjP/ir4j/4KyE/92pgP/cpX3/2qN6yrq6
+        uqTW1tb/7e3t//n5+f/7+/v/8PDw/9nZ2f+rq6vY////AP///wD///8A////AP///wD///8A////AP//
+        /wC8vLwQu7u7bLm5ucC3t7frtbW187KystCwsLCKra2tJf///wD///8A////AP///wD///8A////AP//
+        /wD///8A8AEAAMABAADAAAAAwAAAAMAAAADAAAAAwAAAAIAAAACAAAAAgAAAAIAAAACAAAAAgAEAAIAB
+        AACB/wAA//8AAA==
+</value>
+  </data>
+  <data name="$this.TabText" xml:space="preserve">
+    <value>Channel Properties</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Channel Properties</value>
+  </data>
+  <data name="&gt;&gt;resetChannelPropertyToolStripMenuItem.Name" xml:space="preserve">
+    <value>resetChannelPropertyToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;resetChannelPropertyToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>PanelChannelProperties</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>CodeTV.PanelDockBase, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+</root>

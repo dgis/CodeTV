@@ -1,0 +1,1691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="contextMenuStripChannel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="dummyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 22</value>
+  </data>
+  <data name="dummyToolStripMenuItem.Text" xml:space="preserve">
+    <value>Dummy</value>
+  </data>
+  <data name="contextMenuStripChannel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 26</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripChannel.Name" xml:space="preserve">
+    <value>contextMenuStripChannel</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="contextMenuStripChannelFolder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>196, 17</value>
+  </metadata>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 22</value>
+  </data>
+  <data name="toolStripMenuItem1.Text" xml:space="preserve">
+    <value>Dummy</value>
+  </data>
+  <data name="contextMenuStripChannelFolder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 26</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripChannelFolder.Name" xml:space="preserve">
+    <value>contextMenuStripChannelFolder</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripChannelFolder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="numericUpDownNumberingClickStart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>137, 177</value>
+  </data>
+  <data name="numericUpDownNumberingClickStart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 20</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="numericUpDownNumberingClickStart.TabIndex" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNumberingClickStart.Name" xml:space="preserve">
+    <value>numericUpDownNumberingClickStart</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNumberingClickStart.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNumberingClickStart.Parent" xml:space="preserve">
+    <value>wizardPageChannelNumbering</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownNumberingClickStart.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="checkBoxClickNumbering.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="checkBoxClickNumbering.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxClickNumbering.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 174</value>
+  </data>
+  <data name="checkBoxClickNumbering.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 23</value>
+  </data>
+  <data name="checkBoxClickNumbering.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="checkBoxClickNumbering.Text" xml:space="preserve">
+    <value>Auto Click Numbering</value>
+  </data>
+  <data name="&gt;&gt;checkBoxClickNumbering.Name" xml:space="preserve">
+    <value>checkBoxClickNumbering</value>
+  </data>
+  <data name="&gt;&gt;checkBoxClickNumbering.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxClickNumbering.Parent" xml:space="preserve">
+    <value>wizardPageChannelNumbering</value>
+  </data>
+  <data name="&gt;&gt;checkBoxClickNumbering.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="textBox7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Underline</value>
+  </data>
+  <data name="textBox7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 68</value>
+  </data>
+  <data name="textBox7.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBox7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>281, 91</value>
+  </data>
+  <data name="textBox7.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="textBox7.Text" xml:space="preserve">
+    <value>Change the channel numbering to quickly access to this channel.
+- Either double click on a channel to change is number,
+- Or check the below button and click on the channels.</value>
+  </data>
+  <data name="&gt;&gt;textBox7.Name" xml:space="preserve">
+    <value>textBox7</value>
+  </data>
+  <data name="&gt;&gt;textBox7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox7.Parent" xml:space="preserve">
+    <value>wizardPageChannelNumbering</value>
+  </data>
+  <data name="&gt;&gt;textBox7.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="listViewChannelNumbering.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="columnHeaderChannel.Text" xml:space="preserve">
+    <value>Channel</value>
+  </data>
+  <data name="columnHeaderChannel.Width" type="System.Int32, mscorlib">
+    <value>272</value>
+  </data>
+  <data name="columnHeaderChannelNumber.Text" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="listViewChannelNumbering.Location" type="System.Drawing.Point, System.Drawing">
+    <value>299, 68</value>
+  </data>
+  <data name="listViewChannelNumbering.Size" type="System.Drawing.Size, System.Drawing">
+    <value>342, 349</value>
+  </data>
+  <data name="listViewChannelNumbering.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;listViewChannelNumbering.Name" xml:space="preserve">
+    <value>listViewChannelNumbering</value>
+  </data>
+  <data name="&gt;&gt;listViewChannelNumbering.Type" xml:space="preserve">
+    <value>CodeTV.ListViewEx, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;listViewChannelNumbering.Parent" xml:space="preserve">
+    <value>wizardPageChannelNumbering</value>
+  </data>
+  <data name="&gt;&gt;listViewChannelNumbering.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="wizardPageChannelNumbering.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="wizardPageChannelNumbering.Size" type="System.Drawing.Size, System.Drawing">
+    <value>653, 420</value>
+  </data>
+  <data name="wizardPageChannelNumbering.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelNumbering.Name" xml:space="preserve">
+    <value>wizardPageChannelNumbering</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelNumbering.Type" xml:space="preserve">
+    <value>CristiPotlog.Controls.WizardPage, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelNumbering.Parent" xml:space="preserve">
+    <value>wizardTunning</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelNumbering.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Underline</value>
+  </data>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 75</value>
+  </data>
+  <data name="textBox1.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>629, 14</value>
+  </data>
+  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>Select the favorite folder where you want to put the newly created channels.</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
+    <value>textBox1</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+    <value>wizardPageChannelDestination</value>
+  </data>
+  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxFolderDestinationName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxFolderDestinationName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 97</value>
+  </data>
+  <data name="textBoxFolderDestinationName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 20</value>
+  </data>
+  <data name="textBoxFolderDestinationName.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderDestinationName.Name" xml:space="preserve">
+    <value>textBoxFolderDestinationName</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderDestinationName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderDestinationName.Parent" xml:space="preserve">
+    <value>wizardPageChannelDestination</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderDestinationName.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonFolderDestination.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonFolderDestination.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 95</value>
+  </data>
+  <data name="buttonFolderDestination.Size" type="System.Drawing.Size, System.Drawing">
+    <value>168, 23</value>
+  </data>
+  <data name="buttonFolderDestination.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonFolderDestination.Text" xml:space="preserve">
+    <value>Select A Destination Folder</value>
+  </data>
+  <data name="&gt;&gt;buttonFolderDestination.Name" xml:space="preserve">
+    <value>buttonFolderDestination</value>
+  </data>
+  <data name="&gt;&gt;buttonFolderDestination.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonFolderDestination.Parent" xml:space="preserve">
+    <value>wizardPageChannelDestination</value>
+  </data>
+  <data name="&gt;&gt;buttonFolderDestination.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="wizardPageChannelDestination.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="wizardPageChannelDestination.Size" type="System.Drawing.Size, System.Drawing">
+    <value>653, 420</value>
+  </data>
+  <data name="wizardPageChannelDestination.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelDestination.Name" xml:space="preserve">
+    <value>wizardPageChannelDestination</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelDestination.Type" xml:space="preserve">
+    <value>CristiPotlog.Controls.WizardPage, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelDestination.Parent" xml:space="preserve">
+    <value>wizardTunning</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelDestination.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="textBoxScanFrequency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 286</value>
+  </data>
+  <data name="textBoxScanFrequency.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBoxScanFrequency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 84</value>
+  </data>
+  <data name="textBoxScanFrequency.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanFrequency.Name" xml:space="preserve">
+    <value>textBoxScanFrequency</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanFrequency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanFrequency.Parent" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanFrequency.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBoxScanStatus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 270</value>
+  </data>
+  <data name="textBoxScanStatus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 13</value>
+  </data>
+  <data name="textBoxScanStatus.TabIndex" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="textBoxScanStatus.Text" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStatus.Name" xml:space="preserve">
+    <value>textBoxScanStatus</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStatus.Parent" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStatus.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelFrequencyUpdate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelFrequencyUpdate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelFrequencyUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 270</value>
+  </data>
+  <data name="labelFrequencyUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 13</value>
+  </data>
+  <data name="labelFrequencyUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="&gt;&gt;labelFrequencyUpdate.Name" xml:space="preserve">
+    <value>labelFrequencyUpdate</value>
+  </data>
+  <data name="&gt;&gt;labelFrequencyUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelFrequencyUpdate.Parent" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;labelFrequencyUpdate.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="textBox5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Underline</value>
+  </data>
+  <data name="textBox5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 376</value>
+  </data>
+  <data name="textBox5.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBox5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 41</value>
+  </data>
+  <data name="textBox5.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="textBox5.Text" xml:space="preserve">
+    <value>2) Select the channels to save in the favorites from the list beside.</value>
+  </data>
+  <data name="&gt;&gt;textBox5.Name" xml:space="preserve">
+    <value>textBox5</value>
+  </data>
+  <data name="&gt;&gt;textBox5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox5.Parent" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;textBox5.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="textBox6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Underline</value>
+  </data>
+  <data name="textBox6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 69</value>
+  </data>
+  <data name="textBox6.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBox6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 43</value>
+  </data>
+  <data name="textBox6.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="textBox6.Text" xml:space="preserve">
+    <value>1) Using the previous page parameters, select the predefined frequencies or a frequency range, and click on the 'Scan' button.</value>
+  </data>
+  <data name="&gt;&gt;textBox6.Name" xml:space="preserve">
+    <value>textBox6</value>
+  </data>
+  <data name="&gt;&gt;textBox6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox6.Parent" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;textBox6.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="buttonAddAllToFavorite.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="buttonAddAllToFavorite.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonAddAllToFavorite.Location" type="System.Drawing.Point, System.Drawing">
+    <value>338, 394</value>
+  </data>
+  <data name="buttonAddAllToFavorite.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 23</value>
+  </data>
+  <data name="buttonAddAllToFavorite.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="buttonAddAllToFavorite.Text" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAllToFavorite.Name" xml:space="preserve">
+    <value>buttonAddAllToFavorite</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAllToFavorite.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAllToFavorite.Parent" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;buttonAddAllToFavorite.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="buttonScanClear.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="buttonScanClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonScanClear.Location" type="System.Drawing.Point, System.Drawing">
+    <value>592, 394</value>
+  </data>
+  <data name="buttonScanClear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 23</value>
+  </data>
+  <data name="buttonScanClear.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="buttonScanClear.Text" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="&gt;&gt;buttonScanClear.Name" xml:space="preserve">
+    <value>buttonScanClear</value>
+  </data>
+  <data name="&gt;&gt;buttonScanClear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonScanClear.Parent" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;buttonScanClear.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="listViewScanResult.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="columnHeaderScanResultName.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="columnHeaderScanResultName.Width" type="System.Int32, mscorlib">
+    <value>153</value>
+  </data>
+  <data name="columnHeaderScanResultFrequency.Text" xml:space="preserve">
+    <value>Frequency</value>
+  </data>
+  <data name="columnHeaderScanResultFrequency.Width" type="System.Int32, mscorlib">
+    <value>110</value>
+  </data>
+  <data name="listViewScanResult.Location" type="System.Drawing.Point, System.Drawing">
+    <value>338, 69</value>
+  </data>
+  <data name="listViewScanResult.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 319</value>
+  </data>
+  <data name="listViewScanResult.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;listViewScanResult.Name" xml:space="preserve">
+    <value>listViewScanResult</value>
+  </data>
+  <data name="&gt;&gt;listViewScanResult.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listViewScanResult.Parent" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;listViewScanResult.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="buttonScanStop.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonScanStop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonScanStop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 244</value>
+  </data>
+  <data name="buttonScanStop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="buttonScanStop.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="buttonScanStop.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="&gt;&gt;buttonScanStop.Name" xml:space="preserve">
+    <value>buttonScanStop</value>
+  </data>
+  <data name="&gt;&gt;buttonScanStop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonScanStop.Parent" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;buttonScanStop.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="labelScanRegion.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelScanRegion.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelScanRegion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 36</value>
+  </data>
+  <data name="labelScanRegion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 13</value>
+  </data>
+  <data name="labelScanRegion.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="labelScanRegion.Text" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="&gt;&gt;labelScanRegion.Name" xml:space="preserve">
+    <value>labelScanRegion</value>
+  </data>
+  <data name="&gt;&gt;labelScanRegion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelScanRegion.Parent" xml:space="preserve">
+    <value>tabPageScanPredefined</value>
+  </data>
+  <data name="&gt;&gt;labelScanRegion.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelScanCountry.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelScanCountry.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelScanCountry.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 9</value>
+  </data>
+  <data name="labelScanCountry.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 13</value>
+  </data>
+  <data name="labelScanCountry.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="labelScanCountry.Text" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="&gt;&gt;labelScanCountry.Name" xml:space="preserve">
+    <value>labelScanCountry</value>
+  </data>
+  <data name="&gt;&gt;labelScanCountry.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelScanCountry.Parent" xml:space="preserve">
+    <value>tabPageScanPredefined</value>
+  </data>
+  <data name="&gt;&gt;labelScanCountry.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboBoxScanRegion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>56, 33</value>
+  </data>
+  <data name="comboBoxScanRegion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 21</value>
+  </data>
+  <data name="comboBoxScanRegion.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxScanRegion.Name" xml:space="preserve">
+    <value>comboBoxScanRegion</value>
+  </data>
+  <data name="&gt;&gt;comboBoxScanRegion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxScanRegion.Parent" xml:space="preserve">
+    <value>tabPageScanPredefined</value>
+  </data>
+  <data name="&gt;&gt;comboBoxScanRegion.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="comboBoxScanCountry.Location" type="System.Drawing.Point, System.Drawing">
+    <value>56, 6</value>
+  </data>
+  <data name="comboBoxScanCountry.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 21</value>
+  </data>
+  <data name="comboBoxScanCountry.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;comboBoxScanCountry.Name" xml:space="preserve">
+    <value>comboBoxScanCountry</value>
+  </data>
+  <data name="&gt;&gt;comboBoxScanCountry.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxScanCountry.Parent" xml:space="preserve">
+    <value>tabPageScanPredefined</value>
+  </data>
+  <data name="&gt;&gt;comboBoxScanCountry.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabPageScanPredefined.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabPageScanPredefined.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageScanPredefined.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 94</value>
+  </data>
+  <data name="tabPageScanPredefined.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPageScanPredefined.Text" xml:space="preserve">
+    <value>Predefined</value>
+  </data>
+  <data name="&gt;&gt;tabPageScanPredefined.Name" xml:space="preserve">
+    <value>tabPageScanPredefined</value>
+  </data>
+  <data name="&gt;&gt;tabPageScanPredefined.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageScanPredefined.Parent" xml:space="preserve">
+    <value>tabControlScanner</value>
+  </data>
+  <data name="&gt;&gt;tabPageScanPredefined.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelScanStopFrequencyKHz.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="labelScanStopFrequencyKHz.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelScanStopFrequencyKHz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelScanStopFrequencyKHz.Location" type="System.Drawing.Point, System.Drawing">
+    <value>247, 35</value>
+  </data>
+  <data name="labelScanStopFrequencyKHz.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 13</value>
+  </data>
+  <data name="labelScanStopFrequencyKHz.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="labelScanStopFrequencyKHz.Text" xml:space="preserve">
+    <value>KHz</value>
+  </data>
+  <data name="&gt;&gt;labelScanStopFrequencyKHz.Name" xml:space="preserve">
+    <value>labelScanStopFrequencyKHz</value>
+  </data>
+  <data name="&gt;&gt;labelScanStopFrequencyKHz.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelScanStopFrequencyKHz.Parent" xml:space="preserve">
+    <value>tabPageScanManual</value>
+  </data>
+  <data name="&gt;&gt;labelScanStopFrequencyKHz.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelScanStopFrequency.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelScanStopFrequency.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelScanStopFrequency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 35</value>
+  </data>
+  <data name="labelScanStopFrequency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 13</value>
+  </data>
+  <data name="labelScanStopFrequency.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="labelScanStopFrequency.Text" xml:space="preserve">
+    <value>Stop Frequency</value>
+  </data>
+  <data name="&gt;&gt;labelScanStopFrequency.Name" xml:space="preserve">
+    <value>labelScanStopFrequency</value>
+  </data>
+  <data name="&gt;&gt;labelScanStopFrequency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelScanStopFrequency.Parent" xml:space="preserve">
+    <value>tabPageScanManual</value>
+  </data>
+  <data name="&gt;&gt;labelScanStopFrequency.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="textBoxScanStopFrequency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>122, 32</value>
+  </data>
+  <data name="textBoxScanStopFrequency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="textBoxScanStopFrequency.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="textBoxScanStopFrequency.Text" xml:space="preserve">
+    <value>546000</value>
+  </data>
+  <data name="textBoxScanStopFrequency.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStopFrequency.Name" xml:space="preserve">
+    <value>textBoxScanStopFrequency</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStopFrequency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStopFrequency.Parent" xml:space="preserve">
+    <value>tabPageScanManual</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStopFrequency.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelScanBandwidthKHz.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="labelScanBandwidthKHz.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelScanBandwidthKHz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelScanBandwidthKHz.Location" type="System.Drawing.Point, System.Drawing">
+    <value>247, 61</value>
+  </data>
+  <data name="labelScanBandwidthKHz.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 13</value>
+  </data>
+  <data name="labelScanBandwidthKHz.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="labelScanBandwidthKHz.Text" xml:space="preserve">
+    <value>KHz</value>
+  </data>
+  <data name="&gt;&gt;labelScanBandwidthKHz.Name" xml:space="preserve">
+    <value>labelScanBandwidthKHz</value>
+  </data>
+  <data name="&gt;&gt;labelScanBandwidthKHz.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelScanBandwidthKHz.Parent" xml:space="preserve">
+    <value>tabPageScanManual</value>
+  </data>
+  <data name="&gt;&gt;labelScanBandwidthKHz.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="labelScanStartFrequencyKHz.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="labelScanStartFrequencyKHz.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelScanStartFrequencyKHz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelScanStartFrequencyKHz.Location" type="System.Drawing.Point, System.Drawing">
+    <value>247, 9</value>
+  </data>
+  <data name="labelScanStartFrequencyKHz.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 13</value>
+  </data>
+  <data name="labelScanStartFrequencyKHz.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="labelScanStartFrequencyKHz.Text" xml:space="preserve">
+    <value>KHz</value>
+  </data>
+  <data name="&gt;&gt;labelScanStartFrequencyKHz.Name" xml:space="preserve">
+    <value>labelScanStartFrequencyKHz</value>
+  </data>
+  <data name="&gt;&gt;labelScanStartFrequencyKHz.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelScanStartFrequencyKHz.Parent" xml:space="preserve">
+    <value>tabPageScanManual</value>
+  </data>
+  <data name="&gt;&gt;labelScanStartFrequencyKHz.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="labelScanBandwidth.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelScanBandwidth.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelScanBandwidth.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 61</value>
+  </data>
+  <data name="labelScanBandwidth.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 13</value>
+  </data>
+  <data name="labelScanBandwidth.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="labelScanBandwidth.Text" xml:space="preserve">
+    <value>Bandwidth (Increment)</value>
+  </data>
+  <data name="&gt;&gt;labelScanBandwidth.Name" xml:space="preserve">
+    <value>labelScanBandwidth</value>
+  </data>
+  <data name="&gt;&gt;labelScanBandwidth.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelScanBandwidth.Parent" xml:space="preserve">
+    <value>tabPageScanManual</value>
+  </data>
+  <data name="&gt;&gt;labelScanBandwidth.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="labelScanStartFrequency.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelScanStartFrequency.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelScanStartFrequency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 9</value>
+  </data>
+  <data name="labelScanStartFrequency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 13</value>
+  </data>
+  <data name="labelScanStartFrequency.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="labelScanStartFrequency.Text" xml:space="preserve">
+    <value>Start Frequency</value>
+  </data>
+  <data name="&gt;&gt;labelScanStartFrequency.Name" xml:space="preserve">
+    <value>labelScanStartFrequency</value>
+  </data>
+  <data name="&gt;&gt;labelScanStartFrequency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelScanStartFrequency.Parent" xml:space="preserve">
+    <value>tabPageScanManual</value>
+  </data>
+  <data name="&gt;&gt;labelScanStartFrequency.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="textBoxScanBandwidth.Location" type="System.Drawing.Point, System.Drawing">
+    <value>122, 58</value>
+  </data>
+  <data name="textBoxScanBandwidth.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="textBoxScanBandwidth.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="textBoxScanBandwidth.Text" xml:space="preserve">
+    <value>8000</value>
+  </data>
+  <data name="textBoxScanBandwidth.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanBandwidth.Name" xml:space="preserve">
+    <value>textBoxScanBandwidth</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanBandwidth.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanBandwidth.Parent" xml:space="preserve">
+    <value>tabPageScanManual</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanBandwidth.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="textBoxScanStartFrequency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>122, 6</value>
+  </data>
+  <data name="textBoxScanStartFrequency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="textBoxScanStartFrequency.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="textBoxScanStartFrequency.Text" xml:space="preserve">
+    <value>482000</value>
+  </data>
+  <data name="textBoxScanStartFrequency.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStartFrequency.Name" xml:space="preserve">
+    <value>textBoxScanStartFrequency</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStartFrequency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStartFrequency.Parent" xml:space="preserve">
+    <value>tabPageScanManual</value>
+  </data>
+  <data name="&gt;&gt;textBoxScanStartFrequency.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="tabPageScanManual.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabPageScanManual.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPageScanManual.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 94</value>
+  </data>
+  <data name="tabPageScanManual.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tabPageScanManual.Text" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="&gt;&gt;tabPageScanManual.Name" xml:space="preserve">
+    <value>tabPageScanManual</value>
+  </data>
+  <data name="&gt;&gt;tabPageScanManual.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPageScanManual.Parent" xml:space="preserve">
+    <value>tabControlScanner</value>
+  </data>
+  <data name="&gt;&gt;tabPageScanManual.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabControlScanner.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 118</value>
+  </data>
+  <data name="tabControlScanner.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 120</value>
+  </data>
+  <data name="tabControlScanner.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabControlScanner.Name" xml:space="preserve">
+    <value>tabControlScanner</value>
+  </data>
+  <data name="&gt;&gt;tabControlScanner.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControlScanner.Parent" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;tabControlScanner.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="buttonScanChannels.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonScanChannels.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 244</value>
+  </data>
+  <data name="buttonScanChannels.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 23</value>
+  </data>
+  <data name="buttonScanChannels.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="buttonScanChannels.Text" xml:space="preserve">
+    <value>Scan</value>
+  </data>
+  <data name="&gt;&gt;buttonScanChannels.Name" xml:space="preserve">
+    <value>buttonScanChannels</value>
+  </data>
+  <data name="&gt;&gt;buttonScanChannels.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonScanChannels.Parent" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;buttonScanChannels.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="wizardPageScanner.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="wizardPageScanner.Size" type="System.Drawing.Size, System.Drawing">
+    <value>653, 420</value>
+  </data>
+  <data name="wizardPageScanner.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;wizardPageScanner.Name" xml:space="preserve">
+    <value>wizardPageScanner</value>
+  </data>
+  <data name="&gt;&gt;wizardPageScanner.Type" xml:space="preserve">
+    <value>CristiPotlog.Controls.WizardPage, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;wizardPageScanner.Parent" xml:space="preserve">
+    <value>wizardTunning</value>
+  </data>
+  <data name="&gt;&gt;wizardPageScanner.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="textBox4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 235</value>
+  </data>
+  <data name="textBox4.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBox4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>168, 61</value>
+  </data>
+  <data name="textBox4.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="textBox4.Text" xml:space="preserve">
+    <value>Tips: Only capture devices need to be filled out. The decoder devices may be optional.</value>
+  </data>
+  <data name="&gt;&gt;textBox4.Name" xml:space="preserve">
+    <value>textBox4</value>
+  </data>
+  <data name="&gt;&gt;textBox4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox4.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;textBox4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBox3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Underline</value>
+  </data>
+  <data name="textBox3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 322</value>
+  </data>
+  <data name="textBox3.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBox3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="textBox3.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="textBox3.Text" xml:space="preserve">
+    <value>2) You must choose what to do next</value>
+  </data>
+  <data name="&gt;&gt;textBox3.Name" xml:space="preserve">
+    <value>textBox3</value>
+  </data>
+  <data name="&gt;&gt;textBox3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox3.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;textBox3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 151</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 13</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>- Or create a new channel:</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radioButtonScanFrequency.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonScanFrequency.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonScanFrequency.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 373</value>
+  </data>
+  <data name="radioButtonScanFrequency.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 17</value>
+  </data>
+  <data name="radioButtonScanFrequency.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="radioButtonScanFrequency.Text" xml:space="preserve">
+    <value>Scan frequencies</value>
+  </data>
+  <data name="&gt;&gt;radioButtonScanFrequency.Name" xml:space="preserve">
+    <value>radioButtonScanFrequency</value>
+  </data>
+  <data name="&gt;&gt;radioButtonScanFrequency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonScanFrequency.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;radioButtonScanFrequency.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radioButtonAddThisChannel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonAddThisChannel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonAddThisChannel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 350</value>
+  </data>
+  <data name="radioButtonAddThisChannel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 17</value>
+  </data>
+  <data name="radioButtonAddThisChannel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="radioButtonAddThisChannel.Text" xml:space="preserve">
+    <value>Add this channel to the favorites</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAddThisChannel.Name" xml:space="preserve">
+    <value>radioButtonAddThisChannel</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAddThisChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAddThisChannel.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;radioButtonAddThisChannel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="textBox2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Underline</value>
+  </data>
+  <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 68</value>
+  </data>
+  <data name="textBox2.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 28</value>
+  </data>
+  <data name="textBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="textBox2.Text" xml:space="preserve">
+    <value>1) You must choose the channel parameters.</value>
+  </data>
+  <data name="&gt;&gt;textBox2.Name" xml:space="preserve">
+    <value>textBox2</value>
+  </data>
+  <data name="&gt;&gt;textBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox2.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;textBox2.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 99</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 13</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>- Either create from an existing channel:</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="buttonGetChannel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonGetChannel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 115</value>
+  </data>
+  <data name="buttonGetChannel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>168, 23</value>
+  </data>
+  <data name="buttonGetChannel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="buttonGetChannel.Text" xml:space="preserve">
+    <value>Create From Selected Channel</value>
+  </data>
+  <data name="&gt;&gt;buttonGetChannel.Name" xml:space="preserve">
+    <value>buttonGetChannel</value>
+  </data>
+  <data name="&gt;&gt;buttonGetChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonGetChannel.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;buttonGetChannel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="buttonNewChannel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonNewChannel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 194</value>
+  </data>
+  <data name="buttonNewChannel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>168, 23</value>
+  </data>
+  <data name="buttonNewChannel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="buttonNewChannel.Text" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+  <data name="&gt;&gt;buttonNewChannel.Name" xml:space="preserve">
+    <value>buttonNewChannel</value>
+  </data>
+  <data name="&gt;&gt;buttonNewChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonNewChannel.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;buttonNewChannel.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="labelChannelType.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelChannelType.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelChannelType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 170</value>
+  </data>
+  <data name="labelChannelType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>31, 13</value>
+  </data>
+  <data name="labelChannelType.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="labelChannelType.Text" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="&gt;&gt;labelChannelType.Name" xml:space="preserve">
+    <value>labelChannelType</value>
+  </data>
+  <data name="&gt;&gt;labelChannelType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelChannelType.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;labelChannelType.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="comboBoxTunerType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>49, 167</value>
+  </data>
+  <data name="comboBoxTunerType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 21</value>
+  </data>
+  <data name="comboBoxTunerType.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTunerType.Name" xml:space="preserve">
+    <value>comboBoxTunerType</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTunerType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTunerType.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;comboBoxTunerType.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="propertyGridChannel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="propertyGridChannel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>199, 68</value>
+  </data>
+  <data name="propertyGridChannel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>451, 349</value>
+  </data>
+  <data name="propertyGridChannel.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;propertyGridChannel.Name" xml:space="preserve">
+    <value>propertyGridChannel</value>
+  </data>
+  <data name="&gt;&gt;propertyGridChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PropertyGrid, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;propertyGridChannel.Parent" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;propertyGridChannel.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="wizardPageChannelParameters.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="wizardPageChannelParameters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>653, 420</value>
+  </data>
+  <data name="wizardPageChannelParameters.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelParameters.Name" xml:space="preserve">
+    <value>wizardPageChannelParameters</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelParameters.Type" xml:space="preserve">
+    <value>CristiPotlog.Controls.WizardPage, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelParameters.Parent" xml:space="preserve">
+    <value>wizardTunning</value>
+  </data>
+  <data name="&gt;&gt;wizardPageChannelParameters.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="wizardPageWelcome.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="wizardPageWelcome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>653, 420</value>
+  </data>
+  <data name="wizardPageWelcome.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;wizardPageWelcome.Name" xml:space="preserve">
+    <value>wizardPageWelcome</value>
+  </data>
+  <data name="&gt;&gt;wizardPageWelcome.Type" xml:space="preserve">
+    <value>CristiPotlog.Controls.WizardPage, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;wizardPageWelcome.Parent" xml:space="preserve">
+    <value>wizardTunning</value>
+  </data>
+  <data name="&gt;&gt;wizardPageWelcome.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="wizardPageEnd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="wizardPageEnd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>653, 420</value>
+  </data>
+  <data name="wizardPageEnd.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;wizardPageEnd.Name" xml:space="preserve">
+    <value>wizardPageEnd</value>
+  </data>
+  <data name="&gt;&gt;wizardPageEnd.Type" xml:space="preserve">
+    <value>CristiPotlog.Controls.WizardPage, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;wizardPageEnd.Parent" xml:space="preserve">
+    <value>wizardTunning</value>
+  </data>
+  <data name="&gt;&gt;wizardPageEnd.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="wizardTunning.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="wizardTunning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>653, 468</value>
+  </data>
+  <data name="wizardTunning.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;wizardTunning.Name" xml:space="preserve">
+    <value>wizardTunning</value>
+  </data>
+  <data name="&gt;&gt;wizardTunning.Type" xml:space="preserve">
+    <value>CristiPotlog.Controls.Wizard, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;wizardTunning.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;wizardTunning.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>653, 468</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAMAICAAAAAACACoCAAANgAAACAgEAAAAAQA6AIAAN4IAAAQEBAAAAAEACgBAADGCwAAKAAAACAA
+        AABAAAAAAQAIAAAAAAAABAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAIAAAIAAAACAgACAAAAAgACAAICA
+        AADAwMAAwNzAAPDKpgAEBAQACAgIAAwMDAAREREAFhYWABwcHAAiIiIAKSkpAFVVVQBNTU0AQkJCADk5
+        OQCAfP8AUFD/AJMA1gD/7MwAxtbvANbn5wCQqa0AAAAzAAAAZgAAAJkAAADMAAAzAAAAMzMAADNmAAAz
+        mQAAM8wAADP/AABmAAAAZjMAAGZmAABmmQAAZswAAGb/AACZAAAAmTMAAJlmAACZmQAAmcwAAJn/AADM
+        AAAAzDMAAMxmAADMmQAAzMwAAMz/AAD/ZgAA/5kAAP/MADMAAAAzADMAMwBmADMAmQAzAMwAMwD/ADMz
+        AAAzMzMAMzNmADMzmQAzM8wAMzP/ADNmAAAzZjMAM2ZmADNmmQAzZswAM2b/ADOZAAAzmTMAM5lmADOZ
+        mQAzmcwAM5n/ADPMAAAzzDMAM8xmADPMmQAzzMwAM8z/ADP/MwAz/2YAM/+ZADP/zAAz//8AZgAAAGYA
+        MwBmAGYAZgCZAGYAzABmAP8AZjMAAGYzMwBmM2YAZjOZAGYzzABmM/8AZmYAAGZmMwBmZmYAZmaZAGZm
+        zABmmQAAZpkzAGaZZgBmmZkAZpnMAGaZ/wBmzAAAZswzAGbMmQBmzMwAZsz/AGb/AABm/zMAZv+ZAGb/
+        zADMAP8A/wDMAJmZAACZM5kAmQCZAJkAzACZAAAAmTMzAJkAZgCZM8wAmQD/AJlmAACZZjMAmTNmAJlm
+        mQCZZswAmTP/AJmZMwCZmWYAmZmZAJmZzACZmf8AmcwAAJnMMwBmzGYAmcyZAJnMzACZzP8Amf8AAJn/
+        MwCZzGYAmf+ZAJn/zACZ//8AzAAAAJkAMwDMAGYAzACZAMwAzACZMwAAzDMzAMwzZgDMM5kAzDPMAMwz
+        /wDMZgAAzGYzAJlmZgDMZpkAzGbMAJlm/wDMmQAAzJkzAMyZZgDMmZkAzJnMAMyZ/wDMzAAAzMwzAMzM
+        ZgDMzJkAzMzMAMzM/wDM/wAAzP8zAJn/ZgDM/5kAzP/MAMz//wDMADMA/wBmAP8AmQDMMwAA/zMzAP8z
+        ZgD/M5kA/zPMAP8z/wD/ZgAA/2YzAMxmZgD/ZpkA/2bMAMxm/wD/mQAA/5kzAP+ZZgD/mZkA/5nMAP+Z
+        /wD/zAAA/8wzAP/MZgD/zJkA/8zMAP/M/wD//zMAzP9mAP//mQD//8wAZmb/AGb/ZgBm//8A/2ZmAP9m
+        /wD//2YAIQClAF9fXwB3d3cAhoaGAJaWlgDLy8sAsrKyANfX1wDd3d0A4+PjAOrq6gDx8fEA+Pj4APD7
+        /wCkoKAAgICAAAAA/wAA/wAAAP//AP8AAAD/AP8A//8AAP///wAKCgoKCgoKCgoKCgoKCgoKCgoKCgoK
+        CgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKChoaGhoaGhoaGhoaGpmZ
+        B5mTk5OTHO0cmQoKCgoKCgoKGhoaGhoaGhoaGhqZmZmTk5McHBzs6uscChoaCgoKCgobGhoaGhoaGhoa
+        mZmZk5OTkxwc7BRE6u0KmRoKCgoKChsaGhoaGhoaGpmZmZmTkxwcHG1EROpt7AoKCgoKCgoKChoaGhoa
+        GhoamZmZkxwcHOxtRETq6xPsCgoKCgoKCgoKGxoaGhoamZkHkxwcHOzqRETq7O3sFHMKk5kKCgoKCgoa
+        GpmZmZmZHBwc7OvqEhJt7ffv9+oTcwqTmQoKCgoKChwcHBwcc+zsbRIS6utt6/fvB+/3FG1zCgoKCgoK
+        CgoK7e3t7OttFBUTFBLs7Ovqbezv7+wU63MKCgoKCgoKCgrs7OtKFBTq7BPq6/fv7OzrEuv3FBJucwqZ
+        mQoKCgoKCgrt60MQRO3sE+zs9+8VbesSQxQVSm5zCpmZCgoKCgoKCuvqEQwP6+wT6+zt9w4ObRIRDhRK
+        cxwKCgoKCgoKCgoK6hEODA4U6xES6xL3QwxKExAPSm0ckwoKCgoKCgoKChIVEAwMDB0SERXq6m0SEAwM
+        DCJEcxyTCpkaCgoKCgoVEA8ODAwMDCIVDhUVFQ8MDAwiQ24cHBwKmRoKCgoKCgoKFQ4MDAwKDBAQDg4M
+        DAwMIkNtHBwcHAoKCgoKCgoKExUODAwMDAwMCgwMDAwKDiJDbhwcHBwcCgoKCgoKCgoTFRQiDgwMCgoM
+        CgoMDg4PQ24cHBwcHBwKGhoKCgoKChUVExRDDgwMDA4MDA4OQxJzHBwcc3McHAoaGgoKCgoKCgoUExVD
+        ECJDEBBDSkRzcxwcHHNzcxwcCgoKCgoKCgoKChQQEBQUbW1KbW5zbhwcHHNubm5zHJMKCgoKCgoKCgoU
+        ShAQbW4cHG4Qcxxzc3Nzbm5ubnMcmQoaGgoKCgoKEwrqEBBzHJmTEBAQcxzsbm5tbm5zHJOZChoaCgoK
+        CgoKCm0QEHOTmRAQ7BAQ7Oxu621ubnMcmRoKCgoKCgoKCgoT7BAQHByZEBDsEBDs7G5t625zHJkaGgoK
+        CgoKCgoKChAQEBAQEOwQEOwQEOzs6+vrcxyZGhoaChsbCgoKCgoKEBAQEBAQbRAQ7BAQ7Ozs7ByTmRoa
+        GhsKGxsKCgoKCgoK7Orr621tbuxu6+zs7BwcmRoaGhobGwoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoK
+        CgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKAAAAAAAAAAAAAAAAYAAAAGAA
+        AAAAAAAACAAAAGgAAABoAAAACAAAAAgAAABoAAAAbAAAAAwAAAAMAAAAaAAAAGAAAAAMAAAAAAAAAGAA
+        AABgAAAADAAAAAwAAABoAAAAZAAAAAwAAAAIAAAAaAAAAGgAAAAMAAAAAAAAAAAAAAAoAAAAIAAAAEAA
+        AAABAAQAAAAAAAACAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAgAAAgAAAAICAAIAAAACAAIAAgIAAAMDA
+        wACAgIAAAAD/AAD/AAAA//8A/wAAAP8A/wD//wAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAB3d3d3d3d3d3d3eHcAAAAAd3d3d3d3d3d3d4iHB3AAAPd3d3d3d3d3d3iBiAdwAAD3d3d3
+        d3d3d3eBGIgAAAAAB3d3d3d3d3eIEYiIAAAAAA93d3d3d3eIEYiIiAdwAAAHd3d3d3iIiIh3eIgHcAAA
+        B3d3iIiIiIh3d3iIAAAAAAiIiIgIiIiIiHeIiAAAAAAIiDiIiIh3iIiHiIgHcAAAAIgAGIiIdwiICAOI
+        B3AAAACIAAiIiIcAiACDhwAAAAAAgAAIgIiHADgAOHcAAAAACAAAAIAIiIAAABh3B3AAAAAAAAAAAAAA
+        AACHdwdwAAAAAAAAAAAAAAAId3cAAAAAgAAAAAAAAAAAh3d3AAAAAICAAAAAAAAACHd3dwdwAAAAiAAA
+        AAAACId3iHcHcAAAAIgAAAAAMYh3eIh3AAAAAACDOIiDiIh3eIiIdwAAAAAIMAiHeAh4iIiIiHcHcAAA
+        gIAId3AAh4iIiId3B3AAAACACHcAgAiIiIiHdwAAAAAIgAd3AIAIiIiId3cAAAAAAAAACACACIiIh3d3
+        D/AAAAAAAAgAgAiIh3d3fw/wAAAAiIiIiIiIh3d3d/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAYAAAAGAAAAAAAAAACAAAAGgAAABoAAAACAAAAAgAAABoAAAAbAAAAAwA
+        AAAMAAAAaAAAAGAAAAAMAAAAAAAAAGAAAABgAAAADAAAAAwAAABoAAAAZAAAAAwAAAAIAAAAaAAAAGgA
+        AAAMAAAAAAAAAAAAAAAoAAAAEAAAACAAAAABAAQAAAAAAIAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAA
+        gAAAgAAAAICAAIAAAACAAIAAgIAAAMDAwACAgIAAAAD/AAD/AAAA//8A/wAAAP8A/wD//wAA////AAAA
+        AAAAAAAAAAd3d3d3cAAAB3d3d3iAcAAHd3d3iIAAAAd3d4iHgHAACIgIiIiAAAAAAYh4gIBwAAAAiHCD
+        cAAAAAAAAAhwcAAAAAAAB3AAAAAAAAh4cHAAADiIh4hwAAAAB3cIiHBwAAgHcICHcAAAAACAgHdw8AAA
+        AAAAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAAAAAAAUAAAABAAAABAAAAAAAAAAEAAAAAQAAAAUAAAAAAA
+        AABAAAAAAAAAAA==
+</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Channel Tunning</value>
+  </data>
+  <data name="&gt;&gt;dummyToolStripMenuItem.Name" xml:space="preserve">
+    <value>dummyToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;dummyToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeaderScanResultName.Name" xml:space="preserve">
+    <value>columnHeaderScanResultName</value>
+  </data>
+  <data name="&gt;&gt;columnHeaderScanResultName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeaderScanResultFrequency.Name" xml:space="preserve">
+    <value>columnHeaderScanResultFrequency</value>
+  </data>
+  <data name="&gt;&gt;columnHeaderScanResultFrequency.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeaderChannel.Name" xml:space="preserve">
+    <value>columnHeaderChannel</value>
+  </data>
+  <data name="&gt;&gt;columnHeaderChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeaderChannelNumber.Name" xml:space="preserve">
+    <value>columnHeaderChannelNumber</value>
+  </data>
+  <data name="&gt;&gt;columnHeaderChannelNumber.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>WizardForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

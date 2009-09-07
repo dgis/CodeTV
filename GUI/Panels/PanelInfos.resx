@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="textBoxChannleInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="textBoxChannleInfo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Courier New, 8.25pt</value>
+  </data>
+  <data name="textBoxChannleInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 31</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="textBoxChannleInfo.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBoxChannleInfo.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Both</value>
+  </data>
+  <data name="textBoxChannleInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 233</value>
+  </data>
+  <data name="textBoxChannleInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="textBoxChannleInfo.WordWrap" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;textBoxChannleInfo.Name" xml:space="preserve">
+    <value>textBoxChannleInfo</value>
+  </data>
+  <data name="&gt;&gt;textBoxChannleInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxChannleInfo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBoxChannleInfo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonGetTransponderInfos.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 2</value>
+  </data>
+  <data name="buttonGetTransponderInfos.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 23</value>
+  </data>
+  <data name="buttonGetTransponderInfos.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="buttonGetTransponderInfos.Text" xml:space="preserve">
+    <value>Transponder Infos</value>
+  </data>
+  <data name="&gt;&gt;buttonGetTransponderInfos.Name" xml:space="preserve">
+    <value>buttonGetTransponderInfos</value>
+  </data>
+  <data name="&gt;&gt;buttonGetTransponderInfos.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonGetTransponderInfos.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonGetTransponderInfos.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonGetChannelInfos.Location" type="System.Drawing.Point, System.Drawing">
+    <value>111, 2</value>
+  </data>
+  <data name="buttonGetChannelInfos.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 23</value>
+  </data>
+  <data name="buttonGetChannelInfos.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="buttonGetChannelInfos.Text" xml:space="preserve">
+    <value>Channel Infos</value>
+  </data>
+  <data name="&gt;&gt;buttonGetChannelInfos.Name" xml:space="preserve">
+    <value>buttonGetChannelInfos</value>
+  </data>
+  <data name="&gt;&gt;buttonGetChannelInfos.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonGetChannelInfos.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonGetChannelInfos.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>292, 266</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8AglQkn3ZJGeFxRBXhglQkuv///wD///8A////AP//
+        /wD///8A////AKN2Qv+ecD3/mGs4/5NlM/+NYC7/h1op/4JUJP+TaDn/kGU2/3JFFv9tQBH/aTwN/2U4
+        Cv9hNAb/XjED/1suAf+rfkr/s4td/7OLXf+zi13/s4td/7OLXf+zi13/fVEh/3lMHf+zi13/s4td/7OL
+        Xf+zi13/s4td/7OLXf9oPA7/sINP/55wPf+Yazj/k2Uz/41gLv+HWin/glQk/6uQdP+qj3P/ckUW/21A
+        Ef9pPA3/ZTgK/2E0Bv9eMQP/bD8S/7aIVP+ld0P/+fn5//n5+f/5+fn/+Pj4//Hx8f/j4+P/8/Pz//j4
+        +P/5+fn/+Pj4/+np6f/4+Pj/YjUH/3BEFv+6jVj/q31J//n5+f/x8fH/7e3t/+fn5//T09P/paWl/9fX
+        1//09PT/7u7u/+rq6v/c3Nz/+Pj4/2Y5C/90SBr/vpFc/7GDTv/5+fn/zMzM/8nJyf/FxcX/09PT/6am
+        pv/Y2Nj/9PT0/8rKyv/Gxsb/urq6//j4+P9rPhD/ek0e/8KVYP+3iVP/+vr6//Hx8f/t7e3/6enp/9TU
+        1P+mpqb/2NjY//X19f/v7+//6+vr/9zc3P/4+Pj/cUQV/39TI//GmGL/vI5Y//r6+v/MzMz/ysrK/8XF
+        xf/U1NT/p6en/9jY2P/19fX/y8vL/8fHx/+7u7v/+Pj4/3dKGv+EWCj/xplj/8GTXP/6+vr/8vLy/+/v
+        7//q6ur/1dXV/7W1tf/f39//9fX1//Hx8f/s7Oz/3t7e//n5+f99UCD/il4t/8aZY//Fl2D/+vr6/83N
+        zf/Kysr/xsbG//Ly8v/d2NL/6+Xf//z8/P/MzMz/ycnJ/729vf/5+fn/hFcm/5FjM//GmWP/yJpj//r6
+        +v/6+vr/+vr6//j4+P/ZxrH/sYNO5qx+SubXxK//+fn5//n5+f/5+fn/+fn5/4tdLP+XaTj/yZtkM8mb
+        ZP/TroL/0KyA/86pff/Lpnv/xqB0/7eJUy2yhE8tu5Vq/7iUav+0kGb/r4ti/6uHXv+SZDL/mWw5M///
+        /wDJm2QzyZtkM8mbZDPGmGIzw5VfM8CSXDP///8A////ALOFUDOugEwzqXtHM6N2QjOecD0zmGs4M///
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A//8AAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAAAIGB
+        AAD//wAA//8AAA==
+</value>
+  </data>
+  <data name="$this.TabText" xml:space="preserve">
+    <value>Infos</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Infos</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>PanelInfos</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>CodeTV.PanelDockBase, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+</root>

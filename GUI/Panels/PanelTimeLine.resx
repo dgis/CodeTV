@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="labelSpeed2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="labelSpeed2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>111, 7</value>
+  </data>
+  <data name="labelSpeed2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 13</value>
+  </data>
+  <data name="labelSpeed2.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="labelSpeed2.Text" xml:space="preserve">
+    <value>1.0</value>
+  </data>
+  <data name="labelSpeed2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="&gt;&gt;labelSpeed2.Name" xml:space="preserve">
+    <value>labelSpeed2</value>
+  </data>
+  <data name="&gt;&gt;labelSpeed2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSpeed2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelSpeed2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelSpeed.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelSpeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-2, 7</value>
+  </data>
+  <data name="labelSpeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 13</value>
+  </data>
+  <data name="labelSpeed.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="labelSpeed.Text" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="&gt;&gt;labelSpeed.Name" xml:space="preserve">
+    <value>labelSpeed</value>
+  </data>
+  <data name="&gt;&gt;labelSpeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSpeed.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelSpeed.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="trackBarSpeed.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="trackBarSpeed.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="trackBarSpeed.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="trackBarSpeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 2</value>
+  </data>
+  <data name="trackBarSpeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 23</value>
+  </data>
+  <data name="trackBarSpeed.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;trackBarSpeed.Name" xml:space="preserve">
+    <value>trackBarSpeed</value>
+  </data>
+  <data name="&gt;&gt;trackBarSpeed.Type" xml:space="preserve">
+    <value>CodeTV.Controls.TrackBarSpeed, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;trackBarSpeed.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;trackBarSpeed.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="trackBarExTimeLine.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="trackBarExTimeLine.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="trackBarExTimeLine.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="trackBarExTimeLine.Location" type="System.Drawing.Point, System.Drawing">
+    <value>136, 2</value>
+  </data>
+  <data name="trackBarExTimeLine.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="trackBarExTimeLine.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 30</value>
+  </data>
+  <data name="trackBarExTimeLine.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;trackBarExTimeLine.Name" xml:space="preserve">
+    <value>trackBarExTimeLine</value>
+  </data>
+  <data name="&gt;&gt;trackBarExTimeLine.Type" xml:space="preserve">
+    <value>CodeTV.Controls.TrackBarTimeLine, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;trackBarExTimeLine.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;trackBarExTimeLine.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>490, 33</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AGF9lTZTdZGnTnKT4U10l/ZNdJf2TnKT4VJ0kKleepE3////AP//
+        /wD///8A////AP///wD///8A////AF18lX1QeJrzWpex/4W9zv+k1t7/oNXe/3u5y/9PjKv/TXKU9Fl2
+        j4L///8A////AP///wD///8A////AGGBmnhViKb/lsjW/8zKv//In4b/xZJ2/8SQc//EmoD/w8S5/329
+        zf9Hd5j/WnePgP///wD///8A////AGuHnTBXgqL2oszY/823pf/Yqon/79/P//r28//69fP/79/R/9en
+        hf/DrJj/gr3O/01xlPdie5E1////AP///wBehaCfeKnA/9rRxv/Zqoj///7r///67v///fL///7y///8
+        7////ev/2aN6/8vGuf9YlLH/VHSQqv///wD///8AXo6t3rfT3f/RqpD/8NvB///35v/68uP/xcC2//Ht
+        3v///Oj///Xf/+/Ur//Jm3v/ksLQ/1B1leL///8A////AGeauPfd6uz/z5+B//rz4v/99un/8vDj/42M
+        hP+Bf3f/0s/C///76//67Mz/x5Bt/8Hd4f9TeZ32////AP///wBsob335Ozu/9Gliv/69un//fju////
+        +f+BgHn/sa6k/4F/d//Jxrr/+vDT/8mVcv/J3+L/VHue9v///wD///8AbaK+59Ph5v/buaT/8ePW//77
+        9f/19fP/n56V//Dw6f/4+PL/vrmt//Dawv/Rp4v/qcrT/1N7m9////8A////AHehvLa3z9v/7eDX/969
+        qv//////8PDu/+fl2v////f////3///+8//ctJj/4dHE/3Oku/9ZfJij////AP///wCIo7k8dLPM+t/p
+        7P/mz8L/37+u//Hj3P/z8ez/9PHr//Hi2f/cuqP/3sGv/7fP2P9Yg6T1aoabMf///wD///8A////AIWo
+        wJGXzNz/4evu/+7h2f/fvqz/1a2W/9Sqkv/ct6P/6NrO/8bZ3/9om7b/ZIWfdf///wD///8A////AP//
+        /wD///8AhqrClni60vnI2eP/3efq/+7x8f/s8PD/0uDk/6jE0v9nnLj0bI+pff///wD///8A////AP//
+        /wD///8A////AP///wCKqL9CfqvGvXizze17uND6erTN+nGpxOhxnbmwepmwOf///wD///8A////AP//
+        /wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A//8AAPgfAADwBwAA4AMAAMADAACAAQAAgAEAAIABAACAAQAAgAEAAIABAADAAwAAwAcAAOAP
+        AAD4HwAA//8AAA==
+</value>
+  </data>
+  <data name="$this.TabText" xml:space="preserve">
+    <value>Time Line</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Time Line</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>PanelTimeLine</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>CodeTV.PanelDockBase, CodeTV, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+</root>
