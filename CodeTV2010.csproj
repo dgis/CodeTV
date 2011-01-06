@@ -1,0 +1,949 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeTV</RootNamespace>
+    <AssemblyName>CodeTV</AssemblyName>
+    <ApplicationIcon>Resources\CodeTV.ico</ApplicationIcon>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DirectShowLib-2005, Version=1.5.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\DirectShowLib-2005.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.1.2706.19617, Culture=neutral, PublicKeyToken=d481317c817cec47, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GUI\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ChannelReNumberingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ChannelReNumberingForm.Designer.cs">
+      <DependentUpon>ChannelReNumberingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Controls\TrackBarTimeLine.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\TrackBarSpeed.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\VideoDisplay\3DTools\TrackballDecorator.cs" />
+    <Compile Include="GUI\VideoDisplay\3DTools\Viewport3DDecorator.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\VideoDisplay\BitmapBuffer.cs" />
+    <Compile Include="GUI\Controls\TrackBarEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Wizard\Wizard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Wizard\WizardPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\Wizard\WizardPagesCollection.cs" />
+    <Compile Include="GUI\VideoDisplay\DirectDraw.cs" />
+    <Compile Include="GraphBuilders\GraphBuilderBase.cs" />
+    <Compile Include="GraphBuilders\GraphBuilderPlayer.cs" />
+    <Compile Include="GraphBuilders\GraphBuilderBDAMosaic.cs" />
+    <Compile Include="GraphBuilders\GraphBuilderTV.cs" />
+    <Compile Include="GraphBuilders\GraphBuilderBDATimeShifting.cs" />
+    <Compile Include="GraphBuilders\GraphBuilderBDA.cs" />
+    <Compile Include="GraphBuilders\Channels.cs" />
+    <Compile Include="GraphBuilders\Helpers\Common.cs" />
+    <Compile Include="GraphBuilders\DVBStuffs\EPG.cs" />
+    <Compile Include="GraphBuilders\Helpers\FilterGraphTools.cs" />
+    <Compile Include="GUI\FrequencyEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FrequencyEditorForm.Designer.cs">
+      <DependentUpon>FrequencyEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Misc\INIReader.cs" />
+    <Compile Include="GUI\VideoDisplay\OSD.cs" />
+    <Compile Include="GUI\Panels\PanelBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelBase.Designer.cs">
+      <DependentUpon>PanelBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelChannel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelChannel.Designer.cs">
+      <DependentUpon>PanelChannel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelChannelProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelChannelProperties.Designer.cs">
+      <DependentUpon>PanelChannelProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelDockBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelDockBase.Designer.cs">
+      <DependentUpon>PanelDockBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelEPG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelEPG.Designer.cs">
+      <DependentUpon>PanelEPG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelInfos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelInfos.Designer.cs">
+      <DependentUpon>PanelInfos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelMediaTuning.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelMediaTuning.Designer.cs">
+      <DependentUpon>PanelMediaTuning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelSettings.Designer.cs">
+      <DependentUpon>PanelSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelTimeLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelTimeLine.Designer.cs">
+      <DependentUpon>PanelTimeLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelVideo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Panels\PanelVideo.Designer.cs">
+      <DependentUpon>PanelVideo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Misc\Plugin.cs" />
+    <Compile Include="GraphBuilders\TSFileSource\ITSFileSink.cs" />
+    <Compile Include="GraphBuilders\TSFileSource\ITSFileSource.cs" />
+    <Compile Include="GUI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Controls\MultiTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ChannelReNumberingForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ChannelReNumberingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\MultiTreeView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MultiTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\TrackBarEx.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TrackBarEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\Wizard\Wizard.resx">
+      <DependentUpon>Wizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\Wizard\WizardPage.resx">
+      <DependentUpon>WizardPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FrequencyEditorForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrequencyEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Panels\PanelBase.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PanelBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Panels\PanelChannel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PanelChannel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Panels\PanelChannelProperties.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PanelChannelProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Panels\PanelDockBase.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PanelDockBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Panels\PanelEPG.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PanelEPG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Panels\PanelInfos.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PanelInfos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Panels\PanelMediaTuning.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PanelMediaTuning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Panels\PanelSettings.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PanelSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Panels\PanelTimeLine.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PanelTimeLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Panels\PanelVideo.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PanelVideo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\VideoDisplay\VideoControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VideoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\VideoDisplay\VideoForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VideoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Misc\LIRC\WinLIRCMappingEditorForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WinLIRCMappingEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\WizardForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WizardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="GraphBuilders\DVBStuffs\PSI.cs" />
+    <Compile Include="GraphBuilders\DVBStuffs\PSIDefinitions.cs" />
+    <Compile Include="GraphBuilders\DVBStuffs\PSIDescriptor.cs" />
+    <Compile Include="Misc\Settings.cs" />
+    <Compile Include="GraphBuilders\DVBStuffs\TransponderReader.cs" />
+    <Compile Include="GraphBuilders\GraphBuilderWDM.cs" />
+    <Compile Include="GUI\VideoDisplay\VideoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\VideoDisplay\VideoControl.Designer.cs">
+      <DependentUpon>VideoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\VideoDisplay\VideoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\VideoDisplay\VideoForm.Designer.cs">
+      <DependentUpon>VideoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\VideoDisplay\VideoWPF.xaml.cs">
+      <DependentUpon>VideoWPF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GraphBuilders\Helpers\WDMCrossbar.cs" />
+    <Compile Include="Misc\LIRC\WinLIRC.cs" />
+    <Compile Include="Misc\LIRC\WinLIRCMappingEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Misc\LIRC\WinLIRCMappingEditorForm.Designer.cs">
+      <DependentUpon>WinLIRCMappingEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\WizardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\WizardForm.Designer.cs">
+      <DependentUpon>WizardForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\VideoDisplay\Mire.gif" />
+    <Content Include="gpl.txt" />
+    <Content Include="Logos\Arte.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\BFMTV.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\Canal+.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\Direct8.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\Europe2TV.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\France2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\France3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\France4.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\France5.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\Gulli.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\iTELE.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\M6.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\NRJ12.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\NT1.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\Public Senat - LCP.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\RTL9.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\TF1.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\TMC.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logos\W9.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="GUI\Controls\TrackBarTimeLine.resx">
+      <DependentUpon>TrackBarTimeLine.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Controls\TrackBarSpeed.resx">
+      <DependentUpon>TrackBarSpeed.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReadMe.txt" />
+    <None Include="Resources\Stop1.png" />
+    <None Include="Resources\stop.png" />
+    <None Include="Resources\sound1.png" />
+    <None Include="Resources\sound_none.png" />
+    <None Include="Resources\bug.png" />
+    <None Include="Resources\book_open.png" />
+    <None Include="Resources\camera.png" />
+    <None Include="Resources\arrow_right.png" />
+    <None Include="Resources\arrow_left.png" />
+    <None Include="Resources\shading.png" />
+    <None Include="Resources\shape_handles.png" />
+    <None Include="Resources\shape_square.png" />
+    <None Include="Resources\shape_square_add.png" />
+    <None Include="Resources\shape_square_delete.png" />
+    <None Include="Resources\control_equalizer_blue.png" />
+    <None Include="Resources\control_stop_blue.png" />
+    <None Include="Resources\control_stop.png" />
+    <None Include="Resources\control_pause.png" />
+    <None Include="Resources\control_play.png" />
+    <None Include="Resources\control_repeat.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\control_play_blue.png" />
+    <None Include="Resources\control_eject.png" />
+    <None Include="Resources\control_eject_blue.png" />
+    <None Include="Resources\time.png" />
+    <Content Include="Resources\CodeTV.ico" />
+    <None Include="Resources\CodeTV2.png" />
+    <None Include="Resources\CodeTV.png" />
+    <EmbeddedResource Include="Transponders\CabFiles\0000.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\CabFiles\0001.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\CabFiles\com hem, Sweden.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\CabFiles\Finland - Elisa.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\CabFiles\Finland - Helsinki.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\CabFiles\france-dgis.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\CabFiles\france.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\CabFiles\Germany - Primacom.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\CabFiles\Germany AVC Berlin-Brandenburg.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\CabFiles\Norway.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0030.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0040.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0050.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0070.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0100.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0130.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0142.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0160.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0192.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0210.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0215.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0235.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0242.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0260.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0282.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0285.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0305.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0313.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0360.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0390.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0400.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0420.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0425.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0450.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0480.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0500.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0530.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0548.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0550.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0560.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0570.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0600.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0620.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0640.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0660.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0685.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0720.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0740.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0750.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0765.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0785.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0800.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0830.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0875.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0880.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0898.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0900.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0915.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0950.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\0965.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1005.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1050.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1055.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1077.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1080.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1100.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1105.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1130.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1160.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1200.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1240.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1280.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1340.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1380.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1400.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1440.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1450.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1460.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1480.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1500.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1540.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1560.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1580.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1600.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1620.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1660.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1690.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1740.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1760.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\1800.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2120.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2210.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2230.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2250.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2270.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2290.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2310.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2330.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2350.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2370.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2410.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2412.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2432.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2470.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2489.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2500.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2502.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2527.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2550.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2570.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2590.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2591.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2610.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2630.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2650.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2670.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2680.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2690.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2691.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2710.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2730.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2750.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2760.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2810.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2860.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2880.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2900.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2950.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\2985.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3020.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3045.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3070.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3100.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3150.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3170.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3195.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3225.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3255.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3285.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3300.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3325.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3355.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3385.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3420.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3450.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3475.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3490.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3520.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3530.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3550.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3560.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3590.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\SatFiles\3592.ini">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transponders\TerFiles\0000.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0001.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0002.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0003.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0004.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0005.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0006.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0007.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0008.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0009.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0010.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0011.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0012.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0013.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0014.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0015.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0016.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0017.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0018.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0019.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0020.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0021.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0022.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0023.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0024.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0025.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0026.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0027.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0028.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0029.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0030.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0031.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0032.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0033.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0034.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0035.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0036.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0037.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0038.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0039.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0040.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0041.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0042.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0043.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0044.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0045.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0046.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0047.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0048.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0049.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0050.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0051.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0052.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0053.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0054.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0055.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0056.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0057.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0058.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0059.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0060.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0061.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0062.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0063.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0064.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0065.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0066.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0067.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0068.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0069.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0070.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0071.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0072.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0073.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0074.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0075.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0076.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0077.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0078.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0079.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0080.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0081.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0082.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0083.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0084.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0085.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0086.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0087.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0088.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0089.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0090.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0091.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0092.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0093.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0094.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0095.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0096.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0097.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0098.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0099.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0100.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0101.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0102.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0103.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0104.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0105.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0106.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0107.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0108.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0109.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0110.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0111.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0112.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0113.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0114.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0115.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0116.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0117.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0118.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0119.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0120.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0121.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0122.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0123.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0124.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0125.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0126.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0127.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0128.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0129.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0130.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0131.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0132.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0133.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0134.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0135.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0136.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0137.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0138.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0139.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0140.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0141.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0142.ini" />
+    <EmbeddedResource Include="Transponders\TerFiles\0143.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="GUI\VideoDisplay\VideoWPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

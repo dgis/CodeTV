@@ -555,7 +555,7 @@ namespace CodeTV
 				//mediaH264.subType = new Guid(0x8d2d71cb, 0x243f, 0x45e3, 0xb2, 0xd8, 0x5f, 0xd7, 0x96, 0x7e, 0xc0, 0x9b);
 				mediaH264.subType = new Guid(0x34363248, 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71);
 				mediaH264.sampleSize = 0;
-				mediaH264.temporalCompression = false;
+                mediaH264.temporalCompression = true; // false;
 				mediaH264.fixedSizeSamples = false;
 				mediaH264.unkPtr = IntPtr.Zero;
 				mediaH264.formatType = FormatType.Mpeg2Video;
@@ -1250,8 +1250,12 @@ namespace CodeTV
 				////0x051736=333667-> 10000000/333667 = 29.97fps
 				////0x061A80=400000-> 10000000/400000 = 25fps
 				videoPinFormat.hdr.AvgTimePerFrame = 400000;				//0x80, 0x1A, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, //28  .hdr.AvgTimePerFrame            = 0x0000000000051763 ->1000000/ 40000 = 25fps
-				videoPinFormat.hdr.InterlaceFlags = AMInterlace.None;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
-				videoPinFormat.hdr.CopyProtectFlags = AMCopyProtect.None;	//0x00, 0x00, 0x00, 0x00,                         //30  .hdr.dwCopyProtectFlags         = 0x00000000
+                videoPinFormat.hdr.InterlaceFlags = AMInterlace.None;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.OneFieldPerSample | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.FieldPatBothRegular | AMInterlace.DisplayModeWeaveOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOrWeave;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+                videoPinFormat.hdr.CopyProtectFlags = AMCopyProtect.None;	//0x00, 0x00, 0x00, 0x00,                         //30  .hdr.dwCopyProtectFlags         = 0x00000000
 				videoPinFormat.hdr.PictAspectRatioX = 4;					//0x04, 0x00, 0x00, 0x00,                         //34  .hdr.dwPictAspectRatioX         = 0x00000004
 				videoPinFormat.hdr.PictAspectRatioY = 3;					//0x03, 0x00, 0x00, 0x00,                         //38  .hdr.dwPictAspectRatioY         = 0x00000003
 				videoPinFormat.hdr.ControlFlags = AMControl.None;			//0x00, 0x00, 0x00, 0x00,                         //3c  .hdr.dwReserved1                = 0x00000000
@@ -1260,7 +1264,7 @@ namespace CodeTV
 				videoPinFormat.hdr.BmiHeader.Size = 0x00000028;				//0x28, 0x00, 0x00, 0x00,  //44  .hdr.bmiHeader.biSize           = 0x00000028
 				videoPinFormat.hdr.BmiHeader.Width = 720;					//0xD0, 0x02, 0x00, 0x00,  //48  .hdr.bmiHeader.biWidth          = 0x000002d0 //720
 				videoPinFormat.hdr.BmiHeader.Height = 576;					//0x40, 0x02, 0x00, 0x00,  //4c  .hdr.bmiHeader.biHeight         = 0x00000240 //576
-				videoPinFormat.hdr.BmiHeader.Planes = 0;					//0x00, 0x00,              //50  .hdr.bmiHeader.biPlanes         = 0x0000
+				videoPinFormat.hdr.BmiHeader.Planes = 0; // 1 ?					//0x00, 0x00,              //50  .hdr.bmiHeader.biPlanes         = 0x0000
 				videoPinFormat.hdr.BmiHeader.BitCount = 0;					//0x00, 0x00,              //54  .hdr.bmiHeader.biBitCount       = 0x0000
 				videoPinFormat.hdr.BmiHeader.Compression = 0;				//0x00, 0x00, 0x00, 0x00,  //58  .hdr.bmiHeader.biCompression    = 0x00000000
 				videoPinFormat.hdr.BmiHeader.ImageSize = 0;					//0x00, 0x00, 0x00, 0x00,  //5c  .hdr.bmiHeader.biSizeImage      = 0x00000000
