@@ -563,6 +563,7 @@ namespace CodeTV.PSI
 					if(descriptor is PSIDescriptorService)
 					{
 						PSIDescriptorService descriptorService = descriptor as PSIDescriptorService;
+
 						return descriptorService.ServiceName;
 					}
 				}

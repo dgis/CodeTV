@@ -649,7 +649,10 @@ namespace CodeTV.PSI
 			this.serviceNameLength = data[offset + 4 + this.serviceProviderNameLength];
 			char[] serviceName = new char[this.serviceNameLength];
 			Array.Copy(data, offset + 5 + this.serviceProviderNameLength, serviceName, 0, this.serviceNameLength);
-			this.serviceName = new string(serviceName);
+            foreach (var c in serviceName)
+                if (c >= 32)
+                    this.serviceName += c;
+			//this.serviceName = new string(serviceName);
 		}
 
 		public override string ToStringDescriptorOnly(string prefix)
