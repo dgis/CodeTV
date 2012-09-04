@@ -21,7 +21,7 @@ using System.Text;
 
 namespace CodeTV.PSI
 {
-	class PSIDescriptor
+	public class PSIDescriptor
 	{
 		private DESCRIPTOR_TAGS descriptorTag;
 		private byte descriptorLength;
@@ -83,6 +83,10 @@ namespace CodeTV.PSI
 					descriptor = new PSIDescriptorCA(); break;
 				case DESCRIPTOR_TAGS.DESCR_DATA_BROADCAST_ID:
 					descriptor = new PSIDescriptorDataBroadcastId(); break;
+                case DESCRIPTOR_TAGS.DESCR_LOGICAL_CHANNEL:
+                    descriptor = new PSIDescriptorLogicalChannel();break;
+                case DESCRIPTOR_TAGS.DESCR_HD_SIMULCAST_LOGICAL_CHANNEL:
+                    descriptor = new PSIDescriptorHDSimulcastLogicalChannel();break;
 				default:
 					descriptor = new PSIDescriptor();
 					descriptor.unparseData = new byte[length];
@@ -111,7 +115,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIDescriptorSTD : PSIDescriptor
+	public class PSIDescriptorSTD : PSIDescriptor
 	{
 		// From Recommendation H.222.0 - ISO/IEC 13818-1
 		// 2.6.32 _ Table 2-61 _ STD descriptor
@@ -150,7 +154,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIDescriptorISO639Language : PSIDescriptor
+	public class PSIDescriptorISO639Language : PSIDescriptor
 	{
 		// From Recommendation H.222.0 - ISO/IEC 13818-1
 		// 2.6.18 _ Table 2-53 _ ISO 639 language descriptor
@@ -222,7 +226,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIDescriptorSubtitling : PSIDescriptor
+	public class PSIDescriptorSubtitling : PSIDescriptor
 	{
 		// From ETSI EN 300 468 - V1.5,1
 		// 6.2.38 _ Table 82 _ Subtitling descriptor
@@ -304,7 +308,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIDescriptorTeletext : PSIDescriptor
+	public class PSIDescriptorTeletext : PSIDescriptor
 	{
 		// From ETSI EN 300 468 - V1.6,1
 		// 6.2.41 _ Table 87 _ Teletext descriptor
@@ -386,7 +390,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIDescriptorAC3 : PSIDescriptor
+	public class PSIDescriptorAC3 : PSIDescriptor
 	{
 		// From ETSI EN 300 468 - V1.5,1
 		// Annex D (informativ) _ Table D.2: AC3 descriptor syntax
@@ -435,7 +439,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIDescriptorCAIdentifier : PSIDescriptor
+	public class PSIDescriptorCAIdentifier : PSIDescriptor
 	{
 	// DESCRIPTOR_TAGS.DESCR_CA_IDENT
 	// From ETSI EN 300 468 - V1.6,1
@@ -480,7 +484,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIDescriptorCASystem : PSIDescriptor
+	public class PSIDescriptorCASystem : PSIDescriptor
 	{
 	// DESCRIPTOR_TAGS.DESCR_CA_SYSTEM
 	// From ETSI EN 300 468 - V1.5,1
@@ -511,7 +515,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIDescriptorCA : PSIDescriptor
+	public class PSIDescriptorCA : PSIDescriptor
 	{
 	// DESCRIPTOR_TAGS.DESCR_CA
 	// From Recommendation H.222.0 - ISO/IEC 13818-1
@@ -564,7 +568,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIDescriptorDataBroadcastId : PSIDescriptor
+	public class PSIDescriptorDataBroadcastId : PSIDescriptor
 	{
 		//DESCRIPTOR_TAGS.DESCR_DATA_BROADCAST_ID:
 		// From ETSI EN 300 468 - V1.5,1
@@ -607,7 +611,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIDescriptorService : PSIDescriptor
+	public class PSIDescriptorService : PSIDescriptor
 	{
 		// DESCRIPTOR_TAGS.DESCR_SERVICE
 		// From ETSI EN 300 468 - V1.6,1
@@ -672,4 +676,156 @@ namespace CodeTV.PSI
 			return prefix + "PSIDescriptorService\r\n" + prefix + "{\r\n" + ToStringDescriptorOnly(prefix + "\t") + prefix + "}";
 		}
 	}
+
+    //Hervé Stalin : class pour les logical_channel_descriptor
+    public class PSIDescriptorLogicalChannel : PSIDescriptor
+    {
+        //logical_channel-descriptor(){
+        //		descriptor_tag							8
+        //		descriptor_length						8
+        //		for (i - 0; i < N; i++) {
+        //			service_id						    16
+        //		    visible_service_flag	            1
+        //          reserved                            5
+        //          logical_channel_number              10
+        //      }
+        //}
+        public class ChannelNumber
+        {
+        private ushort serviceID;
+        private bool visibleServiceFlag;
+        private byte reserved;
+        private ushort logicalChannelNumber;
+
+        public ushort ServiceID { get { return this.serviceID; } set { this.serviceID = value; } }
+        public bool VisibleServiceFlag { get { return this.visibleServiceFlag; } set { this.visibleServiceFlag = value; } }
+        public byte Reserved { get { return this.reserved; } set { this.reserved = value; } }
+        public ushort LogicalChannelNumber { get { return this.logicalChannelNumber; } set { this.logicalChannelNumber = value; } }
+        public string ToStringSectionOnly(string prefix)
+        {
+            string result = "";
+            result += prefix + "ServiceID: " + this.serviceID + "\r\n";
+            result += prefix + "VisibleServiceFlag: " + this.visibleServiceFlag + "\r\n";
+            result += prefix + "Reserved: " + string.Format(" 0x{0:x4} ({1})\r\n", this.reserved, this.reserved);
+            result += prefix + "LogicalChannelNumber: " +  this.logicalChannelNumber + "\r\n";
+            return result;
+        }
+
+        }
+
+        private ArrayList logicalChannelNumbers = new ArrayList();
+        public ArrayList LogicalChannelNumbers { get { return this.logicalChannelNumbers; } }
+
+        public override void Parse(byte[] data, int offset)
+        {
+            base.Parse(data, offset);
+            for (int offset2 = offset + 2; offset2 < offset + this.DescriptorLength - 1; offset2 += 4)
+            {
+                ChannelNumber lcn = new ChannelNumber();
+                lcn.ServiceID = (ushort)((data[offset2]<<8) | (data[offset2+1]));
+                lcn.VisibleServiceFlag = (((data[offset2 + 2]>>7) & 0x01) ) != 0; ;
+                lcn.Reserved = (byte)(data[offset2+2] >> 2 & 0x1F);
+                lcn.LogicalChannelNumber = (ushort)(((data[offset2+2] & 0x02 )<< 8) | (data[offset2+3]));
+                this.logicalChannelNumbers.Add(lcn);
+
+            }
+
+        }
+        public override string ToStringDescriptorOnly(string prefix)
+        {
+            string result = "";
+            result += base.ToStringDescriptorOnly(prefix);
+            result += prefix + "for (i = 0; i < " + this.LogicalChannelNumbers.Count + ")\r\n";
+            foreach (ChannelNumber channelNumber in this.LogicalChannelNumbers)
+            {
+                result += prefix + "{\r\n";
+                result += channelNumber.ToStringSectionOnly(prefix + "\t");
+                result += prefix + "}\r\n";
+            }
+            return result;
+        }
+
+        public override string ToString(string prefix)
+        {
+            return prefix + "PSIDescriptorLogicalChannel\r\n" + prefix + "{\r\n" + ToStringDescriptorOnly(prefix + "\t") + prefix + "}";
+        }
+
+    }
+
+    // Hervé Stalin : class pour les HD_simulcast_logical_channel_descriptor
+    public class PSIDescriptorHDSimulcastLogicalChannel : PSIDescriptor
+    {
+        //HD_simulcast_logical_channel-descriptor(){
+        //		descriptor_tag							8
+        //		descriptor_length						8
+        //		for (i - 0; i < N; i++) {
+        //			service_id						    16
+        //		    visible_service_flag	            1
+        //          reserved                            5
+        //          logical_channel_number              10
+        //      }
+        //}
+        public class ChannelNumber
+        {
+            private ushort serviceID;
+            private bool visibleServiceFlag;
+            private byte reserved;
+            private ushort logicalChannelNumber;
+
+            public ushort ServiceID { get { return this.serviceID; } set { this.serviceID = value; } }
+            public bool VisibleServiceFlag { get { return this.visibleServiceFlag; } set { this.visibleServiceFlag = value; } }
+            public byte Reserved { get { return this.reserved; } set { this.reserved = value; } }
+            public ushort LogicalChannelNumber { get { return this.logicalChannelNumber; } set { this.logicalChannelNumber = value; } }
+            public string ToStringSectionOnly(string prefix)
+            {
+                string result = "";
+                result += prefix + "ServiceID: " + this.serviceID + "\r\n";
+                result += prefix + "VisibleServiceFlag: " + this.visibleServiceFlag + "\r\n";
+                result += prefix + "Reserved: " + string.Format(" 0x{0:x4} ({1})\r\n", this.reserved, this.reserved);
+                result += prefix + "LogicalChannelNumber: " + this.logicalChannelNumber + "\r\n";
+                return result;
+            }
+
+        }
+
+        private ArrayList hdSimulcastlogicalChannelNumbers = new ArrayList();
+        public ArrayList HdSimulcastlogicalChannelNumbers { get { return this.hdSimulcastlogicalChannelNumbers; } }
+
+        public override void Parse(byte[] data, int offset)
+        {
+            base.Parse(data, offset);
+            for (int offset2 = offset + 2; offset2 < offset + this.DescriptorLength - 1; offset2 += 4)
+            {
+                ChannelNumber lcn = new ChannelNumber();
+                lcn.ServiceID = (ushort)((data[offset2] << 8) | (data[offset2 + 1]));
+                lcn.VisibleServiceFlag = (((data[offset2 + 2] >> 7) & 0x01)) != 0; ;
+                lcn.Reserved = (byte)(data[offset2 + 2] >> 2 & 0x1F);
+                lcn.LogicalChannelNumber = (ushort)(((data[offset2 + 2] & 0x02) << 8) | (data[offset2 + 3]));
+                this.hdSimulcastlogicalChannelNumbers.Add(lcn);
+
+            }
+
+        }
+
+        public override string ToStringDescriptorOnly(string prefix)
+        {
+            string result = "";
+            result += base.ToStringDescriptorOnly(prefix);
+            result += prefix + "for (i = 0; i < " + this.hdSimulcastlogicalChannelNumbers.Count + ")\r\n";
+            foreach (ChannelNumber channelNumber in this.hdSimulcastlogicalChannelNumbers)
+            {
+                result += prefix + "{\r\n";
+                result += channelNumber.ToStringSectionOnly(prefix + "\t");
+                result += prefix + "}\r\n";
+            }
+            return result;
+        }
+
+        public override string ToString(string prefix)
+        {
+            return prefix + "PSIDescriptorHDSimulcastLogicalChannel\r\n" + prefix + "{\r\n" + ToStringDescriptorOnly(prefix + "\t") + prefix + "}";
+        }
+
+    }
+
 }

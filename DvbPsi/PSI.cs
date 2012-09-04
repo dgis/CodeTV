@@ -26,7 +26,7 @@ using DirectShowLib;
 
 namespace CodeTV.PSI
 {
-	class PSISection
+	public class PSISection
 	{
 		private byte tableId;					// 8 bits
 		private bool sectionSyntaxIndicator;	//  1 bit
@@ -76,6 +76,8 @@ namespace CodeTV.PSI
 					table = new PSISDT(); break;
 				case TABLE_IDS.PMT:
 					table = new PSIPMT(); break;
+				case TABLE_IDS.NIT_ACTUAL:
+					table = new PSINIT();break;
 				default:
 					table = new PSISection();
 					break;
@@ -154,7 +156,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSILongSection : PSISection
+	public class PSILongSection : PSISection
 	{
 		private ushort transportStreamId;		//TableIdExtension;
 		private byte reserved2;					//  2 bits
@@ -200,7 +202,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIDSMCCSection : PSILongSection
+	public class PSIDSMCCSection : PSILongSection
 	{
 		private byte protocolDiscriminator;
 		private byte dsmccType;
@@ -242,7 +244,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIPAT : PSILongSection
+	public class PSIPAT : PSILongSection
 	{
 		public class Data
 		{
@@ -327,7 +329,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSIPMT : PSILongSection
+	public class PSIPMT : PSILongSection
 	{
 		// From Recommendation H.222.0 - ISO/IEC 13818-1
 		// 2.4.4.8 Program Map Table - Table 2.29
@@ -440,6 +442,8 @@ namespace CodeTV.PSI
 				// Parse program descriptors
 				this.descriptors = PSIDescriptor.ParseDescriptors(data, offset, this.programInfoLength);
 			}
+
+
 			offset += this.programInfoLength;
 			int streamLen = data.Length - this.programInfoLength - 16;
 			while (streamLen >= 5)
@@ -491,7 +495,7 @@ namespace CodeTV.PSI
 		}
 	}
 
-	class PSISDT : PSILongSection
+	public class PSISDT : PSILongSection
 	{
 		// From ETSI EN 300 468 V1.5.1 (2003-5)
 		// 5.2.3 Service Description Table - Table 5
@@ -563,12 +567,29 @@ namespace CodeTV.PSI
 					if(descriptor is PSIDescriptorService)
 					{
 						PSIDescriptorService descriptorService = descriptor as PSIDescriptorService;
-
 						return descriptorService.ServiceName;
+                        
 					}
 				}
 				return "";
 			}
+            // Hervé Stalin : retourne le service_type
+            public SERVICE_TYPES GetServiceType()
+            {
+                foreach (PSIDescriptor descriptor in this.Descriptors)
+                {
+                    if (descriptor is PSIDescriptorService)
+                    {
+                        PSIDescriptorService descriptorService = descriptor as PSIDescriptorService;
+                        return descriptorService.ServiceType;
+
+                    }
+                }
+                return SERVICE_TYPES.RESERVED_SERVICE;
+            }
+
+
+
 
 			public string ToStringSectionOnly(string prefix)
 			{
@@ -651,5 +672,166 @@ namespace CodeTV.PSI
 		}
 	}
 
+
+    //Hervé stalin : class pour parser la table NIT
+	public class PSINIT : PSILongSection
+	{
+		//network_information_section( ) {
+		//      table_id                            8   PSISection          8       Byte[0]
+		//      section_syntax_indicator            1   PSISection          9       Byte[1] bit 0
+		//      reserved_future_use                 1   PSISection          10      Byte[1] bit 1
+		//      reserved                            2   PSISection          12      Byte[1] bit 2 à 3
+		//      section_length                      12  PSISection          24      byte[1] bit 4 à 7 + Byte[2] 
+		//      network_id                          16  PSILongSection      40      Byte[3] + Byte[4]
+		//      reserved                            2   PSILongSection      42      Byte[5] bit 0 à 1
+		//      version_number                      5   PSILongSection      47      Byte[5] bit 2 à 6
+		//      current_next_indicator              1   PSILongSection      48      Byte[6] bit 7
+		//      section_number                      8   PSILongSection      56      Byte[7]
+		//      last_section number                 8   PSILongSection      64      Byte[8]
+		//      reserved_future_use                 4                       68      Byte[9] bit 0 à 3
+		//      network_descriptors_length          12                      80      Byte[9} bit 4 à 7 +byte[10]
+		//      for(i=0;i<N;i++){
+		//          descriptor()
+		//      }
+		//      reserved_future_use                 4                       
+		//      transport_stream_loop_length        12
+		//      for(i=0;i<N;i++){
+		//          transport_stream_id             16
+		//          original_network_id             16
+		//          reserved_future_use             4
+		//          transport_descriptors_length    12
+		//          for(j=0;j<N;j++){
+		//              descriptor()
+		//          }
+		//      }
+		//  CRC_32 32
+		//}
+		public class Data
+		{
+			private ushort transportStreamId;
+			private ushort originalNetworkId;
+			private byte reserved1;
+			private ushort transportDescriptorLenght;
+			private PSIDescriptor[] descriptors;
+
+			public ushort TransportStreamId { get { return this.transportStreamId; } set { this.transportStreamId = value; } }
+			public ushort OriginalNetworkId { get { return this.originalNetworkId; } set { this.originalNetworkId = value; } }
+			public byte Reserved1 { get { return this.reserved1; } set { this.reserved1 = value; } }
+			public ushort TransportDescriptorLenght { get { return this.transportDescriptorLenght; } set { this.transportDescriptorLenght = value; } }
+			public PSIDescriptor[] Descriptors { get { return this.descriptors; } set { this.descriptors = value; } }
+
+            public string ToStringSectionOnly(string prefix)
+            {
+                string result = "";
+                result += prefix + "TransportStreamId: " + this.transportStreamId.ToString() + string.Format(" 0x{0:x4} ({1})\r\n", (int)this.transportStreamId, (int)this.transportStreamId);
+                result += prefix + "OriginalNetworkId: " + this.originalNetworkId + "\r\n";
+                result += prefix + "Reserved1: " + this.reserved1 + "\r\n";
+                result += prefix + "transportDescriptorLenght: " + this.transportDescriptorLenght + "\r\n";
+                result += prefix + "for (i = 0; i < " + this.descriptors.Length + ")\r\n";
+                foreach (PSIDescriptor descriptor in this.descriptors)
+                {
+                    result += prefix + "{\r\n";
+                    result += descriptor.ToStringDescriptorOnly(prefix + "\t");
+                    result += prefix + "}\r\n";
+                }
+                return result;
+            }
+
+            public override string ToString()
+            {
+                return "PSINIT\r\n{\r\n" + ToStringSectionOnly("\t") + "}\r\n";
+            }
+
+		}
+
+		private byte reserved3;
+		private ushort networkDescriptorLength;
+		private PSIDescriptor[] descriptors;
+
+		private byte reserved4;
+		private ushort transportStreamLoopLength;       
+
+		public byte Reserved3 { get { return this.reserved3; } set { this.reserved3 = value; } }
+		public ushort NetworkDescriptorLength { get { return this.networkDescriptorLength; } set { this.networkDescriptorLength = value; } }
+		public PSIDescriptor[] Descriptors { get { return this.descriptors; } set { this.descriptors = value; } }
+		public byte Reserved4 { get { return this.reserved4; } set { this.reserved4 = value; } }
+		public ushort TransportStreamLoopLength { get { return this.transportStreamLoopLength; } set { this.transportStreamLoopLength = value; } }
+
+
+		private ArrayList streams = new ArrayList();
+        public ArrayList Streams { get { return this.streams; } }
+
+		public override void Parse(byte[] data)
+		{
+			base.Parse(data);
+			this.reserved3 = (byte)(data[8] >> 4);
+			this.networkDescriptorLength = (byte)(((data[8] & 0x0F) << 8) | (data[9]));
+
+			int offset = 10; //taille de l'entete de la table
+			if (this.NetworkDescriptorLength > 0)
+			{
+				// Parse program descriptors
+				this.descriptors = PSIDescriptor.ParseDescriptors(data, offset, this.NetworkDescriptorLength);
+			}
+
+            offset += this.NetworkDescriptorLength; // rajout la taille du tableau de descriptors
+			this.reserved4 = (byte)(data[offset] >> 4);
+			this.transportStreamLoopLength =(ushort)(((data[offset] & 0x0F) << 8) | (data[offset + 1]));
+
+			offset += 2; //rajout de la taille de reserved4 et de transportStreamLoopLength
+            int streamLen = data.Length - this.NetworkDescriptorLength - 14;
+			//int streamLen = this.transportStreamLoopLength;
+			while (streamLen >= 6)
+			{
+				Data nitData = new Data();
+				nitData.TransportStreamId = (ushort)(((data[offset])<<8) | (data[offset+1]));
+				nitData.OriginalNetworkId = (ushort)(((data[offset+2]) << 8) | (data[offset + 3])); ;
+				nitData.Reserved1 =(byte) (data[offset+4]>>4) ;
+				nitData.TransportDescriptorLenght = (ushort)((((data[offset + 4]) & 0x0F) <<8) | (data[offset+5]));
+				nitData.Descriptors = PSIDescriptor.ParseDescriptors(data, offset + 6, nitData.TransportDescriptorLenght);
+
+				this.streams.Add(nitData);
+				offset += nitData.TransportDescriptorLenght + 6;//offset increnté de la taille de la loop
+				streamLen -= nitData.TransportDescriptorLenght + 6;// taille de la loop restante décrémenté 
+			}
+			
+		}
+
+        public override string ToStringSectionOnly(string prefix)
+        {
+            string result = "";
+            result += base.ToStringSectionOnly(prefix);
+            result += prefix + "Reserved3: " + this.reserved3 + "\r\n";
+            result += prefix + "NetworkDescriptorLength: " + this.networkDescriptorLength + "\r\n";
+            if (this.descriptors != null)
+            {
+                result += prefix + "for (i = 0; i < " + this.descriptors.Length + ")\r\n";
+                foreach (PSIDescriptor descriptor in this.descriptors)
+                {
+                    result += prefix + "{\r\n";
+                    result += descriptor.ToStringDescriptorOnly(prefix + "\t");
+                    result += prefix + "}\r\n";
+                }
+            }
+
+            result += prefix + "Reserved4: " + this.reserved4 + "\r\n";
+            result += prefix + "TransportStreamLoopLength: " + this.transportStreamLoopLength + "\r\n";
+
+           result += prefix + "for (i = 0; i < " + this.streams.Count + ")\r\n";
+            foreach (Data stream in this.streams)
+            {
+                result += prefix + "{\r\n";
+                result += stream.ToStringSectionOnly(prefix + "\t");
+                result += prefix + "}\r\n";
+            }
+            return result;
+        }
+
+        public override string ToString()
+        {
+            return "PSINIT\r\n{\r\n" + ToStringSectionOnly("\t") + "}\r\n";
+        }
+
+}
 	// pour le decodage des ECM regarder dans _mainForm_OnECMFilterData
 }

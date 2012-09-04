@@ -781,7 +781,7 @@ namespace CodeTV
 
 		private void timerSignalUpdate_Tick(object sender, EventArgs e)
 		{
-			OnTimerGUIUpdate();
+            OnTimerGUIUpdate();
 		}
 
 
@@ -942,12 +942,12 @@ namespace CodeTV
 
 		private void timerVideoRefreshAfterTuningChannel_Tick(object sender, EventArgs e)
 		{
-			this.timerVideoRefresh.Tag = (int)this.timerVideoRefresh.Tag - 1;
-			if ((int)this.timerVideoRefresh.Tag == 0)
-				this.timerVideoRefresh.Stop();
+            //this.timerVideoRefresh.Tag = (int)this.timerVideoRefresh.Tag - 1;
+            //if ((int)this.timerVideoRefresh.Tag == 0)
+            //    this.timerVideoRefresh.Stop();
 
-			if (this.currentGraphBuilder != null)
-				this.currentGraphBuilder.VideoRefresh();
+            //if (this.currentGraphBuilder != null)
+            //    this.currentGraphBuilder.VideoRefresh();
 		}
 
 		private void OnTimerGUIUpdate()
@@ -2208,23 +2208,23 @@ namespace CodeTV
 
 		private void timerChannelNumberBuilder_Tick(object sender, EventArgs e)
 		{
-			this.timerChannelNumberBuilder.Stop();
+            this.timerChannelNumberBuilder.Stop();
 
-			Trace.WriteLineIf(trace.TraceInfo, "timerChannelNumberBuilder_Tick channelNumberBuilder: " + this.channelNumberBuilder);
-			short channelNumber = -1;
-			try
-			{
-				channelNumber = short.Parse(this.channelNumberBuilder);
-			}
-			catch
-			{
-			}
-			if (channelNumber != -1)
-			{
-				this.channelNumberBuilder = "";
-				if (this.channelByChannelNumber.ContainsKey(channelNumber))
-					TuneChannelGUI(this.channelByChannelNumber[channelNumber] as ChannelTV);
-			}
+            Trace.WriteLineIf(trace.TraceInfo, "timerChannelNumberBuilder_Tick channelNumberBuilder: " + this.channelNumberBuilder);
+            short channelNumber = -1;
+            try
+            {
+                channelNumber = short.Parse(this.channelNumberBuilder);
+            }
+            catch
+            {
+            }
+            if (channelNumber != -1)
+            {
+                this.channelNumberBuilder = "";
+                if (this.channelByChannelNumber.ContainsKey(channelNumber))
+                    TuneChannelGUI(this.channelByChannelNumber[channelNumber] as ChannelTV);
+            }
 		}
 
 		private void aspecRatio169toolStripMenuItem_Click(object sender, EventArgs e)

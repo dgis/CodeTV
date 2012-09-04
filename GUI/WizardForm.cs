@@ -380,12 +380,15 @@ namespace CodeTV
 
 							short originalNetworkId = -1;
 							Hashtable serviceNameByServiceId = new Hashtable();
+							// Hervé Stalin : Ajout d'une hashtable pour le services_type d'un service
+							Hashtable serviceTypeByServiceID = new Hashtable();
 							PSISection[] psiSdts = PSISection.GetPSITable((int)PIDS.SDT, (int)TABLE_IDS.SDT_ACTUAL, mpeg2Data);
 							for (int i = 0; i < psiSdts.Length; i++)
 							{
 								PSISection psiSdt = psiSdts[i];
 								if (psiSdt != null && psiSdt is PSISDT)
 								{
+									
 									PSISDT sdt = (PSISDT)psiSdt;
 									Trace.WriteLineIf(MainForm.trace.TraceVerbose, "PSI Table " + i + "/" + psiSdts.Length + "\r\n");
 									Trace.WriteLineIf(MainForm.trace.TraceVerbose, sdt.ToString());
@@ -394,7 +397,40 @@ namespace CodeTV
 									foreach (PSISDT.Data service in sdt.Services)
 									{
 										serviceNameByServiceId[service.ServiceId] = service.GetServiceName();
+										//Hervé Stalin : remplissage du hashtable du service_type
+										serviceTypeByServiceID[service.ServiceId] = service.GetServiceType();
 									}
+								}
+							}
+
+							//Hervé Stalin : Code pode pour créér un hashtable de lcn
+							Hashtable logicalChannelNumberByServiceId = new Hashtable();
+							PSISection[] psiNits = PSISection.GetPSITable((int)PIDS.NIT, (int)TABLE_IDS.NIT_ACTUAL, mpeg2Data);
+							for (int i = 0; i < psiNits.Length; i++)
+							{
+								PSISection psinit = psiNits[i];
+								if (psinit != null && psinit is PSINIT)
+								{
+									PSINIT nit = (PSINIT)psinit;
+									Trace.WriteLineIf(MainForm.trace.TraceVerbose, "PSI Table " + i + "/" + psiNits.Length + "\r\n");
+									Trace.WriteLineIf(MainForm.trace.TraceVerbose, nit.ToString());
+
+									foreach (PSINIT.Data data in nit.Streams)
+									{
+										foreach (PSIDescriptor psiDescriptorData in data.Descriptors)
+										{
+											if (psiDescriptorData.DescriptorTag == DESCRIPTOR_TAGS.DESCR_LOGICAL_CHANNEL)
+											{
+												PSIDescriptorLogicalChannel psiDescriptorLogicalChannel = (PSIDescriptorLogicalChannel)psiDescriptorData;
+												foreach (PSIDescriptorLogicalChannel.ChannelNumber f in psiDescriptorLogicalChannel.LogicalChannelNumbers)
+												{
+													logicalChannelNumberByServiceId[f.ServiceID] = f.LogicalChannelNumber;
+											   }
+
+											}
+										}
+									}
+
 								}
 							}
 
@@ -414,35 +450,61 @@ namespace CodeTV
 
 									foreach (PSIPAT.Data program in pat.ProgramIds)
 									{
-										if (!program.IsNetworkPID)
+										if (!program.IsNetworkPID) // Hervé Stalin : est encore utile ?
 										{
-											ChannelDVB newChannelDVB = newTemplateChannelDVB.MakeCopy() as ChannelDVB;
-											newChannelDVB.SID = program.ProgramNumber;
-											newChannelDVB.Name = (string)serviceNameByServiceId[program.ProgramNumber];
-											if (newChannelDVB.Name == null)
-												newChannelDVB.Name = Properties.Resources.NoName;
+											//Hervé Stalin: discrimination par le service type
+											SERVICE_TYPES st;
+											try
+											{
+												st = (SERVICE_TYPES)serviceTypeByServiceID[program.ProgramNumber];
+											}
+											catch
+											{
+												 st = SERVICE_TYPES.DIGITAL_TELEVISION_SERVICE; // bypass en cas de probleme de parsing (mauvaise réception dans mon cas)
+											}
 
-											UpdateDVBChannelPids(mpeg2Data, program.Pid, newChannelDVB);
+											if (st == SERVICE_TYPES.DIGITAL_TELEVISION_SERVICE ||                       // TV SD MPEG2
+												st == SERVICE_TYPES.ADVANCE_CODEC_HD_DIGITAL_SERVICE ||                 // TV HD H264
+												st == SERVICE_TYPES.ADVANCE_CODEC_SD_DIGITAL_SERVICE ||                 // TV SD H264
+												st == SERVICE_TYPES.MPEG2_HD_DIGITAL_TELEVISION_SERVICE ||              // TV HD MPEG2
+												st == SERVICE_TYPES.DIGITAL_RADIO_SOUND_SERVICE ||                      // Radio MP2
+												st == SERVICE_TYPES.ADVANCED_CODEC_DIGITAL_RADIO_SOUND_SERVICE||        // Radio AC3/E-AC3/AAC
+												st == SERVICE_TYPES.MOSAIC_SERVICE ||                                   // Mosaic MPEG2                                
+												st == SERVICE_TYPES.ADVANCED_CODEC_MOSAIC_SERVICE)                      // Mosaic H264
+												
+											{
+												ChannelDVB newChannelDVB = newTemplateChannelDVB.MakeCopy() as ChannelDVB;
+												newChannelDVB.SID = program.ProgramNumber;
+												newChannelDVB.Name = (string)serviceNameByServiceId[program.ProgramNumber];
+												//Hervé Stalin: ajout du LCN 
+												newChannelDVB.ChannelNumber =Convert.ToInt16(logicalChannelNumberByServiceId[program.ProgramNumber]);
 
-											ListViewItem lvi = new ListViewItem(newChannelDVB.Name, "LogoTVDefault");
-											lvi.SubItems.Add(newChannelDVB.Frequency.ToString());
-											lvi.Tag = newChannelDVB;
-											this.listViewScanResult.Items.Add(lvi);
-											this.buttonScanClear.Enabled = true;
+												if (newChannelDVB.Name == null)
+													newChannelDVB.Name = Properties.Resources.NoName;
 
-											//PSISection[] psis2 = PSISection.GetPSITable(program.Pid, (int)TABLE_IDS.PMT, mpeg2Data);
-											//for (int i2 = 0; i2 < psis2.Length; i2++)
-											//{
-											//    PSISection psi2 = psis2[i2];
-											//    if (psi2 != null && psi2 is PSIPMT)
-											//    {
-											//        PSIPMT pmt = (PSIPMT)psi2;
-											//        Trace.WriteLineIf(trace.TraceVerbose, "PSI Table " + i2 + "/" + psis2.Length + "\r\n");
-											//        Trace.WriteLineIf(trace.TraceVerbose, pmt.ToString());
-											//    }
-											//}
+												UpdateDVBChannelPids(mpeg2Data, program.Pid, newChannelDVB);
+
+												ListViewItem lvi = new ListViewItem(newChannelDVB.Name, "LogoTVDefault");
+												lvi.SubItems.Add(newChannelDVB.Frequency.ToString());
+												lvi.Tag = newChannelDVB;
+												this.listViewScanResult.Items.Add(lvi);
+												this.buttonScanClear.Enabled = true;
+
+												//PSISection[] psis2 = PSISection.GetPSITable(program.Pid, (int)TABLE_IDS.PMT, mpeg2Data);
+												//for (int i2 = 0; i2 < psis2.Length; i2++)
+												//{
+												//    PSISection psi2 = psis2[i2];
+												//    if (psi2 != null && psi2 is PSIPMT)
+												//    {
+												//        PSIPMT pmt = (PSIPMT)psi2;
+												//        Trace.WriteLineIf(trace.TraceVerbose, "PSI Table " + i2 + "/" + psis2.Length + "\r\n");
+												//        Trace.WriteLineIf(trace.TraceVerbose, pmt.ToString());
+												//    }
+												//}
+												}
 										}
 									}
+
 									Application.DoEvents();
 								}
 							}
@@ -513,7 +575,7 @@ namespace CodeTV
 						{
 							case (int)STREAM_TYPES.STREAMTYPE_11172_VIDEO:
 							case (int)STREAM_TYPES.STREAMTYPE_13818_VIDEO:
-								channelDVB.VideoDecoderType = ChannelDVB.VideoType.MPEG2;
+								//channelDVB.VideoDecoderType = ChannelDVB.VideoType.MPEG2;
 								channelDVB.VideoPid = data.Pid;
 								if (data.Descriptors != null)
 								{

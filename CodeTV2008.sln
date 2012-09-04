@@ -1,9 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTV2010", "CodeTV2010.csproj", "{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}"
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C# Express 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTV2008", "CodeTV2008.csproj", "{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DvbPsi2010", "DvbPsi\DvbPsi2010.csproj", "{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DvbPsi2008", "DvbPsi\DvbPsi2008.csproj", "{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

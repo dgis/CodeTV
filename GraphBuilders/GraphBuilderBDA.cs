@@ -33,7 +33,7 @@ using CodeTV.PSI;
 namespace CodeTV
 {
 	public class GraphBuilderBDA : GraphBuilderTV, IBDA, IEPG
-    {
+	{
 		protected IBaseFilter networkProvider;
 		protected IBaseFilter mpeg2Demux;
 		protected IBaseFilter tuner;
@@ -152,7 +152,7 @@ namespace CodeTV
 		public DsDevice Mpeg2DecoderDevice { get { return this.mpeg2DecoderDevice; } set { this.mpeg2DecoderDevice = value; } }
 		public DsDevice H264DecoderDevice { get { return this.h264DecoderDevice; } set { this.h264DecoderDevice = value; } }
 		public DsDevice TunerDevice { get { return this.tunerDevice; } set { this.tunerDevice = value; } }
-        public DsDevice CaptureDevice { get { return this.captureDevice; } set { this.captureDevice = value; } }
+		public DsDevice CaptureDevice { get { return this.captureDevice; } set { this.captureDevice = value; } }
 
 		public IBaseFilter NetworkProvider { get { return this.networkProvider; } }
 		public IBaseFilter TunerFilter { get { return this.tuner; } }
@@ -171,8 +171,8 @@ namespace CodeTV
 
 		public GraphBuilderBDA(VideoControl renderingControl)
 			: base(renderingControl)
-        {
-        }
+		{
+		}
 
 		public override void BuildGraph()
 		{
@@ -227,7 +227,7 @@ namespace CodeTV
 
 				Vmr9SetDeinterlaceMode(1);
 
-                IMediaFilter mf = this.graphBuilder as IMediaFilter;
+				IMediaFilter mf = this.graphBuilder as IMediaFilter;
 				switch (this.referenceClock)
 				{
 					case ChannelDVB.Clock.Default:
@@ -257,7 +257,7 @@ namespace CodeTV
 		private int currentAudioPid = -1;
 
 		public override void SubmitTuneRequest(Channel channel)
-        {
+		{
 			if (channel is ChannelDVB)
 			{
 				ChannelDVB channelDVB = channel as ChannelDVB;
@@ -424,15 +424,15 @@ namespace CodeTV
 
 			if(useWPF)
 				WpfUpdateVideoSize(); //WPF
-        }
+		}
 
 		protected void AddNetworkProviderFilter(ITuningSpace tuningSpace)
-        {
-            int hr = 0;
-            Guid genProviderClsId = new Guid("{B2F3A67C-29DA-4C78-8831-091ED509A475}");
-            Guid networkProviderClsId;
+		{
+			int hr = 0;
+			Guid genProviderClsId = new Guid("{B2F3A67C-29DA-4C78-8831-091ED509A475}");
+			Guid networkProviderClsId;
 
-            // First test if the Generic Network Provider is available (only on MCE 2005 + Update Rollup 2)
+			// First test if the Generic Network Provider is available (only on MCE 2005 + Update Rollup 2)
 			//if (FilterGraphTools.IsThisComObjectInstalled(genProviderClsId))
 			//{
 			//    this.networkProvider = FilterGraphTools.AddFilterFromClsid(this.graphBuilder, genProviderClsId, "Generic Network Provider");
@@ -441,32 +441,32 @@ namespace CodeTV
 			//    return;
 			//}
 
-            // Get the network type of the requested Tuning Space
-            hr = tuningSpace.get__NetworkType(out networkProviderClsId);
+			// Get the network type of the requested Tuning Space
+			hr = tuningSpace.get__NetworkType(out networkProviderClsId);
 
-            // Get the network type of the requested Tuning Space
-            if (networkProviderClsId == typeof(DVBTNetworkProvider).GUID)
-            {
-                this.networkProvider = FilterGraphTools.AddFilterFromClsid(this.graphBuilder, networkProviderClsId, "DVBT Network Provider");
-            }
-            else if (networkProviderClsId == typeof(DVBSNetworkProvider).GUID)
-            {
-                this.networkProvider = FilterGraphTools.AddFilterFromClsid(this.graphBuilder, networkProviderClsId, "DVBS Network Provider");
-            }
-            else if (networkProviderClsId == typeof(ATSCNetworkProvider).GUID)
-            {
-                this.networkProvider = FilterGraphTools.AddFilterFromClsid(this.graphBuilder, networkProviderClsId, "ATSC Network Provider");
-            }
-            else if (networkProviderClsId == typeof(DVBCNetworkProvider).GUID)
-            {
-                this.networkProvider = FilterGraphTools.AddFilterFromClsid(this.graphBuilder, networkProviderClsId, "DVBC Network Provider");
-            }
-            else
-                // Tuning Space can also describe Analog TV but this application don't support them
-                throw new ArgumentException("This application doesn't support this Tuning Space");
+			// Get the network type of the requested Tuning Space
+			if (networkProviderClsId == typeof(DVBTNetworkProvider).GUID)
+			{
+				this.networkProvider = FilterGraphTools.AddFilterFromClsid(this.graphBuilder, networkProviderClsId, "DVBT Network Provider");
+			}
+			else if (networkProviderClsId == typeof(DVBSNetworkProvider).GUID)
+			{
+				this.networkProvider = FilterGraphTools.AddFilterFromClsid(this.graphBuilder, networkProviderClsId, "DVBS Network Provider");
+			}
+			else if (networkProviderClsId == typeof(ATSCNetworkProvider).GUID)
+			{
+				this.networkProvider = FilterGraphTools.AddFilterFromClsid(this.graphBuilder, networkProviderClsId, "ATSC Network Provider");
+			}
+			else if (networkProviderClsId == typeof(DVBCNetworkProvider).GUID)
+			{
+				this.networkProvider = FilterGraphTools.AddFilterFromClsid(this.graphBuilder, networkProviderClsId, "DVBC Network Provider");
+			}
+			else
+				// Tuning Space can also describe Analog TV but this application don't support them
+				throw new ArgumentException("This application doesn't support this Tuning Space");
 
-            hr = (this.networkProvider as ITuner).put_TuningSpace(tuningSpace);
-        }
+			hr = (this.networkProvider as ITuner).put_TuningSpace(tuningSpace);
+		}
 
 		/// <summary>
 		/// CLSID_ElecardMPEGDemultiplexer
@@ -478,15 +478,15 @@ namespace CodeTV
 		}
 
 
-        protected void AddMPEG2DemuxFilter()
-        {
+		protected void AddMPEG2DemuxFilter()
+		{
 			if (this.H264DecoderDevice != null && isH264ElecardSpecialMode)
 				this.mpeg2Demux = (IBaseFilter)new ElecardMPEGDemultiplexer();
 			else
 				this.mpeg2Demux = (IBaseFilter)new MPEG2Demultiplexer();
 
-            int hr = this.graphBuilder.AddFilter(this.mpeg2Demux, "MPEG2 Demultiplexer");
-            DsError.ThrowExceptionForHR(hr);
+			int hr = this.graphBuilder.AddFilter(this.mpeg2Demux, "MPEG2 Demultiplexer");
+			DsError.ThrowExceptionForHR(hr);
 
 
 			//IMpeg2Demultiplexer mpeg2Demultiplexer = this.mpeg2Demux as IMpeg2Demultiplexer;
@@ -516,7 +516,7 @@ namespace CodeTV
 
 			//Marshal.FreeHGlobal(formatPtr);
 
-        }
+		}
 
 		protected virtual void CreateMPEG2DemuxPins()
 		{
@@ -555,7 +555,7 @@ namespace CodeTV
 				//mediaH264.subType = new Guid(0x8d2d71cb, 0x243f, 0x45e3, 0xb2, 0xd8, 0x5f, 0xd7, 0x96, 0x7e, 0xc0, 0x9b);
 				mediaH264.subType = new Guid(0x34363248, 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71);
 				mediaH264.sampleSize = 0;
-                mediaH264.temporalCompression = true; // false;
+				mediaH264.temporalCompression = true; // false;
 				mediaH264.fixedSizeSamples = false;
 				mediaH264.unkPtr = IntPtr.Zero;
 				mediaH264.formatType = FormatType.Mpeg2Video;
@@ -662,95 +662,95 @@ namespace CodeTV
 		}
 
 		protected void AddAndConnectBDABoardFilters()
-        {
-            int hr = 0;
-            DsDevice[] devices;
+		{
+			int hr = 0;
+			DsDevice[] devices;
 
 			this.captureGraphBuilder = (ICaptureGraphBuilder2)new CaptureGraphBuilder2();
-            captureGraphBuilder.SetFiltergraph(this.graphBuilder);
+			captureGraphBuilder.SetFiltergraph(this.graphBuilder);
 
-            try
-            {
-                if (this.TunerDevice != null)
-                {
-                    IBaseFilter tmp;
+			try
+			{
+				if (this.TunerDevice != null)
+				{
+					IBaseFilter tmp;
 
-                    hr = graphBuilder.AddSourceFilterForMoniker(this.TunerDevice.Mon, null, this.TunerDevice.Name, out tmp);
-                    DsError.ThrowExceptionForHR(hr);
+					hr = graphBuilder.AddSourceFilterForMoniker(this.TunerDevice.Mon, null, this.TunerDevice.Name, out tmp);
+					DsError.ThrowExceptionForHR(hr);
 
-                    hr = captureGraphBuilder.RenderStream(null, null, this.networkProvider, null, tmp);
-                    if (hr == 0)
-                    {
-                        // Got it !
-                        this.tuner = tmp;
-                    }
-                    else
-                    {
-                        // Try another...
-                        int hr2 = graphBuilder.RemoveFilter(tmp);
-                        Marshal.ReleaseComObject(tmp);
+					hr = captureGraphBuilder.RenderStream(null, null, this.networkProvider, null, tmp);
+					if (hr == 0)
+					{
+						// Got it !
+						this.tuner = tmp;
+					}
+					else
+					{
+						// Try another...
+						int hr2 = graphBuilder.RemoveFilter(tmp);
+						Marshal.ReleaseComObject(tmp);
 						DsError.ThrowExceptionForHR(hr);
-                        return;
-                    }
-                }
-                else
-                {
-                    // Enumerate BDA Source filters category and found one that can connect to the network provider
-                    devices = DsDevice.GetDevicesOfCat(FilterCategory.BDASourceFiltersCategory);
-                    for (int i = 0; i < devices.Length; i++)
-                    {
-                        IBaseFilter tmp;
+						return;
+					}
+				}
+				else
+				{
+					// Enumerate BDA Source filters category and found one that can connect to the network provider
+					devices = DsDevice.GetDevicesOfCat(FilterCategory.BDASourceFiltersCategory);
+					for (int i = 0; i < devices.Length; i++)
+					{
+						IBaseFilter tmp;
 
-                        hr = graphBuilder.AddSourceFilterForMoniker(devices[i].Mon, null, devices[i].Name, out tmp);
-                        DsError.ThrowExceptionForHR(hr);
-
-                        hr = captureGraphBuilder.RenderStream(null, null, this.networkProvider, null, tmp);
-                        if (hr == 0)
-                        {
-                            // Got it !
-                            this.tuner = tmp;
-                            break;
-                        }
-                        else
-                        {
-                            // Try another...
-                            hr = graphBuilder.RemoveFilter(tmp);
-                            Marshal.ReleaseComObject(tmp);
-                        }
-                    }
-                }
-                // Assume we found a tuner filter...
-
-                if (this.CaptureDevice != null)
-                {
-                    IBaseFilter tmp;
-
-                    hr = graphBuilder.AddSourceFilterForMoniker(this.CaptureDevice.Mon, null, this.CaptureDevice.Name, out tmp);
-                    DsError.ThrowExceptionForHR(hr);
-
-                    hr = captureGraphBuilder.RenderStream(null, null, this.tuner, null, tmp);
-                    if (hr == 0)
-                    {
-                        // Got it !
-                        this.capture = tmp;
-
-                        // Connect it to the MPEG-2 Demux
-                        hr = captureGraphBuilder.RenderStream(null, null, this.capture, null, this.mpeg2Demux);
-                        if (hr < 0)
-                            // BDA also support 3 filter scheme (never show it in real life).
-                            throw new ApplicationException("This application only support the 2 filters BDA scheme");
-                    }
-                    else
-                    {
-                        // Try another...
-                        int hr2 = graphBuilder.RemoveFilter(tmp);
-                        Marshal.ReleaseComObject(tmp);
+						hr = graphBuilder.AddSourceFilterForMoniker(devices[i].Mon, null, devices[i].Name, out tmp);
 						DsError.ThrowExceptionForHR(hr);
-                        return;
-                    }
-                }
-                else
-                {
+
+						hr = captureGraphBuilder.RenderStream(null, null, this.networkProvider, null, tmp);
+						if (hr == 0)
+						{
+							// Got it !
+							this.tuner = tmp;
+							break;
+						}
+						else
+						{
+							// Try another...
+							hr = graphBuilder.RemoveFilter(tmp);
+							Marshal.ReleaseComObject(tmp);
+						}
+					}
+				}
+				// Assume we found a tuner filter...
+
+				if (this.CaptureDevice != null)
+				{
+					IBaseFilter tmp;
+
+					hr = graphBuilder.AddSourceFilterForMoniker(this.CaptureDevice.Mon, null, this.CaptureDevice.Name, out tmp);
+					DsError.ThrowExceptionForHR(hr);
+
+					hr = captureGraphBuilder.RenderStream(null, null, this.tuner, null, tmp);
+					if (hr == 0)
+					{
+						// Got it !
+						this.capture = tmp;
+
+						// Connect it to the MPEG-2 Demux
+						hr = captureGraphBuilder.RenderStream(null, null, this.capture, null, this.mpeg2Demux);
+						if (hr < 0)
+							// BDA also support 3 filter scheme (never show it in real life).
+							throw new ApplicationException("This application only support the 2 filters BDA scheme");
+					}
+					else
+					{
+						// Try another...
+						int hr2 = graphBuilder.RemoveFilter(tmp);
+						Marshal.ReleaseComObject(tmp);
+						DsError.ThrowExceptionForHR(hr);
+						return;
+					}
+				}
+				else
+				{
 					this.capture = null;
 
 					// Connect it to the MPEG-2 Demux
@@ -792,28 +792,28 @@ namespace CodeTV
 					//        Marshal.ReleaseComObject(tmp);
 					//    }
 					//}
-                }
-            }
-            finally
-            {
-            }
-        }
+				}
+			}
+			finally
+			{
+			}
+		}
 
 		protected void AddTransportStreamFiltersToGraph()
-        {
-            int hr = 0;
-            DsDevice[] devices;
+		{
+			int hr = 0;
+			DsDevice[] devices;
 
-            // Add two filters needed in a BDA graph
-            devices = DsDevice.GetDevicesOfCat(FilterCategory.BDATransportInformationRenderersCategory);
-            for (int i = 0; i < devices.Length; i++)
-            {
-                if (devices[i].Name.Equals("BDA MPEG2 Transport Information Filter"))
-                {
-                    hr = graphBuilder.AddSourceFilterForMoniker(devices[i].Mon, null, devices[i].Name, out this.bdaTIF);
-                    DsError.ThrowExceptionForHR(hr);
+			// Add two filters needed in a BDA graph
+			devices = DsDevice.GetDevicesOfCat(FilterCategory.BDATransportInformationRenderersCategory);
+			for (int i = 0; i < devices.Length; i++)
+			{
+				if (devices[i].Name.Equals("BDA MPEG2 Transport Information Filter"))
+				{
+					hr = graphBuilder.AddSourceFilterForMoniker(devices[i].Mon, null, devices[i].Name, out this.bdaTIF);
+					DsError.ThrowExceptionForHR(hr);
 					continue;
-                }
+				}
 
 				if (devices[i].Name.Equals("MPEG-2 Sections and Tables"))
 				{
@@ -821,8 +821,8 @@ namespace CodeTV
 					DsError.ThrowExceptionForHR(hr);
 					continue;
 				}
-            }
-        }
+			}
+		}
 
 		protected void AddAndConnectTIFToGraph()
 		{
@@ -896,42 +896,42 @@ namespace CodeTV
 		}
 
 		protected void ConnectAllOutputFilters()
-        {
-            // Get the pin enumerator
+		{
+			// Get the pin enumerator
 			IEnumPins ppEnum;
 			int hr = this.mpeg2Demux.EnumPins(out ppEnum);
-            DsError.ThrowExceptionForHR(hr);
+			DsError.ThrowExceptionForHR(hr);
 
-            try
-            {
-                // Walk the pins looking for a match
+			try
+			{
+				// Walk the pins looking for a match
 				IPin[] pPins = new IPin[1];
 				//22 int lFetched;
 				//22 while ((ppEnum.Next(1, pPins, out lFetched) >= 0) && (lFetched == 1))
 				while (ppEnum.Next(1, pPins, IntPtr.Zero) >= 0)
 				{
-                    // Read the direction
+					// Read the direction
 					PinDirection ppindir;
 					hr = pPins[0].QueryDirection(out ppindir);
-                    DsError.ThrowExceptionForHR(hr);
+					DsError.ThrowExceptionForHR(hr);
 
-                    // Is it the right direction?
+					// Is it the right direction?
 					if (ppindir == PinDirection.Output)
-                    {
+					{
 						if (pPins[0] != null)
 						{
 							hr = this.graphBuilder.Render(pPins[0]);
 							//DsError.ThrowExceptionForHR(hr);
 							// In fact the last pin don't render since i havn't added the BDA MPE Filter...
 						}
-                    }
-                    Marshal.ReleaseComObject(pPins[0]);
-                }
-            }
-            finally
-            {
-                Marshal.ReleaseComObject(ppEnum);
-            }
+					}
+					Marshal.ReleaseComObject(pPins[0]);
+				}
+			}
+			finally
+			{
+				Marshal.ReleaseComObject(ppEnum);
+			}
 		}
 
 		//protected void ConnectAudioAndVideoFilters()
@@ -1146,24 +1146,24 @@ namespace CodeTV
 		}
 
 		protected void RenderMpeg2DemuxFilters()
-        {
-            int hr = 0;
-            IPin pinOut;
+		{
+			int hr = 0;
+			IPin pinOut;
 
-            // Connect the 5 MPEG-2 Demux output pins
-            for (int i = 0; i < 6; i++)
-            {
-                pinOut = DsFindPin.ByDirection(this.mpeg2Demux, PinDirection.Output, i);
+			// Connect the 5 MPEG-2 Demux output pins
+			for (int i = 0; i < 6; i++)
+			{
+				pinOut = DsFindPin.ByDirection(this.mpeg2Demux, PinDirection.Output, i);
 
-                if (pinOut != null)
-                {
-                    hr = this.graphBuilder.Render(pinOut);
-                    //DsError.ThrowExceptionForHR(hr);
-                    // In fact the last pin don't render since i havn't added the BDA MPE Filter...
-                    Marshal.ReleaseComObject(pinOut);
-                }
-            }
-        }
+				if (pinOut != null)
+				{
+					hr = this.graphBuilder.Render(pinOut);
+					//DsError.ThrowExceptionForHR(hr);
+					// In fact the last pin don't render since i havn't added the BDA MPE Filter...
+					Marshal.ReleaseComObject(pinOut);
+				}
+			}
+		}
 
 		protected static MPEG2VideoInfo videoMPEG2PinFormat;
 		protected static MPEG2VideoInfo videoH264PinFormat;
@@ -1250,12 +1250,12 @@ namespace CodeTV
 				////0x051736=333667-> 10000000/333667 = 29.97fps
 				////0x061A80=400000-> 10000000/400000 = 25fps
 				videoPinFormat.hdr.AvgTimePerFrame = 400000;				//0x80, 0x1A, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, //28  .hdr.AvgTimePerFrame            = 0x0000000000051763 ->1000000/ 40000 = 25fps
-                videoPinFormat.hdr.InterlaceFlags = AMInterlace.None;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
-                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.OneFieldPerSample | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
-                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
-                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.FieldPatBothRegular | AMInterlace.DisplayModeWeaveOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
-                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOrWeave;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
-                videoPinFormat.hdr.CopyProtectFlags = AMCopyProtect.None;	//0x00, 0x00, 0x00, 0x00,                         //30  .hdr.dwCopyProtectFlags         = 0x00000000
+				videoPinFormat.hdr.InterlaceFlags = AMInterlace.None;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+				//videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.OneFieldPerSample | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+				//videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+				//videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.FieldPatBothRegular | AMInterlace.DisplayModeWeaveOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+				//videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOrWeave;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+				videoPinFormat.hdr.CopyProtectFlags = AMCopyProtect.None;	//0x00, 0x00, 0x00, 0x00,                         //30  .hdr.dwCopyProtectFlags         = 0x00000000
 				videoPinFormat.hdr.PictAspectRatioX = 4;					//0x04, 0x00, 0x00, 0x00,                         //34  .hdr.dwPictAspectRatioX         = 0x00000004
 				videoPinFormat.hdr.PictAspectRatioY = 3;					//0x03, 0x00, 0x00, 0x00,                         //38  .hdr.dwPictAspectRatioY         = 0x00000003
 				videoPinFormat.hdr.ControlFlags = AMControl.None;			//0x00, 0x00, 0x00, 0x00,                         //3c  .hdr.dwReserved1                = 0x00000000
@@ -1309,8 +1309,8 @@ namespace CodeTV
 			return audioPinFormat;
 		}
 
-        protected override void Decompose()
-        {
+		protected override void Decompose()
+		{
 			if (this.graphBuilder != null)
 			{
 				int hr = 0;
@@ -1351,7 +1351,7 @@ namespace CodeTV
 				try { Marshal.ReleaseComObject(this.graphBuilder); this.graphBuilder = null; }
 				catch { }
 			}
-        }
+		}
 
 		public override bool GetSignalStatistics(out bool locked, out bool present, out int strength, out int quality)
 		{
@@ -1410,8 +1410,8 @@ namespace CodeTV
 				ChannelDVB channelDVB = channel as ChannelDVB;
 
 				IMpeg2Data mpeg2Data = this.bdaSecTab as IMpeg2Data;
-
-				Hashtable serviceNameByServiceId = new Hashtable();
+				// Hervé Stalin : Utile ?
+				//Hashtable serviceNameByServiceId = new Hashtable(); 
 				PSISection[] psiSdts = PSISection.GetPSITable((int)PIDS.SDT, (int)TABLE_IDS.SDT_ACTUAL, mpeg2Data);
 				for (int i = 0; i < psiSdts.Length; i++)
 				{
@@ -1424,12 +1424,45 @@ namespace CodeTV
 							result += "PSI Table " + i + "/" + psiSdts.Length + "\r\n";
 							result += sdt.ToString();
 						}
-						foreach (PSISDT.Data service in sdt.Services)
-						{
-							serviceNameByServiceId[service.ServiceId] = service.GetServiceName();
-						}
+						// Hervé Stalin : Utile ?
+						//foreach (PSISDT.Data service in sdt.Services)
+						//{
+						//    serviceNameByServiceId[service.ServiceId] = service.GetServiceName();
+						//}
 					}
 				}
+
+				//Hervé Stalin : Code pode pour créér un hashtable de lcn
+				//Hashtable logicalChannelNumberByServiceId = new Hashtable();
+				PSISection[] psiNits = PSISection.GetPSITable((int)PIDS.NIT, (int)TABLE_IDS.NIT_ACTUAL, mpeg2Data);
+				for (int i = 0; i < psiNits.Length; i++)
+				{
+					PSISection psinit = psiNits[i];
+					if (psinit != null && psinit is PSINIT)
+					{
+						PSINIT nit = (PSINIT)psinit;
+						result += "PSI Table " + i + "/" + psiNits.Length + "\r\n";
+						result += nit.ToString();
+
+						//foreach (PSINIT.Data data in nit.Streams)
+						//{
+						//    foreach (PSIDescriptor psiDescriptorData in data.Descriptors)
+						//    {
+						//        if (psiDescriptorData.DescriptorTag == DESCRIPTOR_TAGS.DESCR_LOGICAL_CHANNEL)
+						//        {
+						//            PSIDescriptorLogicalChannel psiDescriptorLogicalChannel = (PSIDescriptorLogicalChannel)psiDescriptorData;
+						//            foreach (PSIDescriptorLogicalChannel.ChannelNumber f in psiDescriptorLogicalChannel.LogicalChannelNumbers)
+						//            {
+						//                logicalChannelNumberByServiceId[f.ServiceID] = f.LogicalChannelNumber;
+						//            }
+
+						//        }
+						//    }
+						//}
+
+					}
+				}
+
 
 				PSISection[] psiPats = PSISection.GetPSITable((int)PIDS.PAT, (int)TABLE_IDS.PAT, mpeg2Data);
 				for (int i = 0; i < psiPats.Length; i++)

@@ -162,6 +162,11 @@ namespace CodeTV.PSI
 		DESCR_CELL_LIST = 0x6C,
 		DESCR_CELL_FREQ_LINK = 0x6D,
 		DESCR_ANNOUNCEMENT_SUPPORT = 0x6E,
+        // Ajout Hervé Stalin
+        DESCR_ENHANCED_AC3 = 0x7A,
+        DESCR_AAC = 0x7C,
+        DESCR_LOGICAL_CHANNEL = 0x83,
+        DESCR_HD_SIMULCAST_LOGICAL_CHANNEL = 0x88,
 		/* 0x6f - 0x7f */
 		/* Reserved */
 		/* 0x80 - 0xfe */
@@ -182,15 +187,26 @@ namespace CodeTV.PSI
 		PAL_CODED_SIGNAL = 0x07,
 		SECAM_CODED_SIGNAL = 0x08,
 		D_D2_MAC = 0x09,
-		FM_RADIO = 0x0A,
-		NTSC_CODED_SIGNAL = 0x0B,
+        //Hervé stalin : remplacement de service type obsolete 
+        //FM_RADIO = 0x0A,
+        //NTSC_CODED_SIGNAL = 0x0B,
+        ADVANCED_CODEC_DIGITAL_RADIO_SOUND_SERVICE = 0x0A,
+        ADVANCED_CODEC_MOSAIC_SERVICE = 0x0B,
 		DATA_BROADCAST_SERVICE = 0x0C,
 		RESERVED_FOR_COMMON_INTERFACE_USAGE = 0x0D,
 		RCS_MAP = 0x0E,
 		RCS_FLS = 0x0F,
 		DVB_MHP_SERVICE = 0x10,
-		RESERVED_SERVICE2 = 0xFF,
-	};
+        //Hervé Stalin : ajout de service_type
+        MPEG2_HD_DIGITAL_TELEVISION_SERVICE = 0x11,
+        ADVANCE_CODEC_SD_DIGITAL_SERVICE = 0x16,
+        ADVANCE_CODEC_SD_NVOD_TIME_SHIFTED_SERVICE = 0x17,
+        ADVANCE_CODEC_SD_NVOD_REFERENCE_SERVICE = 0x18,
+        ADVANCE_CODEC_HD_DIGITAL_SERVICE = 0x19,
+        ADVANCE_CODEC_HD_NVOD_TIME_SHIFTED_SERVICE = 0x1A,
+        ADVANCE_CODEC_HD_NVOD_REFERENCE_SERVICE = 0x1B,
+        RESERVED_SERVICE2 = 0xFF,
+    };
 
 	// Elementary stream identifiers
 	public enum STREAM_TYPES

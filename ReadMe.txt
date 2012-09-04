@@ -1,8 +1,8 @@
-CodeTV is a free DirectShow based TV software for Windows. 
+﻿CodeTV is a free DirectShow based TV software for Windows. 
 The home page is located at http://regis.cosnier.free.fr.
 
 
-Version 0.2 Copyright (c) 2006-2007 Regis Cosnier, All Rights Reserved.
+Version 0.3 Copyright (c) 2006-2012 Regis Cosnier, All Rights Reserved.
 This program is free software and may be distributed according to the terms of the GNU General Public License (GPL).
 
 
@@ -104,6 +104,20 @@ TODO LIST:
 
 CHANGES:
 
+version 0.3 (2012-09-05)
+- Add the project to GitHub: https://github.com/dgis/CodeTV
+- Clean up the project file to target the corresponding Visual Studio version (2005, 2008 or 2010)
+- Add the Hervé changes:
+	*Parser
+		- Le parser de tables est maintenant dans une dll externe afin d'être réutilisé dans d'autre programme
+		- Parsing de la table NIT
+		- Parsing des descripteurs logical_channel_number et HD_simulcast_logical_channel_number
+	*Interface
+		- Ajout du logical_channel_number au nunero de chaine lors du scan
+		- Ajout des infos de la table NIT dans les infos du tranponder et du channel
+	*Autre
+		- Mise en commentaire de code que je pense inutile
+
 version 0.2 (2007-11-04)
 - Change the WPF initialization if used
 - Set the focus to the video control in order to get the keyboard shortcut working
@@ -154,7 +168,7 @@ version 0.1 (2007-11-01) (first public release)
 
 LICENSE:
 
-Copyright (c) 2006-2007 Regis COSNIER, All Rights Reserved.
+Copyright (c) 2006-2012 Regis COSNIER, All Rights Reserved.
 
 This program is free software and may be distributed
 according to the terms of the GNU General Public License (GPL).
