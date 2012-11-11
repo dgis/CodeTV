@@ -20,12 +20,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Collections;
 using CodeTV.PSI;
 using DirectShowLib;
 using System.Drawing.Drawing2D;
+using System.IO;
 
 namespace CodeTV
 {
@@ -68,6 +70,7 @@ namespace CodeTV
 
 			// wizardPageScanner
 
+            this.listViewScanResult.SmallImageList = MainForm.imageListLogoTV;
 
 			// wizardPageChannelNumber
 
@@ -477,7 +480,7 @@ namespace CodeTV
 												newChannelDVB.SID = program.ProgramNumber;
 												newChannelDVB.Name = (string)serviceNameByServiceId[program.ProgramNumber];
 												//Hervé Stalin: ajout du LCN 
-												newChannelDVB.ChannelNumber =Convert.ToInt16(logicalChannelNumberByServiceId[program.ProgramNumber]);
+												newChannelDVB.ChannelNumber = Convert.ToInt16(logicalChannelNumberByServiceId[program.ProgramNumber]);
 
 												if (newChannelDVB.Name == null)
 													newChannelDVB.Name = Properties.Resources.NoName;
@@ -486,9 +489,57 @@ namespace CodeTV
 
 												ListViewItem lvi = new ListViewItem(newChannelDVB.Name, "LogoTVDefault");
 												lvi.SubItems.Add(newChannelDVB.Frequency.ToString());
-												lvi.Tag = newChannelDVB;
+                                                lvi.SubItems.Add(newChannelDVB.ChannelNumber.ToString());
+                                                lvi.Tag = newChannelDVB;
+                                                //this.listViewScanResult.SmallImageList = MainForm.imageListLogoTV;
 												this.listViewScanResult.Items.Add(lvi);
 												this.buttonScanClear.Enabled = true;
+
+                                                try
+                                                {
+                                                    var extensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".gif", ".png", ".jpg", ".jpeg", ".bmp" };
+                                                    var files = Directory.EnumerateFiles(@".\Logos\", "*");
+                                                    foreach (var logo in files)
+                                                    {
+                                                        string extension = Path.GetExtension(logo).ToLowerInvariant();
+                                                        if (extensions.Contains(extension))
+                                                        {
+                                                            string filename = Path.GetFileNameWithoutExtension(logo).ToLowerInvariant();
+                                                            if (newChannelDVB.Name.ToLowerInvariant().IndexOf(filename) != -1)
+                                                            {
+                                                                newChannelDVB.Logo = logo;
+                                                                //MainForm.panelChannel.AdjustTVLogo(newChannelDVB);
+                                                                if (MainForm.imageListLogoTV.Images.ContainsKey(logo))
+                                                                {
+                                                                    lvi.ImageKey = logo;
+                                                                }
+                                                                else
+                                                                {
+                                                                    try
+                                                                    {
+                                                                        string path = FileUtils.GetAbsolutePath(logo);
+                                                                        if (File.Exists(path))
+                                                                        {
+                                                                            Bitmap bitmap = new Bitmap(path);
+                                                                            //if (!Bitmap.IsAlphaPixelFormat(bitmap.PixelFormat))
+                                                                            //    bitmap.MakeTransparent(Color.White);
+                                                                            Image thumbnail = Utils.ResizeImage(bitmap, 16, 16, false);
+                                                                            MainForm.imageListLogoTV.Images.Add(logo, thumbnail);
+                                                                            lvi.ImageKey = logo;
+                                                                            thumbnail.Dispose();
+                                                                            bitmap.Dispose();
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                    catch (ArgumentException) { }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                }
 
 												//PSISection[] psis2 = PSISection.GetPSITable(program.Pid, (int)TABLE_IDS.PMT, mpeg2Data);
 												//for (int i2 = 0; i2 < psis2.Length; i2++)
@@ -566,7 +617,9 @@ namespace CodeTV
 						}
 					}
 
-					channelDVB.AudioPids = new int[0];
+                    channelDVB.VideoPid = -1;
+                    channelDVB.AudioPid = -1;
+                    channelDVB.AudioPids = new int[0];
 					channelDVB.EcmPids = new int[0];
 
 					foreach (PSIPMT.Data data in pmt.Streams)
@@ -594,19 +647,24 @@ namespace CodeTV
 											hashtableEcmPids[(descriptor as PSIDescriptorCA).CaPid] = (descriptor as PSIDescriptorCA).CaSystemId;
 								}
 								break;
-							case (int)STREAM_TYPES.STREAMTYPE_11172_AUDIO:
-							case (int)STREAM_TYPES.STREAMTYPE_13818_AUDIO:
-								int[] audioPids = new int[channelDVB.AudioPids.Length + 1];
-								Array.Copy(channelDVB.AudioPids, audioPids, channelDVB.AudioPids.Length);
-								audioPids[channelDVB.AudioPids.Length] = data.Pid;
-								channelDVB.AudioPids = audioPids;
-								if (audioPids.Length == 1) // If it is the first one
-									channelDVB.AudioPid = data.Pid;
+                            case (int)STREAM_TYPES.STREAMTYPE_11172_AUDIO:
+                            case (int)STREAM_TYPES.STREAMTYPE_13818_AUDIO:
+                                {
+                                    int[] audioPids = new int[channelDVB.AudioPids.Length + 1];
+                                    Array.Copy(channelDVB.AudioPids, audioPids, channelDVB.AudioPids.Length);
+                                    audioPids[channelDVB.AudioPids.Length] = data.Pid;
+                                    channelDVB.AudioPids = audioPids;
+                                    if (audioPids.Length == 1) // If it is the first one
+                                    {
+                                        channelDVB.AudioPid = data.Pid;
+                                        channelDVB.AudioDecoderType = ChannelDVB.AudioType.MPEG2;
+                                    }
 
-								foreach (PSIDescriptor descriptor in data.Descriptors)
-									if (descriptor.DescriptorTag == DESCRIPTOR_TAGS.DESCR_CA)
-										hashtableEcmPids[(descriptor as PSIDescriptorCA).CaPid] = (descriptor as PSIDescriptorCA).CaSystemId;
-								break;
+                                    foreach (PSIDescriptor descriptor in data.Descriptors)
+                                        if (descriptor.DescriptorTag == DESCRIPTOR_TAGS.DESCR_CA)
+                                            hashtableEcmPids[(descriptor as PSIDescriptorCA).CaPid] = (descriptor as PSIDescriptorCA).CaSystemId;
+                                }
+                                break;
 							case (int)STREAM_TYPES.STREAMTYPE_13818_PES_PRIVATE:
 								if (data.Descriptors != null)
 								{
@@ -615,9 +673,27 @@ namespace CodeTV
 										if (descriptor.DescriptorTag == DESCRIPTOR_TAGS.DESCR_TELETEXT)
 										{
 											channelDVB.TeletextPid = data.Pid;
-											break;
 										}
-									}
+                                        else if (descriptor.DescriptorTag == DESCRIPTOR_TAGS.DESCR_AC3 || descriptor.DescriptorTag == DESCRIPTOR_TAGS.DESCR_ENHANCED_AC3)
+                                        {
+                                            //Audio again
+                                            int[] audioPids = new int[channelDVB.AudioPids.Length + 1];
+                                            Array.Copy(channelDVB.AudioPids, audioPids, channelDVB.AudioPids.Length);
+                                            audioPids[channelDVB.AudioPids.Length] = data.Pid;
+                                            channelDVB.AudioPids = audioPids;
+                                            if (audioPids.Length == 1) // If it is the first one
+                                            {
+                                                channelDVB.AudioPid = data.Pid;
+                                                if (descriptor.DescriptorTag == DESCRIPTOR_TAGS.DESCR_AC3)
+                                                    channelDVB.AudioDecoderType = ChannelDVB.AudioType.AC3;
+                                                if (descriptor.DescriptorTag == DESCRIPTOR_TAGS.DESCR_ENHANCED_AC3)
+                                                    channelDVB.AudioDecoderType = ChannelDVB.AudioType.EAC3;
+                                            }
+                                        }
+                                        else if (descriptor.DescriptorTag == DESCRIPTOR_TAGS.DESCR_ISO_639_LANGUAGE)
+                                        {
+                                        }
+                                    }
 								}
 								break;
 						}
@@ -739,11 +815,29 @@ namespace CodeTV
 				ChannelFolder channelFolder = textBoxFolderDestinationName.Tag as ChannelFolder;
 				if (channelFolder != null)
 				{
-					ArrayList al = new ArrayList();
+                    List<Channel> al = new List<Channel>();
 					foreach (ListViewItem lvi in this.listViewScanResult.SelectedItems)
 						al.Add((lvi.Tag as Channel).MakeCopy());
-					if (al.Count > 0)
-						MainForm.panelChannel.AddChannelToFavorite(channelFolder, (Channel[])al.ToArray(typeof(Channel)));
+                    if (al.Count > 0)
+                    {
+                        al.Sort(delegate(Channel x, Channel y) {
+                            short xOrder = short.MaxValue, yOrder = short.MaxValue;
+                            if (x is ChannelTV)
+                            {
+                                xOrder = (x as ChannelTV).ChannelNumber;
+                                if (xOrder <= 0)
+                                    xOrder = short.MaxValue - 1;
+                            }
+                            if (y is ChannelTV)
+                            {
+                                yOrder = (y as ChannelTV).ChannelNumber;
+                                if (yOrder <= 0)
+                                    yOrder = short.MaxValue - 1;
+                            }
+                            return xOrder.CompareTo(yOrder);
+                        });
+                        MainForm.panelChannel.AddChannelToFavorite(channelFolder, (Channel[])al.ToArray());
+                    }
 				}
 			}
 			MainForm.UpdateChannelNumber();

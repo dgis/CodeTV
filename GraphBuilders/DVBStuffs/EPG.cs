@@ -112,6 +112,20 @@ namespace CodeTV
 		public bool NeedScheduleUpdate { get { return this.needScheduleUpdate; } set { this.needScheduleUpdate = value; } }
 	}
 
+    public interface IGuideDataEvent // Deprecated!!!!!!!!!!!
+    {
+    }
+
+    public interface IGuideData
+    {
+    }
+    public interface IEnumGuideDataProperties
+    {
+    }
+	public interface IGuideDataProperty
+    {
+    }
+
 	public class EPG : IGuideDataEvent
 	{
 		public static TraceSwitch trace = new TraceSwitch("EPG", "EPG traces", "Info");
@@ -132,6 +146,7 @@ namespace CodeTV
 
 		public void RegisterEvent(IConnectionPointContainer bdaTIFConnectionPointContainer)
 		{
+            //http://msdn.microsoft.com/en-us/library/ms779696
 			try
 			{
 				Guid IID_IGuideDataEvent = typeof(IGuideDataEvent).GUID;
@@ -246,264 +261,264 @@ namespace CodeTV
 		{
 			Trace.WriteLineIf(trace.TraceInfo, "EPG.UpdateProgram(" + programmId + ")");
 
-			if (programmId == null)
-				UpdateAllProgram(guideData);
-			else
-			{
-				if (guideData != null && NeedProgramUpdate(programmId))
-				{
-					IEnumGuideDataProperties ppEnumProperties;
-					int hr = guideData.GetProgramProperties(programmId, out ppEnumProperties);
-					if (ppEnumProperties != null)
-					{
-						Hashtable hashtable = new Hashtable();
-						IGuideDataProperty[] ppProp = new IGuideDataProperty[1];
-						//while (ppEnumProperties.Next(1, out ppProp, out pcelt) == 0 && pcelt > 0)
-						//22 int pcelt = 1;
-						//22 while (ppEnumProperties.Next(1, ppProp, out pcelt) == 0 && pcelt > 0)
-						IntPtr p = Marshal.AllocCoTaskMem(4);
-						try
-						{
-							//x = Marshal.ReadInt32(p);
-							while (ppEnumProperties.Next(1, ppProp, p) == 0)
-							{
-								string name;
-								ppProp[0].get_Name(out name);
-								int language;
-								ppProp[0].get_Language(out language);
-								object value;
-								ppProp[0].get_Value(out value);
+            //if (programmId == null)
+            //    UpdateAllProgram(guideData);
+            //else
+            //{
+            //    if (guideData != null && NeedProgramUpdate(programmId))
+            //    {
+            //        IEnumGuideDataProperties ppEnumProperties;
+            //        int hr = guideData.GetProgramProperties(programmId, out ppEnumProperties);
+            //        if (ppEnumProperties != null)
+            //        {
+            //            Hashtable hashtable = new Hashtable();
+            //            IGuideDataProperty[] ppProp = new IGuideDataProperty[1];
+            //            //while (ppEnumProperties.Next(1, out ppProp, out pcelt) == 0 && pcelt > 0)
+            //            //22 int pcelt = 1;
+            //            //22 while (ppEnumProperties.Next(1, ppProp, out pcelt) == 0 && pcelt > 0)
+            //            IntPtr p = Marshal.AllocCoTaskMem(4);
+            //            try
+            //            {
+            //                //x = Marshal.ReadInt32(p);
+            //                while (ppEnumProperties.Next(1, ppProp, p) == 0)
+            //                {
+            //                    string name;
+            //                    ppProp[0].get_Name(out name);
+            //                    int language;
+            //                    ppProp[0].get_Language(out language);
+            //                    object value;
+            //                    ppProp[0].get_Value(out value);
 
-								hashtable[name] = value;
+            //                    hashtable[name] = value;
 
-								Trace.WriteLineIf(trace.TraceVerbose, "  name: '" + name + "', value: '" + value.ToString() + "', language: " + language);
+            //                    Trace.WriteLineIf(trace.TraceVerbose, "  name: '" + name + "', value: '" + value.ToString() + "', language: " + language);
 
-								Marshal.ReleaseComObject(ppProp[0]);
-								ppProp[0] = null;
-							}
-						}
-						finally
-						{
-							Marshal.FreeCoTaskMem(p);
-						}
+            //                    Marshal.ReleaseComObject(ppProp[0]);
+            //                    ppProp[0] = null;
+            //                }
+            //            }
+            //            finally
+            //            {
+            //                Marshal.FreeCoTaskMem(p);
+            //            }
 
-						// Character seems to be encoded in ISO/IEC 6937
-						// http://en.wikipedia.org/wiki/ISO/IEC_6937
+            //            // Character seems to be encoded in ISO/IEC 6937
+            //            // http://en.wikipedia.org/wiki/ISO/IEC_6937
 
-						//IGuideData.GetGuideProgramIDs()
-						//8442:6:1537:46
-						//  name: 'Description.ID', value: '8442:6:1537:46'
-						//  name: 'Description.Title', value: 'Navarro'
-						//  name: 'Description.One Sentence', value: ''
-						//8442:6:1537:47
-						//  name: 'Description.ID', value: '8442:6:1537:47'
-						//  name: 'Description.Title', value: 'La méthode Cauet'
-						//  name: 'Description.One Sentence', value: ''
+            //            //IGuideData.GetGuideProgramIDs()
+            //            //8442:6:1537:46
+            //            //  name: 'Description.ID', value: '8442:6:1537:46'
+            //            //  name: 'Description.Title', value: 'Navarro'
+            //            //  name: 'Description.One Sentence', value: ''
+            //            //8442:6:1537:47
+            //            //  name: 'Description.ID', value: '8442:6:1537:47'
+            //            //  name: 'Description.Title', value: 'La méthode Cauet'
+            //            //  name: 'Description.One Sentence', value: ''
 
-						object o = hashtable["Description.ID"];
-						if (o != null)
-						{
-							EPGProgram program = (EPGProgram)programs[o];
-							if (program == null)
-							{
-								program = new EPGProgram();
-								program.ProgramId = (string)hashtable["Description.ID"];
-								program.Title = (string)hashtable["Description.Title"];
-								program.OneSentence = (string)hashtable["Description.One Sentence"];
-								program.NeedProgramUpdate = false;
-								programs[program.ProgramId] = program;
-							}
-						}
+            //            object o = hashtable["Description.ID"];
+            //            if (o != null)
+            //            {
+            //                EPGProgram program = (EPGProgram)programs[o];
+            //                if (program == null)
+            //                {
+            //                    program = new EPGProgram();
+            //                    program.ProgramId = (string)hashtable["Description.ID"];
+            //                    program.Title = (string)hashtable["Description.Title"];
+            //                    program.OneSentence = (string)hashtable["Description.One Sentence"];
+            //                    program.NeedProgramUpdate = false;
+            //                    programs[program.ProgramId] = program;
+            //                }
+            //            }
 
-						ppEnumProperties = null;
-					}
-				}
-			}
+            //            ppEnumProperties = null;
+            //        }
+            //    }
+            //}
 		}
 
 		public void UpdateAllProgram(IGuideData guideData)
 		{
 			Trace.WriteLineIf(trace.TraceInfo, "EPG.UpdateAllProgram()");
 
-			if (guideData != null)
-			{
-				IEnumVARIANT pEnumPrograms;
-				guideData.GetGuideProgramIDs(out pEnumPrograms);
-				//pEnumPrograms.Reset();
-				if (pEnumPrograms != null)
-				{
-					object[] varProgramEntryId = new object[1];
-					//unsafe
-					{
-						//22 int fetched = 0;
-						//22 IntPtr pFetched = new IntPtr(&fetched); //new IntPtr(fetched); // IntPtr.Zero; // new IntPtr(&fetched);
-						IntPtr p = Marshal.AllocCoTaskMem(4);
-						try
-						{
-							while (pEnumPrograms.Next(1, varProgramEntryId, p) == 0)
-							{
-								Trace.WriteLineIf(trace.TraceVerbose, varProgramEntryId[0].ToString());
-								UpdateProgram((string)varProgramEntryId[0], guideData);
-								varProgramEntryId[0] = null;
-							}
-						}
-						finally
-						{
-							Marshal.FreeCoTaskMem(p);
-						}
-					}
-					pEnumPrograms = null;
-				}
-			}
+            //if (guideData != null)
+            //{
+            //    IEnumVARIANT pEnumPrograms;
+            //    guideData.GetGuideProgramIDs(out pEnumPrograms);
+            //    //pEnumPrograms.Reset();
+            //    if (pEnumPrograms != null)
+            //    {
+            //        object[] varProgramEntryId = new object[1];
+            //        //unsafe
+            //        {
+            //            //22 int fetched = 0;
+            //            //22 IntPtr pFetched = new IntPtr(&fetched); //new IntPtr(fetched); // IntPtr.Zero; // new IntPtr(&fetched);
+            //            IntPtr p = Marshal.AllocCoTaskMem(4);
+            //            try
+            //            {
+            //                while (pEnumPrograms.Next(1, varProgramEntryId, p) == 0)
+            //                {
+            //                    Trace.WriteLineIf(trace.TraceVerbose, varProgramEntryId[0].ToString());
+            //                    UpdateProgram((string)varProgramEntryId[0], guideData);
+            //                    varProgramEntryId[0] = null;
+            //                }
+            //            }
+            //            finally
+            //            {
+            //                Marshal.FreeCoTaskMem(p);
+            //            }
+            //        }
+            //        pEnumPrograms = null;
+            //    }
+            //}
 		}
 
 		public void UpdateSchedule(string programmId, IGuideData guideData)
 		{
 			Trace.WriteLineIf(trace.TraceInfo, "EPG.UpdateSchedule(" + programmId + ")");
-			if (programmId == null)
-				UpdateAllSchedule(guideData);
-			else
-			{
-				if (guideData != null && NeedScheduleUpdate(programmId))
-				{
-					IEnumGuideDataProperties ppEnumProperties;
-					int hr = guideData.GetScheduleEntryProperties(programmId, out ppEnumProperties);
-					if (ppEnumProperties != null)
-					{
-						Hashtable hashtable = new Hashtable();
-						IGuideDataProperty[] ppProp = new IGuideDataProperty[1];
-						//22 int pcelt = 1;
-						//22 while (ppEnumProperties.Next(1, ppProp, out pcelt) == 0 && pcelt > 0)
-						IntPtr p = Marshal.AllocCoTaskMem(4);
-						try
-						{
-							while (ppEnumProperties.Next(1, ppProp, p) == 0)
-							{
-								int language;
-								ppProp[0].get_Language(out language);
-								string name;
-								ppProp[0].get_Name(out name);
-								object value;
-								ppProp[0].get_Value(out value);
+            //if (programmId == null)
+            //    UpdateAllSchedule(guideData);
+            //else
+            //{
+            //    if (guideData != null && NeedScheduleUpdate(programmId))
+            //    {
+            //        IEnumGuideDataProperties ppEnumProperties;
+            //        int hr = guideData.GetScheduleEntryProperties(programmId, out ppEnumProperties);
+            //        if (ppEnumProperties != null)
+            //        {
+            //            Hashtable hashtable = new Hashtable();
+            //            IGuideDataProperty[] ppProp = new IGuideDataProperty[1];
+            //            //22 int pcelt = 1;
+            //            //22 while (ppEnumProperties.Next(1, ppProp, out pcelt) == 0 && pcelt > 0)
+            //            IntPtr p = Marshal.AllocCoTaskMem(4);
+            //            try
+            //            {
+            //                while (ppEnumProperties.Next(1, ppProp, p) == 0)
+            //                {
+            //                    int language;
+            //                    ppProp[0].get_Language(out language);
+            //                    string name;
+            //                    ppProp[0].get_Name(out name);
+            //                    object value;
+            //                    ppProp[0].get_Value(out value);
 
-								hashtable[name] = value;
+            //                    hashtable[name] = value;
 
-								Trace.WriteLineIf(trace.TraceVerbose, "  name: '" + name + "', value: '" + value.ToString() + "', language: " + language);
+            //                    Trace.WriteLineIf(trace.TraceVerbose, "  name: '" + name + "', value: '" + value.ToString() + "', language: " + language);
 
-								Marshal.ReleaseComObject(ppProp[0]);
-								ppProp[0] = null;
-								//ppProp = null;
-							}
-						}
-						finally
-						{
-							Marshal.FreeCoTaskMem(p);
-						}
+            //                    Marshal.ReleaseComObject(ppProp[0]);
+            //                    ppProp[0] = null;
+            //                    //ppProp = null;
+            //                }
+            //            }
+            //            finally
+            //            {
+            //                Marshal.FreeCoTaskMem(p);
+            //            }
 
-						//IGuideData.GetScheduleEntryIDs()
-						//8442:6:1537:46
-						//  name: 'Description.ID', value: '8442:6:1537:46'
-						//  name: 'Time.Start', value: '830198865'
-						//  name: 'Time.End', value: '830204878'
-						//  name: 'ScheduleEntry.ProgramID', value: '8442:6:1537:46'
-						//  name: 'ScheduleEntry.ServiceID', value: '8442:6:1537'
-						//8442:6:1537:47
-						//  name: 'Description.ID', value: '8442:6:1537:47'
-						//  name: 'Time.Start', value: '830204878'
-						//  name: 'Time.End', value: '830213733'
-						//  name: 'ScheduleEntry.ProgramID', value: '8442:6:1537:47'
-						//  name: 'ScheduleEntry.ServiceID', value: '8442:6:1537'
+            //            //IGuideData.GetScheduleEntryIDs()
+            //            //8442:6:1537:46
+            //            //  name: 'Description.ID', value: '8442:6:1537:46'
+            //            //  name: 'Time.Start', value: '830198865'
+            //            //  name: 'Time.End', value: '830204878'
+            //            //  name: 'ScheduleEntry.ProgramID', value: '8442:6:1537:46'
+            //            //  name: 'ScheduleEntry.ServiceID', value: '8442:6:1537'
+            //            //8442:6:1537:47
+            //            //  name: 'Description.ID', value: '8442:6:1537:47'
+            //            //  name: 'Time.Start', value: '830204878'
+            //            //  name: 'Time.End', value: '830213733'
+            //            //  name: 'ScheduleEntry.ProgramID', value: '8442:6:1537:47'
+            //            //  name: 'ScheduleEntry.ServiceID', value: '8442:6:1537'
 
-						object o = hashtable["ScheduleEntry.ProgramID"];
-						if (o != null)
-						{
-							EPGProgram program = (EPGProgram)programs[o];
-							if (program == null)
-							{
-								program = new EPGProgram();
-								program.ProgramId = (string)hashtable["ScheduleEntry.ProgramID"];
-								programs[program.ProgramId] = program;
-							}
+            //            object o = hashtable["ScheduleEntry.ProgramID"];
+            //            if (o != null)
+            //            {
+            //                EPGProgram program = (EPGProgram)programs[o];
+            //                if (program == null)
+            //                {
+            //                    program = new EPGProgram();
+            //                    program.ProgramId = (string)hashtable["ScheduleEntry.ProgramID"];
+            //                    programs[program.ProgramId] = program;
+            //                }
 
-							EPGService service = (EPGService)services[hashtable["ScheduleEntry.ServiceID"]];
-							if (service == null)
-							{
-								service = new EPGService();
-								service.ServiceId = (string)hashtable["ScheduleEntry.ServiceID"];
-								services[service.ServiceId] = service;
-							}
+            //                EPGService service = (EPGService)services[hashtable["ScheduleEntry.ServiceID"]];
+            //                if (service == null)
+            //                {
+            //                    service = new EPGService();
+            //                    service.ServiceId = (string)hashtable["ScheduleEntry.ServiceID"];
+            //                    services[service.ServiceId] = service;
+            //                }
 
-							program.TimeStart = GPSTimeToDateTime((int)hashtable["Time.Start"]);
-							program.TimeEnd = GPSTimeToDateTime((int)hashtable["Time.End"]);
-							program.ServiceId = service.ServiceId;
-							program.NeedScheduleUpdate = false;
+            //                program.TimeStart = GPSTimeToDateTime((int)hashtable["Time.Start"]);
+            //                program.TimeEnd = GPSTimeToDateTime((int)hashtable["Time.End"]);
+            //                program.ServiceId = service.ServiceId;
+            //                program.NeedScheduleUpdate = false;
 
-							service.Programs[program.ProgramId] = program;
+            //                service.Programs[program.ProgramId] = program;
 
-							//EPGProgram program = (EPGProgram)programs[o];
-							//if (program == null)
-							//{
-							//    program = new EPGProgram();
-							//    program.ProgramId = (string)hashtable["ScheduleEntry.ProgramID"];
-							//    programs[program.ProgramId] = program;
-							//}
+            //                //EPGProgram program = (EPGProgram)programs[o];
+            //                //if (program == null)
+            //                //{
+            //                //    program = new EPGProgram();
+            //                //    program.ProgramId = (string)hashtable["ScheduleEntry.ProgramID"];
+            //                //    programs[program.ProgramId] = program;
+            //                //}
 
-							//EPGService service = (EPGService)services[hashtable["ScheduleEntry.ServiceID"]];
-							//if (service == null)
-							//{
-							//    service = new EPGService();
-							//    service.ServiceId = (string)hashtable["ScheduleEntry.ServiceID"];
-							//    services[service.ServiceId] = service;
-							//    service.Programs[program.ProgramId] = program;
-							//}
+            //                //EPGService service = (EPGService)services[hashtable["ScheduleEntry.ServiceID"]];
+            //                //if (service == null)
+            //                //{
+            //                //    service = new EPGService();
+            //                //    service.ServiceId = (string)hashtable["ScheduleEntry.ServiceID"];
+            //                //    services[service.ServiceId] = service;
+            //                //    service.Programs[program.ProgramId] = program;
+            //                //}
 
-							//program.TimeStart = GPSTimeToDateTime((int)hashtable["Time.Start"]);
-							//program.TimeEnd = GPSTimeToDateTime((int)hashtable["Time.End"]);
-							//program.ServiceId = service.ServiceId;
-							//program.NeedScheduleUpdate = false;
-						}
+            //                //program.TimeStart = GPSTimeToDateTime((int)hashtable["Time.Start"]);
+            //                //program.TimeEnd = GPSTimeToDateTime((int)hashtable["Time.End"]);
+            //                //program.ServiceId = service.ServiceId;
+            //                //program.NeedScheduleUpdate = false;
+            //            }
 
-						ppEnumProperties = null;
-					}
-				}
-			}
+            //            ppEnumProperties = null;
+            //        }
+            //    }
+            //}
 		}
 
 		public void UpdateAllSchedule(IGuideData guideData)
 		{
 			Trace.WriteLineIf(trace.TraceInfo, "EPG.UpdateAllSchedule()");
 
-			if (guideData != null)
-			{
-				IEnumVARIANT pEnumPrograms;
-				guideData.GetScheduleEntryIDs(out pEnumPrograms);
-				//pEnumPrograms.Reset();
-				if (pEnumPrograms != null)
-				{
-					object[] varScheduleEntryDescriptionID = new object[1];
-					//unsafe
-					{
-						//22 int fetched = 0;
-						//22 IntPtr pFetched = new IntPtr(&fetched); //new IntPtr(fetched); // IntPtr.Zero; // new IntPtr(&fetched);
-						//22 int hr = 0;
-						IntPtr p = Marshal.AllocCoTaskMem(4);
-						try
-						{
-							while (pEnumPrograms.Next(1, varScheduleEntryDescriptionID, p) == 0)
-							{
-								Trace.WriteLineIf(trace.TraceVerbose, varScheduleEntryDescriptionID[0].ToString());
-								UpdateSchedule((string)varScheduleEntryDescriptionID[0], guideData);
-								varScheduleEntryDescriptionID[0] = null;
-							}
-						}
-						finally
-						{
-							Marshal.FreeCoTaskMem(p);
-						}
-					}
-					pEnumPrograms = null;
-				}
-			}
+            //if (guideData != null)
+            //{
+            //    IEnumVARIANT pEnumPrograms;
+            //    guideData.GetScheduleEntryIDs(out pEnumPrograms);
+            //    //pEnumPrograms.Reset();
+            //    if (pEnumPrograms != null)
+            //    {
+            //        object[] varScheduleEntryDescriptionID = new object[1];
+            //        //unsafe
+            //        {
+            //            //22 int fetched = 0;
+            //            //22 IntPtr pFetched = new IntPtr(&fetched); //new IntPtr(fetched); // IntPtr.Zero; // new IntPtr(&fetched);
+            //            //22 int hr = 0;
+            //            IntPtr p = Marshal.AllocCoTaskMem(4);
+            //            try
+            //            {
+            //                while (pEnumPrograms.Next(1, varScheduleEntryDescriptionID, p) == 0)
+            //                {
+            //                    Trace.WriteLineIf(trace.TraceVerbose, varScheduleEntryDescriptionID[0].ToString());
+            //                    UpdateSchedule((string)varScheduleEntryDescriptionID[0], guideData);
+            //                    varScheduleEntryDescriptionID[0] = null;
+            //                }
+            //            }
+            //            finally
+            //            {
+            //                Marshal.FreeCoTaskMem(p);
+            //            }
+            //        }
+            //        pEnumPrograms = null;
+            //    }
+            //}
 		}
 
 		public void UpdateService(string serviceId, ITuningSpace tuningSpace, IGuideData guideData)
@@ -532,98 +547,98 @@ namespace CodeTV
 		public void UpdateService(ITuneRequest tuneRequest, IGuideData guideData)
 		{
 			Trace.WriteLineIf(trace.TraceInfo, "EPG.UpdateService(" + tuneRequest.ToString() + ")");
-			if (guideData != null)
-			{
-				IEnumGuideDataProperties ppEnumProperties;
-				int hr = guideData.GetServiceProperties(tuneRequest, out ppEnumProperties);
-				if (ppEnumProperties != null)
-				{
-					Hashtable hashtable = new Hashtable();
-					IGuideDataProperty[] ppProp = new IGuideDataProperty[1];
-					//22 int pcelt = 1;
-					//22 while (ppEnumProperties.Next(1, ppProp, out pcelt) == 0 && pcelt > 0)
-					IntPtr p = Marshal.AllocCoTaskMem(4);
-					try
-					{
-						while (ppEnumProperties.Next(1, ppProp, p) == 0)
-						{
-							int language;
-							ppProp[0].get_Language(out language);
-							string name;
-							ppProp[0].get_Name(out name);
-							object value;
-							ppProp[0].get_Value(out value);
+            //if (guideData != null)
+            //{
+            //    IEnumGuideDataProperties ppEnumProperties;
+            //    int hr = guideData.GetServiceProperties(tuneRequest, out ppEnumProperties);
+            //    if (ppEnumProperties != null)
+            //    {
+            //        Hashtable hashtable = new Hashtable();
+            //        IGuideDataProperty[] ppProp = new IGuideDataProperty[1];
+            //        //22 int pcelt = 1;
+            //        //22 while (ppEnumProperties.Next(1, ppProp, out pcelt) == 0 && pcelt > 0)
+            //        IntPtr p = Marshal.AllocCoTaskMem(4);
+            //        try
+            //        {
+            //            while (ppEnumProperties.Next(1, ppProp, p) == 0)
+            //            {
+            //                int language;
+            //                ppProp[0].get_Language(out language);
+            //                string name;
+            //                ppProp[0].get_Name(out name);
+            //                object value;
+            //                ppProp[0].get_Value(out value);
 
-							//  name: 'Description.ID', value: '8442:6:1537'
-							//  name: 'Description.Name', value: 'TF1'
-							//  name: 'Provider.Name', value: ''
-							//  name: 'Provider.NetworkName', value: 'Réseau Numérique Terrestre Français'
+            //                //  name: 'Description.ID', value: '8442:6:1537'
+            //                //  name: 'Description.Name', value: 'TF1'
+            //                //  name: 'Provider.Name', value: ''
+            //                //  name: 'Provider.NetworkName', value: 'Réseau Numérique Terrestre Français'
 
-							hashtable[name] = value;
+            //                hashtable[name] = value;
 
-							Trace.WriteLineIf(trace.TraceVerbose, "  name: '" + name + "', value: '" + value.ToString() + "', language: " + language);
-							Marshal.ReleaseComObject(ppProp[0]);
-							ppProp[0] = null;
-						}
-					}
-					finally
-					{
-						Marshal.FreeCoTaskMem(p);
-					}
+            //                Trace.WriteLineIf(trace.TraceVerbose, "  name: '" + name + "', value: '" + value.ToString() + "', language: " + language);
+            //                Marshal.ReleaseComObject(ppProp[0]);
+            //                ppProp[0] = null;
+            //            }
+            //        }
+            //        finally
+            //        {
+            //            Marshal.FreeCoTaskMem(p);
+            //        }
 
-					EPGProvider provider = (EPGProvider)providers[hashtable["Provider.Name"]];
-					if (provider == null)
-					{
-						provider = new EPGProvider();
-						provider.Name = (string)hashtable["Provider.Name"];
-						provider.NetworkName = (string)hashtable["Provider.NetworkName"];
-						providers[provider.Name] = provider;
-					}
-					EPGService service = (EPGService)services[hashtable["Description.ID"]];
-					if (service == null)
-					{
-						service = new EPGService();
-						service.ServiceId = (string)hashtable["Description.ID"];
-						services[service.ServiceId] = service;
-					}
-					service.Name = (string)hashtable["Description.Name"];
-					service.ProviderName = provider.Name;
+            //        EPGProvider provider = (EPGProvider)providers[hashtable["Provider.Name"]];
+            //        if (provider == null)
+            //        {
+            //            provider = new EPGProvider();
+            //            provider.Name = (string)hashtable["Provider.Name"];
+            //            provider.NetworkName = (string)hashtable["Provider.NetworkName"];
+            //            providers[provider.Name] = provider;
+            //        }
+            //        EPGService service = (EPGService)services[hashtable["Description.ID"]];
+            //        if (service == null)
+            //        {
+            //            service = new EPGService();
+            //            service.ServiceId = (string)hashtable["Description.ID"];
+            //            services[service.ServiceId] = service;
+            //        }
+            //        service.Name = (string)hashtable["Description.Name"];
+            //        service.ProviderName = provider.Name;
 
-					Marshal.ReleaseComObject(ppEnumProperties);
-				}
-			}
+            //        Marshal.ReleaseComObject(ppEnumProperties);
+            //    }
+            //}
 		}
 
 		public void UpdateAllService(IGuideData guideData)
 		{
 			Trace.WriteLineIf(trace.TraceInfo, "EPG.UpdateAllService()");
-			if (guideData != null)
-			{
-				IEnumTuneRequests ppEnumTuneRequests;
-				guideData.GetServices(out ppEnumTuneRequests);
-				if (ppEnumTuneRequests != null)
-				{
-					ITuneRequest[] tuneRequest = new ITuneRequest[1];
-					//22 int fetched = 0;
-					//22 while (ppEnumTuneRequests.Next(1, tuneRequest, out fetched) == 0)
-					IntPtr p = Marshal.AllocCoTaskMem(4);
-					try
-					{
-						while (ppEnumTuneRequests.Next(1, tuneRequest, p) == 0)
-						{
-							Trace.WriteLineIf(trace.TraceVerbose, tuneRequest[0].ToString());
-							UpdateService(tuneRequest[0], guideData);
-							Marshal.ReleaseComObject(tuneRequest[0]);
-						}
-					}
-					finally
-					{
-						Marshal.FreeCoTaskMem(p);
-					}
-					Marshal.ReleaseComObject(ppEnumTuneRequests);
-					tuneRequest = null;
-				}
-			}
+            //if (guideData != null)
+            //{
+            //    IEnumTuneRequests ppEnumTuneRequests;
+            //    guideData.GetServices(out ppEnumTuneRequests);
+            //    if (ppEnumTuneRequests != null)
+            //    {
+            //        ITuneRequest[] tuneRequest = new ITuneRequest[1];
+            //        //22 int fetched = 0;
+            //        //22 while (ppEnumTuneRequests.Next(1, tuneRequest, out fetched) == 0)
+            //        IntPtr p = Marshal.AllocCoTaskMem(4);
+            //        try
+            //        {
+            //            while (ppEnumTuneRequests.Next(1, tuneRequest, p) == 0)
+            //            {
+            //                Trace.WriteLineIf(trace.TraceVerbose, tuneRequest[0].ToString());
+            //                UpdateService(tuneRequest[0], guideData);
+            //                Marshal.ReleaseComObject(tuneRequest[0]);
+            //            }
+            //        }
+            //        finally
+            //        {
+            //            Marshal.FreeCoTaskMem(p);
+            //        }
+            //        Marshal.ReleaseComObject(ppEnumTuneRequests);
+            //        tuneRequest = null;
+            //    }
+            //}
 		}
 
 		//public event EventHandler UpdateAsynchroneEnded;

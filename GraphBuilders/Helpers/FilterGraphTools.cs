@@ -620,13 +620,17 @@ namespace DirectShowLib.Utils
                     objs[0] = filter;
 
                     NativeMethods.OleCreatePropertyFrame(
-                        parent, 0, 0, 
-                        filterInfo.achName, 
-                        objs.Length, objs, 
-                        caGuid.cElems, caGuid.pElems, 
-                        0, 0, 
+                        parent, 0, 0,
+                        filterInfo.achName,
+                        objs.Length, objs,
+                        caGuid.cElems, caGuid.pElems,
+                        0, 0,
                         IntPtr.Zero
                         );
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
                 }
                 finally
                 {
@@ -936,7 +940,8 @@ namespace DirectShowLib.Utils
         [DllImport("ole32.dll")]
         public static extern int MkParseDisplayName(IBindCtx pcb, [MarshalAs(UnmanagedType.LPWStr)] string szUserName, out int pchEaten, out IMoniker ppmk);
 
-        [DllImport("olepro32.dll", CharSet=CharSet.Unicode, ExactSpelling=true)]
+        //[DllImport("olepro32.dll", CharSet=CharSet.Unicode, ExactSpelling=true)]
+        [DllImport("oleaut32.dll", CharSet = CharSet.Unicode, ExactSpelling = true)]
         public static extern int OleCreatePropertyFrame(
             [In] IntPtr hwndOwner, 
             [In] int x, 

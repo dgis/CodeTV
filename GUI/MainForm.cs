@@ -512,6 +512,7 @@ namespace CodeTV
 
 					newGraph.ReferenceClock = channelDVB.ReferenceClock;
 
+					newGraph.AudioDecoderType = channelDVB.AudioDecoderType;
 					DsDevice device;
 					if (!string.IsNullOrEmpty(channelDVB.AudioDecoderDevice))
 					{

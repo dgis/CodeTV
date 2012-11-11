@@ -2,7 +2,7 @@
 The home page is located at http://regis.cosnier.free.fr.
 
 
-Version 0.3 Copyright (c) 2006-2012 Regis Cosnier, All Rights Reserved.
+Version 0.4 Copyright (c) 2006-2012 Regis Cosnier, All Rights Reserved.
 This program is free software and may be distributed according to the terms of the GNU General Public License (GPL).
 
 
@@ -104,9 +104,14 @@ TODO LIST:
 
 CHANGES:
 
+version 0.4 (2012-11-11)
+- Add support for AC3 and EAC3 audio.
+
 version 0.3 (2012-09-05)
 - Add the project to GitHub: https://github.com/dgis/CodeTV
 - Clean up the project file to target the corresponding Visual Studio version (2005, 2008 or 2010)
+- Add DirectShowNet version 2.1
+- Fix the proppage.dll on 64bit system.
 - Add the Hervé changes:
 	*Parser
 		- Le parser de tables est maintenant dans une dll externe afin d'être réutilisé dans d'autre programme
@@ -179,3 +184,5 @@ CREDITS:
 Thanks to the DirectShowLibNET library (http://directshownet.sourceforge.net).
 The panels windows are credited to Weifen Luo (http://sourceforge.net/projects/dockpanelsuite).
 Some icons are credited to Mark James (http://www.famfamfam.com/lab/icons/silk/).
+
+Hervé Stalin for the PSI parsing and channel numbering.

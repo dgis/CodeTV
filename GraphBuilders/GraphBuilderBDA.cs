@@ -47,6 +47,7 @@ namespace CodeTV
 		protected IBaseFilter videoH264DecoderFilter = null;
 
 		protected ChannelDVB.Clock referenceClock = ChannelDVB.Clock.AudioRenderer;
+        protected ChannelDVB.AudioType audioType = ChannelDVB.AudioType.MPEG2;
 
 		private static Dictionary<string, DsDevice> audioDecoderDevices;
 		protected DsDevice audioDecoderDevice;
@@ -148,6 +149,7 @@ namespace CodeTV
 
 		public ChannelDVB.Clock ReferenceClock { get { return this.referenceClock; } set { this.referenceClock = value; } }
 
+        public ChannelDVB.AudioType AudioDecoderType { get { return this.audioType; } set { this.audioType = value; } }
 		public DsDevice AudioDecoderDevice { get { return this.audioDecoderDevice; } set { this.audioDecoderDevice = value; } }
 		public DsDevice Mpeg2DecoderDevice { get { return this.mpeg2DecoderDevice; } set { this.mpeg2DecoderDevice = value; } }
 		public DsDevice H264DecoderDevice { get { return this.h264DecoderDevice; } set { this.h264DecoderDevice = value; } }
@@ -599,12 +601,27 @@ namespace CodeTV
 			{
 				AMMediaType mediaAudio = new AMMediaType();
 				mediaAudio.majorType = MediaType.Audio;
-				mediaAudio.subType = MediaSubType.Mpeg2Audio;
+                if (this.AudioDecoderType == ChannelDVB.AudioType.AC3)
+                    mediaAudio.subType = MediaSubType.DolbyAC3;
+                else if (this.AudioDecoderType == ChannelDVB.AudioType.EAC3)
+                {
+                    //EAC3
+                    //http://social.msdn.microsoft.com/Forums/en-US/windowsdirectshowdevelopment/thread/64f5b2ef-9ec6-408c-9a86-6e1355bea717/
+                    Guid MEDIASUBTYPE_DDPLUS_AUDIO = new Guid("a7fb87af-2d02-42fb-a4d4-05cd93843bdd");
+                    mediaAudio.subType = MEDIASUBTYPE_DDPLUS_AUDIO;
+                    //mediaAudio.subType = MediaSubType.DolbyAC3;
+                    //Guid GuidDolbyEAC3 = new Guid("{33434145-0000-0010-8000-00AA00389B71}");
+                    //#define WAVE_FORMAT_DOLBY_EAC3 0x33434145
+                    //DEFINE_GUID(MEDIASUBTYPE_DOLBY_EAC3, WAVE_FORMAT_DOLBY_EAC3, 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71);
+                    //mediaAudio.subType = MediaSubType.Mpeg2Audio;
+                }
+                else
+                    mediaAudio.subType = MediaSubType.Mpeg2Audio;
 				mediaAudio.sampleSize = 0;
 				mediaAudio.temporalCompression = false;
-				mediaAudio.fixedSizeSamples = true;
+                mediaAudio.fixedSizeSamples = false; // or false in MediaPortal //true
 				mediaAudio.unkPtr = IntPtr.Zero;
-				mediaAudio.formatType = FormatType.WaveEx;
+                mediaAudio.formatType = FormatType.WaveEx;
 
 				MPEG1WaveFormat audioPinFormat = GetAudioPinFormat();
 				mediaAudio.formatSize = Marshal.SizeOf(audioPinFormat);

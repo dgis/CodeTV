@@ -356,12 +356,14 @@ namespace CodeTV
 
 	public class ChannelDVB : ChannelTV
 	{
-		public enum VideoType { MPEG2, H264 }
-		public enum Clock { Default, MPEGDemultiplexer, AudioRenderer };
+        public enum VideoType { MPEG2, H264 };
+        public enum AudioType { MPEG2, AC3, EAC3 };
+        public enum Clock { Default, MPEGDemultiplexer, AudioRenderer };
 
 		private Clock referenceClock = Clock.AudioRenderer;
-		private VideoType videoType = VideoType.MPEG2;
-		private string audioDecoderDevice = "";
+        private VideoType videoType = VideoType.MPEG2;
+        private AudioType audioType = AudioType.MPEG2;
+        private string audioDecoderDevice = "";
 		private string mpeg2DecoderDevice = "";
 		private string h264DecoderDevice = "";
 		protected string tunerDevice = "";
@@ -394,7 +396,9 @@ namespace CodeTV
 		[Category("Devices (Others)"), DisplayName("Reference Clock"), Description("The reference clock (Not for timeshifting).")]
 		public Clock ReferenceClock { get { return this.referenceClock; } set { this.referenceClock = value; } }
 
-		[Editor(typeof(DecoderAudioDeviceEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [Category("Devices (Others)"), DisplayName("Audio Decoder Type"), Description("The audio type.")]
+        public AudioType AudioDecoderType { get { return this.audioType; } set { this.audioType = value; } }
+        [Editor(typeof(DecoderAudioDeviceEditor), typeof(System.Drawing.Design.UITypeEditor))]
 		[Category("Devices (Others)"), DisplayName("Audio Decoder Device"), Description("The audio decoder device.")]
 		public string AudioDecoderDevice { get { return this.audioDecoderDevice; } set { this.audioDecoderDevice = value; } }
 
@@ -458,7 +462,8 @@ namespace CodeTV
 		{
 			return !(newChannel is ChannelDVB) ||
 				base.NeedToRebuildTheGraph(newChannel) ||
-				(newChannel as ChannelDVB).AudioDecoderDevice != AudioDecoderDevice ||
+                (newChannel as ChannelDVB).AudioDecoderType != AudioDecoderType ||
+                (newChannel as ChannelDVB).AudioDecoderDevice != AudioDecoderDevice ||
 				(newChannel as ChannelDVB).VideoDecoderType != VideoDecoderType ||
 				(newChannel as ChannelDVB).H264DecoderDevice != H264DecoderDevice ||
 				(newChannel as ChannelDVB).MPEG2DecoderDevice != MPEG2DecoderDevice ||

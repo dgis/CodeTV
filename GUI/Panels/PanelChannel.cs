@@ -383,40 +383,40 @@ namespace CodeTV
 
 
 
-		private Image ResizeImage(Image image, int newWidth, int newHeight, bool highQuality)
-		{
-			System.Drawing.Image result = new Bitmap(newWidth, newHeight);
-			System.Drawing.Graphics graphic = Graphics.FromImage(result);
+        //private Image ResizeImage(Image image, int newWidth, int newHeight, bool highQuality)
+        //{
+        //    System.Drawing.Image result = new Bitmap(newWidth, newHeight);
+        //    System.Drawing.Graphics graphic = Graphics.FromImage(result);
 
-			// Set the quality options
-			if (highQuality)
-			{
-				graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-				graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-				graphic.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-				graphic.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-			}
+        //    // Set the quality options
+        //    if (highQuality)
+        //    {
+        //        graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+        //        graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        //        graphic.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+        //        graphic.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+        //    }
 
-			// Constraint the sizes
-			double originalRatio = (double)image.Width / image.Height;
-			double standardRatio = (double)newWidth / newHeight;
-			int offsetX = 0, offsetY = 0;
-			if (originalRatio > standardRatio)
-			{
-				newHeight = (int)(image.Height * newWidth / image.Width);
-				offsetY = (newWidth - newHeight) >> 1;
-			}
-			else
-			{
-				newWidth = (int)(image.Width * newHeight / image.Height);
-				offsetX = (newHeight - newWidth) >> 1;
-			}
+        //    // Constraint the sizes
+        //    double originalRatio = (double)image.Width / image.Height;
+        //    double standardRatio = (double)newWidth / newHeight;
+        //    int offsetX = 0, offsetY = 0;
+        //    if (originalRatio > standardRatio)
+        //    {
+        //        newHeight = (int)(image.Height * newWidth / image.Width);
+        //        offsetY = (newWidth - newHeight) >> 1;
+        //    }
+        //    else
+        //    {
+        //        newWidth = (int)(image.Width * newHeight / image.Height);
+        //        offsetX = (newHeight - newWidth) >> 1;
+        //    }
 
-			// Draw the image with the resized dimensions
-			graphic.DrawImage(image, offsetX, offsetY, newWidth, newHeight);
+        //    // Draw the image with the resized dimensions
+        //    graphic.DrawImage(image, offsetX, offsetY, newWidth, newHeight);
 
-			return result;
-		}
+        //    return result;
+        //}
 
 		internal void AdjustTVLogo(Channel channel)
 		{
@@ -434,28 +434,32 @@ namespace CodeTV
 					string logo = (channel as ChannelTV).Logo;
 					if (logo != null && logo.Length > 0)
 					{
-						if (MainForm.imageListLogoTV.Images.ContainsKey(logo))
-						{
-							treeNode.ImageKey = treeNode.SelectedImageKey = logo;
-							return;
-						}
-						try
-						{
-							string path = FileUtils.GetAbsolutePath(logo);
-							if (File.Exists(path))
-							{
-								Bitmap bitmap = new Bitmap(path);
-								//if (!Bitmap.IsAlphaPixelFormat(bitmap.PixelFormat))
-								//    bitmap.MakeTransparent(Color.White);
-								Image thumbnail = ResizeImage(bitmap, 16, 16, false);
-								MainForm.imageListLogoTV.Images.Add(logo, thumbnail);
-								treeNode.ImageKey = treeNode.SelectedImageKey = logo;
-								thumbnail.Dispose();
-								bitmap.Dispose();
-								return;
-							}
-						}
-						catch (ArgumentException) { }
+                        if (MainForm.imageListLogoTV.Images.ContainsKey(logo))
+                        {
+                            treeNode.ImageKey = treeNode.SelectedImageKey = logo;
+                            return;
+                        }
+                        else
+                        {
+                            try
+                            {
+                                string path = FileUtils.GetAbsolutePath(logo);
+                                if (File.Exists(path))
+                                {
+                                    Bitmap bitmap = new Bitmap(path);
+                                    //if (!Bitmap.IsAlphaPixelFormat(bitmap.PixelFormat))
+                                    //    bitmap.MakeTransparent(Color.White);
+                                    //Image thumbnail = ResizeImage(bitmap, 16, 16, false);
+                                    Image thumbnail = Utils.ResizeImage(bitmap, 16, 16, false);
+                                    MainForm.imageListLogoTV.Images.Add(logo, thumbnail);
+                                    treeNode.ImageKey = treeNode.SelectedImageKey = logo;
+                                    thumbnail.Dispose();
+                                    bitmap.Dispose();
+                                    return;
+                                }
+                            }
+                            catch (ArgumentException) { }
+                        }
 					}
 				}
 

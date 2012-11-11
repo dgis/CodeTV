@@ -25,6 +25,7 @@ using System.Runtime.InteropServices.ComTypes;
 
 using DirectShowLib;
 using DirectShowLib.BDA;
+using System.Drawing;
 
 namespace CodeTV
 {
@@ -32,6 +33,41 @@ namespace CodeTV
 	{
 		[DllImport("user32.dll")]
 		public static extern IntPtr GetCapture();
+
+        public static Image ResizeImage(Image image, int newWidth, int newHeight, bool highQuality)
+        {
+            System.Drawing.Image result = new Bitmap(newWidth, newHeight);
+            System.Drawing.Graphics graphic = Graphics.FromImage(result);
+
+            // Set the quality options
+            if (highQuality)
+            {
+                graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                graphic.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                graphic.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            }
+
+            // Constraint the sizes
+            double originalRatio = (double)image.Width / image.Height;
+            double standardRatio = (double)newWidth / newHeight;
+            int offsetX = 0, offsetY = 0;
+            if (originalRatio > standardRatio)
+            {
+                newHeight = (int)(image.Height * newWidth / image.Width);
+                offsetY = (newWidth - newHeight) >> 1;
+            }
+            else
+            {
+                newWidth = (int)(image.Width * newHeight / image.Height);
+                offsetX = (newHeight - newWidth) >> 1;
+            }
+
+            // Draw the image with the resized dimensions
+            graphic.DrawImage(image, offsetX, offsetY, newWidth, newHeight);
+
+            return result;
+        }
 	}
 
     public class CLSID
