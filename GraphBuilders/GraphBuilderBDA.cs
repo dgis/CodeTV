@@ -552,27 +552,76 @@ namespace CodeTV
 
 			if (this.H264DecoderDevice != null)
 			{
-				AMMediaType mediaH264 = new AMMediaType();
-				mediaH264.majorType = MediaType.Video;
-				//mediaH264.subType = new Guid(0x8d2d71cb, 0x243f, 0x45e3, 0xb2, 0xd8, 0x5f, 0xd7, 0x96, 0x7e, 0xc0, 0x9b);
-				mediaH264.subType = new Guid(0x34363248, 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71);
-				mediaH264.sampleSize = 0;
-				mediaH264.temporalCompression = true; // false;
-				mediaH264.fixedSizeSamples = false;
-				mediaH264.unkPtr = IntPtr.Zero;
-				mediaH264.formatType = FormatType.Mpeg2Video;
+                //Try Original
+                AMMediaType mediaH264 = new AMMediaType();
+                mediaH264.majorType = MediaType.Video;
+                //mediaH264.subType = new Guid(0x8d2d71cb, 0x243f, 0x45e3, 0xb2, 0xd8, 0x5f, 0xd7, 0x96, 0x7e, 0xc0, 0x9b);
+                mediaH264.subType = MediaSubType.H264;// new Guid(0x34363248, 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71);
+                mediaH264.sampleSize = 0;
+                mediaH264.temporalCompression = true; // false;
+                mediaH264.fixedSizeSamples = true; // false;
+                mediaH264.unkPtr = IntPtr.Zero;
+                mediaH264.formatType = FormatType.Mpeg2Video;
 
-				MPEG2VideoInfo videoH264PinFormat = GetVideoH264PinFormat();
-				mediaH264.formatSize = Marshal.SizeOf(videoH264PinFormat);
-				mediaH264.formatPtr = Marshal.AllocHGlobal(mediaH264.formatSize);
-				Marshal.StructureToPtr(videoH264PinFormat, mediaH264.formatPtr, false);
+                MPEG2VideoInfo videoH264PinFormat = GetVideoH264PinFormat();
+                mediaH264.formatSize = Marshal.SizeOf(videoH264PinFormat);
+                mediaH264.formatPtr = Marshal.AllocHGlobal(mediaH264.formatSize);
+                Marshal.StructureToPtr(videoH264PinFormat, mediaH264.formatPtr, false);
 
-				IPin pinDemuxerVideoH264;
-				int hr = mpeg2Demultiplexer.CreateOutputPin(mediaH264, "H264", out pinDemuxerVideoH264);
-				if (pinDemuxerVideoH264 != null)
-					Marshal.ReleaseComObject(pinDemuxerVideoH264);
+                IPin pinDemuxerVideoH264;
+                int hr = mpeg2Demultiplexer.CreateOutputPin(mediaH264, "H264", out pinDemuxerVideoH264);
+                if (pinDemuxerVideoH264 != null)
+                    Marshal.ReleaseComObject(pinDemuxerVideoH264);
 
-				Marshal.FreeHGlobal(mediaH264.formatPtr);
+                Marshal.FreeHGlobal(mediaH264.formatPtr);
+
+                ////Try 1
+                //AMMediaType mediaH264 = new AMMediaType();
+                //mediaH264.majorType = MediaType.Null;
+                ////mediaH264.subType = new Guid(0x8d2d71cb, 0x243f, 0x45e3, 0xb2, 0xd8, 0x5f, 0xd7, 0x96, 0x7e, 0xc0, 0x9b);
+                //mediaH264.subType = MediaSubType.H264;// new Guid(0x34363248, 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71);
+                //mediaH264.sampleSize = 0;
+                //mediaH264.temporalCompression = true; // false;
+                //mediaH264.fixedSizeSamples = true; // false;
+                //mediaH264.unkPtr = IntPtr.Zero;
+                //mediaH264.formatType = FormatType.Null;
+
+                ////MPEG2VideoInfo videoH264PinFormat = GetVideoH264PinFormat();
+                ////mediaH264.formatSize = Marshal.SizeOf(videoH264PinFormat);
+                ////mediaH264.formatPtr = Marshal.AllocHGlobal(mediaH264.formatSize);
+                ////Marshal.StructureToPtr(videoH264PinFormat, mediaH264.formatPtr, false);
+
+                //IPin pinDemuxerVideoH264;
+                //int hr = mpeg2Demultiplexer.CreateOutputPin(mediaH264, "H264", out pinDemuxerVideoH264);
+                //if (pinDemuxerVideoH264 != null)
+                //    Marshal.ReleaseComObject(pinDemuxerVideoH264);
+
+                ////Marshal.FreeHGlobal(mediaH264.formatPtr);
+
+
+                ////Try http://mheg2xmltv.googlecode.com/svn/trunk/dcdvbsource/Source/Filter/DVBGraphBuilder.pas
+                //AMMediaType mediaH264 = new AMMediaType();
+                //mediaH264.majorType = MediaType.Video;
+                ////mediaH264.subType = new Guid(0x8d2d71cb, 0x243f, 0x45e3, 0xb2, 0xd8, 0x5f, 0xd7, 0x96, 0x7e, 0xc0, 0x9b);
+                //mediaH264.subType = MediaSubType.H264;// new Guid(0x34363248, 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71);
+                //mediaH264.sampleSize = 1; // 0;
+                //mediaH264.temporalCompression = true; // false;
+                //mediaH264.fixedSizeSamples = false; // true; // false;
+                //mediaH264.unkPtr = IntPtr.Zero;
+                //mediaH264.formatType = FormatType.VideoInfo2; // FormatType.VideoInfo2;//FormatType.Mpeg2Video;
+
+                //VideoInfoHeader2 videoH264PinFormat = GetVideoInfoHeader2H264PinFormat(); // GetVideoH264PinFormat();
+                //mediaH264.formatSize = Marshal.SizeOf(videoH264PinFormat);
+                //mediaH264.formatPtr = Marshal.AllocHGlobal(mediaH264.formatSize);
+                //Marshal.StructureToPtr(videoH264PinFormat, mediaH264.formatPtr, false);
+
+                //IPin pinDemuxerVideoH264;
+                //int hr = mpeg2Demultiplexer.CreateOutputPin(mediaH264, "H264", out pinDemuxerVideoH264);
+                //if (pinDemuxerVideoH264 != null)
+                //    Marshal.ReleaseComObject(pinDemuxerVideoH264);
+
+                //Marshal.FreeHGlobal(mediaH264.formatPtr);
+
 			}
 			else
 			{
@@ -1039,7 +1088,34 @@ namespace CodeTV
 						{
 							videoDecoderIn = DsFindPin.ByDirection(this.videoH264DecoderFilter, PinDirection.Input, 0);
 
-							FilterGraphTools.ConnectFilters(this.graphBuilder, pinOut, videoDecoderIn, false);
+
+                            //AMMediaType mediaH264 = new AMMediaType();
+                            //mediaH264.majorType = MediaType.Video;
+                            ////mediaH264.subType = new Guid(0x8d2d71cb, 0x243f, 0x45e3, 0xb2, 0xd8, 0x5f, 0xd7, 0x96, 0x7e, 0xc0, 0x9b);
+                            //mediaH264.subType = MediaSubType.H264; // new Guid(0x34363248, 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71);
+                            //mediaH264.sampleSize = 0;
+                            //mediaH264.temporalCompression = true; // false;
+                            //mediaH264.fixedSizeSamples = true; // false;
+                            //mediaH264.unkPtr = IntPtr.Zero;
+                            //mediaH264.formatType = FormatType.Mpeg2Video;
+
+                            //MPEG2VideoInfo videoH264PinFormat = GetVideoH264PinFormat();
+                            //mediaH264.formatSize = Marshal.SizeOf(videoH264PinFormat);
+                            //mediaH264.formatPtr = Marshal.AllocHGlobal(mediaH264.formatSize);
+                            //Marshal.StructureToPtr(videoH264PinFormat, mediaH264.formatPtr, false);
+
+                            ////IPin pinDemuxerVideoH264;
+                            ////int hr = mpeg2Demultiplexer.CreateOutputPin(mediaH264, "H264", out pinDemuxerVideoH264);
+                            ////if (pinDemuxerVideoH264 != null)
+                            ////Marshal.ReleaseComObject(pinDemuxerVideoH264);
+                            //hr = this.graphBuilder.ConnectDirect(pinOut, videoDecoderIn, mediaH264);
+                            ////hr = this.graphBuilder2.Connect(videoDvrOut, videoDecoderIn);
+                            ////DsError.ThrowExceptionForHR(hr);
+
+                            //Marshal.FreeHGlobal(mediaH264.formatPtr);
+
+                            //if (hr != 0)
+    							FilterGraphTools.ConnectFilters(this.graphBuilder, pinOut, videoDecoderIn, false);
 						}
 						finally
 						{
@@ -1245,60 +1321,115 @@ namespace CodeTV
 			return videoMPEG2PinFormat;
 		}
 
-		protected static MPEG2VideoInfo GetVideoH264PinFormat()
-		{
-			if (videoH264PinFormat == null)
-			{
-				MPEG2VideoInfo videoPinFormat = new MPEG2VideoInfo();
-				videoPinFormat.hdr = new VideoInfoHeader2();
-				videoPinFormat.hdr.SrcRect = new DsRect();
-				videoPinFormat.hdr.SrcRect.left = 0;		//0x00, 0x00, 0x00, 0x00,  //00  .hdr.rcSource.left              = 0x00000000
-				videoPinFormat.hdr.SrcRect.top = 0;			//0x00, 0x00, 0x00, 0x00,  //04  .hdr.rcSource.top               = 0x00000000
-				videoPinFormat.hdr.SrcRect.right = 0;		//0xD0, 0x02, 0x00, 0x00,  //08  .hdr.rcSource.right             = 0x000002d0 //720
-				videoPinFormat.hdr.SrcRect.bottom = 0;		//0x40, 0x02, 0x00, 0x00,  //0c  .hdr.rcSource.bottom            = 0x00000240 //576
-				videoPinFormat.hdr.TargetRect = new DsRect();
-				videoPinFormat.hdr.TargetRect.left = 0;		//0x00, 0x00, 0x00, 0x00,  //10  .hdr.rcTarget.left              = 0x00000000
-				videoPinFormat.hdr.TargetRect.top = 0;		//0x00, 0x00, 0x00, 0x00,  //14  .hdr.rcTarget.top               = 0x00000000
-				videoPinFormat.hdr.TargetRect.right = 0;	//0xD0, 0x02, 0x00, 0x00,  //18  .hdr.rcTarget.right             = 0x000002d0 //720
-				videoPinFormat.hdr.TargetRect.bottom = 0;	//0x40, 0x02, 0x00, 0x00,  //1c  .hdr.rcTarget.bottom            = 0x00000240// 576
-				videoPinFormat.hdr.BitRate = 0x003d0900;	//0x00, 0x09, 0x3D, 0x00,  //20  .hdr.dwBitRate                  = 0x003d0900
-				videoPinFormat.hdr.BitErrorRate = 0;		//0x00, 0x00, 0x00, 0x00,  //24  .hdr.dwBitErrorRate             = 0x00000000
+        protected static MPEG2VideoInfo GetVideoH264PinFormat()
+        {
+            if (videoH264PinFormat == null)
+            {
+                MPEG2VideoInfo videoPinFormat = new MPEG2VideoInfo();
+                videoPinFormat.hdr = new VideoInfoHeader2();
+                videoPinFormat.hdr.SrcRect = new DsRect();
+                videoPinFormat.hdr.SrcRect.left = 0;		//0x00, 0x00, 0x00, 0x00,  //00  .hdr.rcSource.left              = 0x00000000
+                videoPinFormat.hdr.SrcRect.top = 0;			//0x00, 0x00, 0x00, 0x00,  //04  .hdr.rcSource.top               = 0x00000000
+                videoPinFormat.hdr.SrcRect.right = 0;		//0xD0, 0x02, 0x00, 0x00,  //08  .hdr.rcSource.right             = 0x000002d0 //720
+                videoPinFormat.hdr.SrcRect.bottom = 0;		//0x40, 0x02, 0x00, 0x00,  //0c  .hdr.rcSource.bottom            = 0x00000240 //576
+                videoPinFormat.hdr.TargetRect = new DsRect();
+                videoPinFormat.hdr.TargetRect.left = 0;		//0x00, 0x00, 0x00, 0x00,  //10  .hdr.rcTarget.left              = 0x00000000
+                videoPinFormat.hdr.TargetRect.top = 0;		//0x00, 0x00, 0x00, 0x00,  //14  .hdr.rcTarget.top               = 0x00000000
+                videoPinFormat.hdr.TargetRect.right = 0;	//0xD0, 0x02, 0x00, 0x00,  //18  .hdr.rcTarget.right             = 0x000002d0 //720
+                videoPinFormat.hdr.TargetRect.bottom = 0;	//0x40, 0x02, 0x00, 0x00,  //1c  .hdr.rcTarget.bottom            = 0x00000240// 576
+                videoPinFormat.hdr.BitRate = 0x003d0900;	//0x00, 0x09, 0x3D, 0x00,  //20  .hdr.dwBitRate                  = 0x003d0900
+                videoPinFormat.hdr.BitErrorRate = 0;		//0x00, 0x00, 0x00, 0x00,  //24  .hdr.dwBitErrorRate             = 0x00000000
 
-				////0x051736=333667-> 10000000/333667 = 29.97fps
-				////0x061A80=400000-> 10000000/400000 = 25fps
-				videoPinFormat.hdr.AvgTimePerFrame = 400000;				//0x80, 0x1A, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, //28  .hdr.AvgTimePerFrame            = 0x0000000000051763 ->1000000/ 40000 = 25fps
-				videoPinFormat.hdr.InterlaceFlags = AMInterlace.None;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
-				//videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.OneFieldPerSample | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
-				//videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
-				//videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.FieldPatBothRegular | AMInterlace.DisplayModeWeaveOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
-				//videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOrWeave;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
-				videoPinFormat.hdr.CopyProtectFlags = AMCopyProtect.None;	//0x00, 0x00, 0x00, 0x00,                         //30  .hdr.dwCopyProtectFlags         = 0x00000000
-				videoPinFormat.hdr.PictAspectRatioX = 4;					//0x04, 0x00, 0x00, 0x00,                         //34  .hdr.dwPictAspectRatioX         = 0x00000004
-				videoPinFormat.hdr.PictAspectRatioY = 3;					//0x03, 0x00, 0x00, 0x00,                         //38  .hdr.dwPictAspectRatioY         = 0x00000003
-				videoPinFormat.hdr.ControlFlags = AMControl.None;			//0x00, 0x00, 0x00, 0x00,                         //3c  .hdr.dwReserved1                = 0x00000000
-				videoPinFormat.hdr.Reserved2 = 0;							//0x00, 0x00, 0x00, 0x00,                         //40  .hdr.dwReserved2                = 0x00000000
-				videoPinFormat.hdr.BmiHeader = new BitmapInfoHeader();
-				videoPinFormat.hdr.BmiHeader.Size = 0x00000028;				//0x28, 0x00, 0x00, 0x00,  //44  .hdr.bmiHeader.biSize           = 0x00000028
-				videoPinFormat.hdr.BmiHeader.Width = 720;					//0xD0, 0x02, 0x00, 0x00,  //48  .hdr.bmiHeader.biWidth          = 0x000002d0 //720
-				videoPinFormat.hdr.BmiHeader.Height = 576;					//0x40, 0x02, 0x00, 0x00,  //4c  .hdr.bmiHeader.biHeight         = 0x00000240 //576
-				videoPinFormat.hdr.BmiHeader.Planes = 0; // 1 ?					//0x00, 0x00,              //50  .hdr.bmiHeader.biPlanes         = 0x0000
-				videoPinFormat.hdr.BmiHeader.BitCount = 0;					//0x00, 0x00,              //54  .hdr.bmiHeader.biBitCount       = 0x0000
-				videoPinFormat.hdr.BmiHeader.Compression = 0;				//0x00, 0x00, 0x00, 0x00,  //58  .hdr.bmiHeader.biCompression    = 0x00000000
-				videoPinFormat.hdr.BmiHeader.ImageSize = 0;					//0x00, 0x00, 0x00, 0x00,  //5c  .hdr.bmiHeader.biSizeImage      = 0x00000000
-				videoPinFormat.hdr.BmiHeader.XPelsPerMeter = 0x000007d0;	//0xD0, 0x07, 0x00, 0x00,  //60  .hdr.bmiHeader.biXPelsPerMeter  = 0x000007d0
-				videoPinFormat.hdr.BmiHeader.YPelsPerMeter = 0x0000cf27;	//0x27, 0xCF, 0x00, 0x00,  //64  .hdr.bmiHeader.biYPelsPerMeter  = 0x0000cf27
-				videoPinFormat.hdr.BmiHeader.ClrUsed = 0;					//0x00, 0x00, 0x00, 0x00,  //68  .hdr.bmiHeader.biClrUsed        = 0x00000000
-				videoPinFormat.hdr.BmiHeader.ClrImportant = 0;				//0x00, 0x00, 0x00, 0x00,  //6c  .hdr.bmiHeader.biClrImportant   = 0x00000000
-				videoPinFormat.StartTimeCode = 0x0006f498;		//0x98, 0xF4, 0x06, 0x00,    //70  .dwStartTimeCode                = 0x0006f498
-				videoPinFormat.SequenceHeader = 0;				//0x00, 0x00, 0x00, 0x00,    //74  .cbSequenceHeader               = 0x00000000
-				videoPinFormat.Profile = AM_MPEG2Profile.Main;	//0x02, 0x00, 0x00, 0x00,    //78  .dwProfile                      = 0x00000002
-				videoPinFormat.Level = AM_MPEG2Level.Main;		//0x02, 0x00, 0x00, 0x00,    //7c  .dwLevel                        = 0x00000002
-				videoPinFormat.Flags = (AMMPEG2)0;				//0x00, 0x00, 0x00, 0x00,    //80  .Flags    
+                ////0x051736=333667-> 10000000/333667 = 29.97fps
+                ////0x061A80=400000-> 10000000/400000 = 25fps
+                videoPinFormat.hdr.AvgTimePerFrame = 400000;				//0x80, 0x1A, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, //28  .hdr.AvgTimePerFrame            = 0x0000000000051763 ->1000000/ 40000 = 25fps
+                videoPinFormat.hdr.InterlaceFlags = AMInterlace.None;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.OneFieldPerSample | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.FieldPatBothRegular | AMInterlace.DisplayModeWeaveOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+                //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOrWeave;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+                videoPinFormat.hdr.CopyProtectFlags = AMCopyProtect.None;	//0x00, 0x00, 0x00, 0x00,                         //30  .hdr.dwCopyProtectFlags         = 0x00000000
+                videoPinFormat.hdr.PictAspectRatioX = 4;					//0x04, 0x00, 0x00, 0x00,                         //34  .hdr.dwPictAspectRatioX         = 0x00000004
+                videoPinFormat.hdr.PictAspectRatioY = 3;					//0x03, 0x00, 0x00, 0x00,                         //38  .hdr.dwPictAspectRatioY         = 0x00000003
+                videoPinFormat.hdr.ControlFlags = AMControl.None;			//0x00, 0x00, 0x00, 0x00,                         //3c  .hdr.dwReserved1                = 0x00000000
+                videoPinFormat.hdr.Reserved2 = 0;							//0x00, 0x00, 0x00, 0x00,                         //40  .hdr.dwReserved2                = 0x00000000
+                videoPinFormat.hdr.BmiHeader = new BitmapInfoHeader();
+                videoPinFormat.hdr.BmiHeader.Size = 0x00000028;				//0x28, 0x00, 0x00, 0x00,  //44  .hdr.bmiHeader.biSize           = 0x00000028
+                videoPinFormat.hdr.BmiHeader.Width = 720;					//0xD0, 0x02, 0x00, 0x00,  //48  .hdr.bmiHeader.biWidth          = 0x000002d0 //720
+                videoPinFormat.hdr.BmiHeader.Height = 576;					//0x40, 0x02, 0x00, 0x00,  //4c  .hdr.bmiHeader.biHeight         = 0x00000240 //576
+                videoPinFormat.hdr.BmiHeader.Planes = 0; // 1 ?					//0x00, 0x00,              //50  .hdr.bmiHeader.biPlanes         = 0x0000
+                videoPinFormat.hdr.BmiHeader.BitCount = 0;					//0x00, 0x00,              //54  .hdr.bmiHeader.biBitCount       = 0x0000
+                videoPinFormat.hdr.BmiHeader.Compression = 0;				//0x00, 0x00, 0x00, 0x00,  //58  .hdr.bmiHeader.biCompression    = 0x00000000
+                videoPinFormat.hdr.BmiHeader.ImageSize = 0;					//0x00, 0x00, 0x00, 0x00,  //5c  .hdr.bmiHeader.biSizeImage      = 0x00000000
+                videoPinFormat.hdr.BmiHeader.XPelsPerMeter = 0x000007d0;	//0xD0, 0x07, 0x00, 0x00,  //60  .hdr.bmiHeader.biXPelsPerMeter  = 0x000007d0
+                videoPinFormat.hdr.BmiHeader.YPelsPerMeter = 0x0000cf27;	//0x27, 0xCF, 0x00, 0x00,  //64  .hdr.bmiHeader.biYPelsPerMeter  = 0x0000cf27
+                videoPinFormat.hdr.BmiHeader.ClrUsed = 0;					//0x00, 0x00, 0x00, 0x00,  //68  .hdr.bmiHeader.biClrUsed        = 0x00000000
+                videoPinFormat.hdr.BmiHeader.ClrImportant = 0;				//0x00, 0x00, 0x00, 0x00,  //6c  .hdr.bmiHeader.biClrImportant   = 0x00000000
+                videoPinFormat.StartTimeCode = 0x0006f498;		//0x98, 0xF4, 0x06, 0x00,    //70  .dwStartTimeCode                = 0x0006f498
+                videoPinFormat.SequenceHeader = 0;				//0x00, 0x00, 0x00, 0x00,    //74  .cbSequenceHeader               = 0x00000000
+                videoPinFormat.Profile = AM_MPEG2Profile.Main;	//0x02, 0x00, 0x00, 0x00,    //78  .dwProfile                      = 0x00000002
+                videoPinFormat.Level = AM_MPEG2Level.Main;		//0x02, 0x00, 0x00, 0x00,    //7c  .dwLevel                        = 0x00000002
+                videoPinFormat.Flags = (AMMPEG2)0;				//0x00, 0x00, 0x00, 0x00,    //80  .Flags    
 
-				videoH264PinFormat = videoPinFormat;
-			}
-			return videoH264PinFormat;
-		}
+                videoH264PinFormat = videoPinFormat;
+            }
+            return videoH264PinFormat;
+        }
+
+        protected static VideoInfoHeader2 GetVideoInfoHeader2H264PinFormat()
+        {
+            //VideoInfoHeader2 hdr = new VideoInfoHeader2();
+            //hdr.SrcRect = new DsRect();
+            //hdr.SrcRect.left = 0;		//0x00, 0x00, 0x00, 0x00,  //00  .hdr.rcSource.left              = 0x00000000
+            //hdr.SrcRect.top = 0;			//0x00, 0x00, 0x00, 0x00,  //04  .hdr.rcSource.top               = 0x00000000
+            //hdr.SrcRect.right = 0;		//0xD0, 0x02, 0x00, 0x00,  //08  .hdr.rcSource.right             = 0x000002d0 //720
+            //hdr.SrcRect.bottom = 0;		//0x40, 0x02, 0x00, 0x00,  //0c  .hdr.rcSource.bottom            = 0x00000240 //576
+            //hdr.TargetRect = new DsRect();
+            //hdr.TargetRect.left = 0;		//0x00, 0x00, 0x00, 0x00,  //10  .hdr.rcTarget.left              = 0x00000000
+            //hdr.TargetRect.top = 0;		//0x00, 0x00, 0x00, 0x00,  //14  .hdr.rcTarget.top               = 0x00000000
+            //hdr.TargetRect.right = 0;	//0xD0, 0x02, 0x00, 0x00,  //18  .hdr.rcTarget.right             = 0x000002d0 //720
+            //hdr.TargetRect.bottom = 0;	//0x40, 0x02, 0x00, 0x00,  //1c  .hdr.rcTarget.bottom            = 0x00000240// 576
+            //hdr.BitRate = 0x003d0900;	//0x00, 0x09, 0x3D, 0x00,  //20  .hdr.dwBitRate                  = 0x003d0900
+            //hdr.BitErrorRate = 0;		//0x00, 0x00, 0x00, 0x00,  //24  .hdr.dwBitErrorRate             = 0x00000000
+
+            //////0x051736=333667-> 10000000/333667 = 29.97fps
+            //////0x061A80=400000-> 10000000/400000 = 25fps
+            //hdr.AvgTimePerFrame = 400000;				//0x80, 0x1A, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, //28  .hdr.AvgTimePerFrame            = 0x0000000000051763 ->1000000/ 40000 = 25fps
+            //hdr.InterlaceFlags = AMInterlace.None;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+            ////hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.OneFieldPerSample | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+            ////hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+            ////hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.FieldPatBothRegular | AMInterlace.DisplayModeWeaveOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+            ////hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOrWeave;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
+            //hdr.CopyProtectFlags = AMCopyProtect.None;	//0x00, 0x00, 0x00, 0x00,                         //30  .hdr.dwCopyProtectFlags         = 0x00000000
+            //hdr.PictAspectRatioX = 0;// 4;					//0x04, 0x00, 0x00, 0x00,                         //34  .hdr.dwPictAspectRatioX         = 0x00000004
+            //hdr.PictAspectRatioY = 0;// 3;					//0x03, 0x00, 0x00, 0x00,                         //38  .hdr.dwPictAspectRatioY         = 0x00000003
+            //hdr.ControlFlags = AMControl.None;			//0x00, 0x00, 0x00, 0x00,                         //3c  .hdr.dwReserved1                = 0x00000000
+            //hdr.Reserved2 = 0;							//0x00, 0x00, 0x00, 0x00,                         //40  .hdr.dwReserved2                = 0x00000000
+            //hdr.BmiHeader = new BitmapInfoHeader();
+            //hdr.BmiHeader.Size = 0x00000028;				//0x28, 0x00, 0x00, 0x00,  //44  .hdr.bmiHeader.biSize           = 0x00000028
+            //hdr.BmiHeader.Width = 1920; // 720;					//0xD0, 0x02, 0x00, 0x00,  //48  .hdr.bmiHeader.biWidth          = 0x000002d0 //720
+            //hdr.BmiHeader.Height = 1080; // 576;					//0x40, 0x02, 0x00, 0x00,  //4c  .hdr.bmiHeader.biHeight         = 0x00000240 //576
+            //hdr.BmiHeader.Planes = 0; // 1 ?					//0x00, 0x00,              //50  .hdr.bmiHeader.biPlanes         = 0x0000
+            //hdr.BmiHeader.BitCount = 0;					//0x00, 0x00,              //54  .hdr.bmiHeader.biBitCount       = 0x0000
+            //hdr.BmiHeader.Compression = 0;				//0x00, 0x00, 0x00, 0x00,  //58  .hdr.bmiHeader.biCompression    = 0x00000000
+            //hdr.BmiHeader.ImageSize = 0;					//0x00, 0x00, 0x00, 0x00,  //5c  .hdr.bmiHeader.biSizeImage      = 0x00000000
+            //hdr.BmiHeader.XPelsPerMeter = 0x000007d0;	//0xD0, 0x07, 0x00, 0x00,  //60  .hdr.bmiHeader.biXPelsPerMeter  = 0x000007d0
+            //hdr.BmiHeader.YPelsPerMeter = 0x0000cf27;	//0x27, 0xCF, 0x00, 0x00,  //64  .hdr.bmiHeader.biYPelsPerMeter  = 0x0000cf27
+            //hdr.BmiHeader.ClrUsed = 0;					//0x00, 0x00, 0x00, 0x00,  //68  .hdr.bmiHeader.biClrUsed        = 0x00000000
+            //hdr.BmiHeader.ClrImportant = 0;				//0x00, 0x00, 0x00, 0x00,  //6c  .hdr.bmiHeader.biClrImportant   = 0x00000000
+
+            VideoInfoHeader2 hdr = new VideoInfoHeader2();
+            hdr.BmiHeader = new BitmapInfoHeader();
+            hdr.BmiHeader.Size = 28; // 0x00000028;				//0x28, 0x00, 0x00, 0x00,  //44  .hdr.bmiHeader.biSize           = 0x00000028
+            hdr.BmiHeader.Width = 1920; // 720;
+            hdr.BmiHeader.Height = 1080; // 576;
+            hdr.PictAspectRatioX = 0;
+            hdr.PictAspectRatioY = 0;
+            hdr.BmiHeader.Planes = 0;
+            hdr.BmiHeader.BitCount = 24;
+            hdr.BmiHeader.Compression = 0; //new MediaFoundation.Misc.FourCC("H264").ToInt32();
+            return hdr;
+        }
 
 		protected static MPEG1WaveFormat GetAudioPinFormat()
 		{

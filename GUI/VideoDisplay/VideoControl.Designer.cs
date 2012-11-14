@@ -28,15 +28,15 @@ namespace CodeTV
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.SuspendLayout();
-			// 
-			// VideoControl
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Name = "VideoControl";
-			this.Size = new System.Drawing.Size(257, 174);
-			this.ResumeLayout(false);
+            this.SuspendLayout();
+            // 
+            // VideoControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "VideoControl";
+            this.Size = new System.Drawing.Size(257, 174);
+            this.ResumeLayout(false);
 
 		}
 

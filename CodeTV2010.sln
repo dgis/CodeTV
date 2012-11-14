@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTV2010", "CodeTV2010.csproj", "{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DvbPsi2010", "DvbPsi\DvbPsi2010.csproj", "{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}"
@@ -8,25 +8,31 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}.Debug|x86.ActiveCfg = Debug|x86
 		{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}.Debug|x86.Build.0 = Debug|x86
 		{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}.Release|x64.ActiveCfg = Release|Any CPU
 		{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}.Release|x86.ActiveCfg = Release|x86
 		{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}.Release|x86.Build.0 = Release|x86
 		{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}.Debug|x86.ActiveCfg = Debug|x86
 		{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}.Debug|x86.Build.0 = Debug|x86
 		{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}.Release|x64.ActiveCfg = Release|Any CPU
 		{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}.Release|x86.ActiveCfg = Release|x86
 		{E96C98DA-B3D2-4442-922B-97A2CDF3F8A1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection

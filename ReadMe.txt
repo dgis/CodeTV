@@ -104,10 +104,9 @@ TODO LIST:
 
 CHANGES:
 
-version 0.4 (2012-11-11)
+version 0.3 (2012-11-11)
 - Add support for AC3 and EAC3 audio.
-
-version 0.3 (2012-09-05)
+- Add support for EVR instead of VMR on OS >= 6.0. EVR gives a better quality on Vista or Seven.
 - Add the project to GitHub: https://github.com/dgis/CodeTV
 - Clean up the project file to target the corresponding Visual Studio version (2005, 2008 or 2010)
 - Add DirectShowNet version 2.1

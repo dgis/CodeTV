@@ -563,8 +563,9 @@ namespace CodeTV
 
 		TimeSpan IPlayer.GetPosition()
 		{
-			double position;
-			(FilterGraph as IMediaPosition).get_CurrentPosition(out position);
+			double position = 0.0;
+            if (FilterGraph != null)
+    			(FilterGraph as IMediaPosition).get_CurrentPosition(out position);
 			return TimeSpan.FromSeconds(position);
 		}
 
@@ -579,19 +580,23 @@ namespace CodeTV
 
 		TimeSpan IPlayer.GetDuration()
 		{
-			double duration;
-			(FilterGraph as IMediaPosition).get_Duration(out duration);
+            double duration = 0.0;
+            if (FilterGraph != null)
+                (FilterGraph as IMediaPosition).get_Duration(out duration);
 			return TimeSpan.FromSeconds(duration);
 		}
 
 		double IPlayer.GetRate()
 		{
 			double rate = 1.0;
-			IMediaSeeking mediaSeeking = this.graphBuilder as IMediaSeeking;
-			if (mediaSeeking != null)
-			{
-				int hr = mediaSeeking.GetRate(out rate);
-			}
+            if (this.graphBuilder != null)
+            {
+                IMediaSeeking mediaSeeking = this.graphBuilder as IMediaSeeking;
+                if (mediaSeeking != null)
+                {
+                    int hr = mediaSeeking.GetRate(out rate);
+                }
+            }
 			return rate;
 		}
 

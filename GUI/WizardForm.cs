@@ -498,8 +498,9 @@ namespace CodeTV
                                                 try
                                                 {
                                                     var extensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".gif", ".png", ".jpg", ".jpeg", ".bmp" };
-                                                    var files = Directory.EnumerateFiles(@".\Logos\", "*");
-                                                    foreach (var logo in files)
+													//var files = Directory.EnumerateFiles(@".\Logos\", "*");
+													var files = Directory.GetFiles(@".\Logos\", "*");
+													foreach (var logo in files)
                                                     {
                                                         string extension = Path.GetExtension(logo).ToLowerInvariant();
                                                         if (extensions.Contains(extension))

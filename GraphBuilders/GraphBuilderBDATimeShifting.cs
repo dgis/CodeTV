@@ -134,6 +134,8 @@ namespace CodeTV
 
 		protected void ConfigureTimeShiftingRegistry()
 		{
+            //http://msdn.microsoft.com/en-us/library/windows/desktop/dd694948%28v=vs.85%29.aspx
+
 			UIntPtr HKEY_CURRENT_USER = (UIntPtr)0x80000001;
 			//unchecked
 			//{
@@ -161,13 +163,28 @@ namespace CodeTV
 			// Set the registry key.
 			IStreamBufferInitialize streamBufferInitialize = streamBufferConfigure as IStreamBufferInitialize;
 			int hr = streamBufferInitialize.SetHKEY(streamBufferConfigHKey);
+            DsError.ThrowExceptionForHR(hr);
+
+            //http://msdn.microsoft.com/en-us/library/windows/desktop/dd694977%28v=vs.85%29.aspx
+            //For Windows Vista or later the IStreamBufferSink::LockProfile method requires administrator privileges,
+            // unless you first call IStreamBufferConfigure3::SetNamespace with the value NULL.
+            IStreamBufferConfigure3 streamBufferConfigure3 = streamBufferConfig as IStreamBufferConfigure3;
+            hr = streamBufferConfigure3.SetNamespace(null);
+            DsError.ThrowExceptionForHR(hr);
 
 			// Set the TimeShifting configuration
 			//hr = streamBufferConfigure.SetDirectory("C:\\MyDirectory");
+            string directory = Settings.VideosFolder;
+            string directoryPath = FileUtils.GetAbsolutePath(directory as string);
+            hr = streamBufferConfigure.SetDirectory(directoryPath);
+            DsError.ThrowExceptionForHR(hr);
+
+
 			hr = streamBufferConfigure.SetBackingFileDuration(600); // Min 15 seconds
-			hr = streamBufferConfigure.SetBackingFileCount(
-				Math.Min(100, Math.Max(4, Settings.TimeShiftingBufferLengthMin / 10)),  // 4-100
-				Math.Min(102, Math.Max(6, Settings.TimeShiftingBufferLengthMax / 10))); // 6-102
+            //TODO not working anymore!!
+            //hr = streamBufferConfigure.SetBackingFileCount(
+            //    Math.Min(100, Math.Max(4, Settings.TimeShiftingBufferLengthMin / 10)),  // 4-100
+            //    Math.Min(102, Math.Max(6, Settings.TimeShiftingBufferLengthMax / 10))); // 6-102
 		}
 
 
@@ -390,14 +407,16 @@ namespace CodeTV
 
 		private void AddStreamBufferSinkFilter()
 		{
-			this.streamBufferSink = (IBaseFilter)new StreamBufferSink();
+            this.streamBufferSink = (IBaseFilter)new SBE2Sink();
+            if (this.streamBufferSink == null) // In case SBE2Sink is not supported, fallback to the former filter.
+                this.streamBufferSink = (IBaseFilter)new StreamBufferSink();
 
 			int hr = this.graphBuilder.AddFilter(this.streamBufferSink, "Stream Buffer Sink");
 			DsError.ThrowExceptionForHR(hr);
 
-
 			IStreamBufferInitialize streamBufferInitialize = this.streamBufferSink as IStreamBufferInitialize;
 			hr = streamBufferInitialize.SetHKEY(streamBufferConfigHKey);
+            DsError.ThrowExceptionForHR(hr);
 		}
 
 		private void AddStreamBufferSourceFilter()
@@ -421,14 +440,18 @@ namespace CodeTV
 				Directory.CreateDirectory(Settings.VideosFolder);
 
 			string currentSBEProfile = Settings.VideosFolder + "\\CurrentRecording.sbe-stub";
+            string currentSBEProfileFilename = FileUtils.GetAbsolutePath(currentSBEProfile as string);
 
 			IStreamBufferSink sink = this.streamBufferSink as IStreamBufferSink;
-			int hr = sink.LockProfile(currentSBEProfile);
+            int hr = sink.LockProfile(currentSBEProfile); //currentSBEProfileFilename); //currentSBEProfile);
+            DsError.ThrowExceptionForHR(hr);
 
 			IStreamBufferSource source = this.streamBufferSource as IStreamBufferSource;
-			hr = source.SetStreamSink(sink);
-			hr = (source as IFileSourceFilter).Load(currentSBEProfile, null);
-		}
+            hr = source.SetStreamSink(sink); // This line does not seem to be compatible with SBE2Sink.
+            //So, I commented out the generation of exception   DsError.ThrowExceptionForHR(hr);
+            hr = (source as IFileSourceFilter).Load(currentSBEProfile, null); //currentSBEProfileFilename, null); //currentSBEProfile, null);
+            DsError.ThrowExceptionForHR(hr);
+        }
 
 		private void ConnectStreamBufferSinkFilter()
 		{
@@ -445,7 +468,7 @@ namespace CodeTV
 				if (audioDvrIn != null) Marshal.ReleaseComObject(audioDvrIn);
 			}
 
-			if (this.mpeg2VideoStreamAnalyzer != null)
+			if (false) //Not working anymore on Windows 7!! this.mpeg2VideoStreamAnalyzer != null)
 			{
 				IPin videoDemuxOut = null, videoVSAIn = null;
 				try
@@ -494,10 +517,13 @@ namespace CodeTV
 		{
 			IBaseFilter videoDecoder = this.H264DecoderDevice == null ? this.videoMpeg2DecoderFilter : this.videoH264DecoderFilter;
 
+            //this.streamBufferSource as IStreamBufferConfigure
+
 			IPin videoDvrOut = null, videoDecoderIn = null;
 			try
 			{
-				videoDvrOut = DsFindPin.ByDirection(this.streamBufferSource, PinDirection.Output, 1);
+                videoDvrOut = DsFindPin.ByDirection(this.streamBufferSource, PinDirection.Output, 1);
+                //TODO Create output pin for the StreamBufferSource
 				videoDecoderIn = DsFindPin.ByDirection(videoDecoder, PinDirection.Input, 0);
 
 				//AMMediaType mediaH264 = new AMMediaType();
@@ -519,7 +545,35 @@ namespace CodeTV
 				//Marshal.FreeHGlobal(mediaH264.formatPtr);
 				//DsError.ThrowExceptionForHR(hr);
 
-				FilterGraphTools.ConnectFilters(this.graphBuilder2, videoDvrOut, videoDecoderIn, false);
+                //if (this.H264DecoderDevice != null)
+                //{
+                //    AMMediaType mediaH264 = new AMMediaType();
+                //    mediaH264.majorType = MediaType.Video;
+                //    //mediaH264.subType = new Guid(0x8d2d71cb, 0x243f, 0x45e3, 0xb2, 0xd8, 0x5f, 0xd7, 0x96, 0x7e, 0xc0, 0x9b);
+                //    mediaH264.subType = new Guid(0x34363248, 0x0000, 0x0010, 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71);
+                //    mediaH264.sampleSize = 0;
+                //    mediaH264.temporalCompression = true; // false;
+                //    mediaH264.fixedSizeSamples = true; // false;
+                //    mediaH264.unkPtr = IntPtr.Zero;
+                //    mediaH264.formatType = FormatType.Mpeg2Video;
+
+                //    MPEG2VideoInfo videoH264PinFormat = GetVideoH264PinFormat();
+                //    mediaH264.formatSize = Marshal.SizeOf(videoH264PinFormat);
+                //    mediaH264.formatPtr = Marshal.AllocHGlobal(mediaH264.formatSize);
+                //    Marshal.StructureToPtr(videoH264PinFormat, mediaH264.formatPtr, false);
+
+                //    //IPin pinDemuxerVideoH264;
+                //    //int hr = mpeg2Demultiplexer.CreateOutputPin(mediaH264, "H264", out pinDemuxerVideoH264);
+                //    //if (pinDemuxerVideoH264 != null)
+                //    //Marshal.ReleaseComObject(pinDemuxerVideoH264);
+                //    int hr = this.graphBuilder2.ConnectDirect(videoDvrOut, videoDecoderIn, mediaH264);
+                //    //hr = this.graphBuilder2.Connect(videoDvrOut, videoDecoderIn);
+                //    DsError.ThrowExceptionForHR(hr);
+
+                //    Marshal.FreeHGlobal(mediaH264.formatPtr);
+                //}
+                //else
+    				FilterGraphTools.ConnectFilters(this.graphBuilder2, videoDvrOut, videoDecoderIn, false);
 				//int hr = this.graphBuilder2.Render(videoDvrOut);
 				// H264 video stream cannot connect to H264 decoder (Cyberlink)!!!
 			}

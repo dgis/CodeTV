@@ -654,21 +654,25 @@ namespace CodeTV
 			return currentGraphTV;
 		}
 
-		internal void TuneChannel(Channel channel, bool needRebuild)
+		internal bool TuneChannel(Channel channel, bool needRebuild)
 		{
 			this.Cursor = Cursors.WaitCursor;
 			try
 			{
-				this.currentGraphBuilder = TuneChannel(channel, needRebuild, this.currentGraphBuilder, this.videoControl);
-				if (needRebuild)
-					OnGraphInit();
-				OnChannelChange();
-			}
+                if ((this.currentGraphBuilder = TuneChannel(channel, needRebuild, this.currentGraphBuilder, this.videoControl)) != null)
+                {
+                    if (needRebuild)
+                        OnGraphInit();
+                    OnChannelChange();
+                    return true;
+                }
+            }
 			finally
 			{
 				this.Cursor = Cursors.Default;
 			}
-		}
+            return false;
+        }
 
 		private void TuneMosaicChannel(Channel channel)
 		{
@@ -1106,12 +1110,12 @@ namespace CodeTV
 			//}
 		}
 
-		internal void TuneChannelGUI(Channel channel)
+		internal bool TuneChannelGUI(Channel channel)
 		{
-			TuneChannelGUI(channel, false);
+			return TuneChannelGUI(channel, false);
 		}
 
-		internal void TuneChannelGUI(Channel channel, bool forceRebuild)
+        internal bool TuneChannelGUI(Channel channel, bool forceRebuild)
 		{
 			this.videoControl.BackColor = Color.Transparent;
 			try
@@ -1135,6 +1139,8 @@ namespace CodeTV
 				TuneChannel(channel, needRebuild);
 
 				videoControl.Focus();
+
+                return true;
 			}
 			catch (Exception ex)
 			{
@@ -1144,6 +1150,7 @@ namespace CodeTV
 				toolStripStatusLabelChannelName.Text = Properties.Resources.NoChannel;
 				this.videoControl.BackColor = Settings.VideoBackgroundColor;
 			}
+            return false;
 		}
 
 		private void ChangeVideoMode(VideoMode videoMode)

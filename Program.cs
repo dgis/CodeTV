@@ -25,8 +25,9 @@ namespace CodeTV
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-		[STAThread]
-		static void Main()
+        [STAThread]
+        //[MTAThread]
+        static void Main()
         {
 #if !DEBUG
 

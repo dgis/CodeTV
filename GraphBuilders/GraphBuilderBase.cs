@@ -33,6 +33,9 @@ using Microsoft.Win32;
 using DirectShowLib;
 using DirectShowLib.BDA;
 using DirectShowLib.Utils;
+using MediaFoundation.EVR;
+using MediaFoundation;
+//using MediaFoundation.Misc;
 
 namespace CodeTV
 {
@@ -43,7 +46,8 @@ namespace CodeTV
 		protected Settings settings;
 
 		protected VideoControl hostingControl;
-		protected bool useWPF = true;
+        protected bool useWPF = true;
+        protected bool useEVR = true;
 		//protected DirectDraw directDraw = new DirectDraw();
 
 		protected static Dictionary<string, DsDevice> audioRendererDevices;
@@ -54,6 +58,10 @@ namespace CodeTV
 
 		protected IBaseFilter audioRenderer;
 		protected IBaseFilter videoRenderer;
+
+        //For EVR
+        protected CodeTV.IMFVideoDisplayControl evrVideoDisplayControl;
+
 
 		protected Size currentVideoSourceSize;
 		protected Rectangle currentVideoTargetRectangle;
@@ -253,7 +261,7 @@ namespace CodeTV
 			{
 				Trace.WriteLineIf(trace.TraceVerbose, "OnVideoEvent() -> " + eventCode.ToString());
 
-				if (eventCode == EventCode.VMRRenderDeviceSet)
+                if (eventCode == EventCode.VMRRenderDeviceSet || eventCode == EventCode.VideoSizeChanged || eventCode == EventCode.Paused)
 					VideoRefresh();
 				//if (eventCode == EventCode.Paused || eventCode == EventCode.NeedRestart)
 				//{
@@ -363,13 +371,19 @@ namespace CodeTV
 
 				//hr = ConnectFilters(this.videoRenderer, nullRenderer);
 			}
-			else
-			{
-				this.videoRenderer = (IBaseFilter)new VideoMixingRenderer9();
-				hr = graphBuilder.AddFilter(this.videoRenderer, "Video Mixing Renderer Filter 9");
-				ThrowExceptionForHR("Adding the VMR9: ", hr);
-			}
-			//IReferenceClock clock = this.audioRenderer as IReferenceClock;
+            else if (useEVR)
+            {
+                this.videoRenderer = (IBaseFilter)new EnhancedVideoRenderer();
+                hr = graphBuilder.AddFilter(this.videoRenderer, "Enhanced Video Renderer");
+                ThrowExceptionForHR("Adding the VMR9: ", hr);
+            }
+            else
+            {
+                this.videoRenderer = (IBaseFilter)new VideoMixingRenderer9();
+                hr = graphBuilder.AddFilter(this.videoRenderer, "Video Mixing Renderer 9");
+                ThrowExceptionForHR("Adding the VMR9: ", hr);
+            }
+            //IReferenceClock clock = this.audioRenderer as IReferenceClock;
 			//if(clock != null)
 			//{
 			//    // Set the graph clock.
@@ -583,28 +597,152 @@ namespace CodeTV
 
 		protected virtual void ConfigureVMR9InWindowlessMode(int numberOfStream)
         {
-            int hr = 0;
-            IVMRFilterConfig9 filterConfig = this.videoRenderer as IVMRFilterConfig9;
+            int hr;
 
-            // Configure VMR-9 in Windowsless mode
-			hr = filterConfig.SetRenderingMode(VMR9Mode.Windowless);
-			//hr = filterConfig.SetRenderingMode(VMR9Mode.Windowed);
-			ThrowExceptionForHR("Setting the VMR9 RenderingMode: ", hr);
+            if (useEVR)
+            {
+                object o;
+                IMFGetService pGetService = null;
+                pGetService = (IMFGetService)this.videoRenderer;
 
-            // With 1 input stream
-			hr = filterConfig.SetNumberOfStreams(numberOfStream);
-			ThrowExceptionForHR("Setting the VMR9 NumberOfStreams: ", hr);
+                hr = pGetService.GetService(MFServices.MR_VIDEO_RENDER_SERVICE, typeof(CodeTV.IMFVideoDisplayControl).GUID, out o);
 
-            IVMRWindowlessControl9 windowlessControl = this.videoRenderer as IVMRWindowlessControl9;
+                try
+                {
+                    evrVideoDisplayControl = (CodeTV.IMFVideoDisplayControl)o;
+                }
+                catch
+                {
+                    Marshal.ReleaseComObject(o);
+                    throw;
+                }
 
-            // The main form is hosting the VMR-9
-            hr = windowlessControl.SetVideoClippingWindow(this.hostingControl.Handle);
-			ThrowExceptionForHR("Setting the VMR9 VideoClippingWindow: ", hr);
+                try
+                {
+                    // Set the number of streams.
+                    hr = evrVideoDisplayControl.SetVideoWindow(this.hostingControl.Handle);
+                    if (numberOfStream > 1)
+                    {
+                        IEVRFilterConfig evrFilterConfig;
+                        evrFilterConfig = (IEVRFilterConfig)this.videoRenderer;
+                        hr = evrFilterConfig.SetNumberOfStreams(numberOfStream);
+                    }
 
-            // Keep the aspect-ratio OK
-			//hr = windowlessControl.SetAspectRatioMode(VMR9AspectRatioMode.LetterBox);
-			hr = windowlessControl.SetAspectRatioMode(VMR9AspectRatioMode.None);
-			ThrowExceptionForHR("Setting the VMR9 AspectRatioMode: ", hr);
+                    // Keep the aspect-ratio OK
+                    hr = evrVideoDisplayControl.SetAspectRatioMode(MFVideoAspectRatioMode.None); // VMR9AspectRatioMode.None);
+                    ThrowExceptionForHR("Setting the EVR AspectRatioMode: ", hr);
+
+                    //http://msdn.microsoft.com/en-us/library/windows/desktop/ms701834(v=vs.85).aspx
+                    //MFVideoRenderPrefs videoRenderPrefs;
+                    //hr = evrVideoDisplayControl.GetRenderingPrefs(out videoRenderPrefs);
+                    ////videoRenderPrefs = MFVideoRenderPrefs.DoNotRenderBorder | MFVideoRenderPrefs.DoNotRepaintOnStop;
+                    ////videoRenderPrefs = MFVideoRenderPrefs.AllowBatching;
+                    //videoRenderPrefs = MFVideoRenderPrefs.ForceBatching;
+                    ////videoRenderPrefs = MFVideoRenderPrefs.ForceBatching | MFVideoRenderPrefs.AllowBatching;
+                    //hr = evrVideoDisplayControl.SetRenderingPrefs(videoRenderPrefs);
+
+                    //MFVideoAspectRatioMode pdwAspectRatioMode;
+                    //hr = evrVideoDisplayControl.GetAspectRatioMode(out pdwAspectRatioMode);
+                    //pdwAspectRatioMode = MFVideoAspectRatioMode.None;
+                    //hr = evrVideoDisplayControl.SetAspectRatioMode(pdwAspectRatioMode);
+
+                    //int color = 0;
+                    //hr = evrVideoDisplayControl.GetBorderColor(out color); // VMR9AspectRatioMode.None);
+                    //hr = evrVideoDisplayControl.SetBorderColor(0xff0FF0); // VMR9AspectRatioMode.None);
+                    //ThrowExceptionForHR("Setting the EVR AspectRatioMode: ", hr);
+
+
+                    //EVR Clipping Window bug!!!!!!!!!!!!!!!!!!!http://social.msdn.microsoft.com/Forums/en/windowsdirectshowdevelopment/thread/579b6a6b-bdba-4d3b-a0b6-4de72114232b
+                }
+                finally
+                {
+                    //Marshal.ReleaseComObject(pDisplay);
+                }
+
+
+                //hr = pGetService.GetService(MFServices.MR_VIDEO_RENDER_SERVICE, typeof(IMFVideoMixerControl).GUID, out o);
+                //try
+                //{
+                //    //IMFVideoMixerControl videoMixerControl = (IMFVideoMixerControl)o;
+                //    //videoMixerControl.SetStreamOutputRect(
+                //}
+                //catch
+                //{
+                //    Marshal.ReleaseComObject(o);
+                //    throw;
+                //}
+
+                //hr = pGetService.GetService(MFServices.MR_VIDEO_ACCELERATION_SERVICE, typeof(IDirectXVideoMemoryConfiguration).GUID, out o);
+                //try
+                //{
+                //    //IDirectXVideoMemoryConfiguration videoMixerControl = (IDirectXVideoMemoryConfiguration)o;
+
+                //    //videoMixerControl.SetStreamOutputRect(
+
+                //}
+                //catch
+                //{
+                //    Marshal.ReleaseComObject(o);
+                //    throw;
+                //}
+            }
+            else
+            {
+                IVMRFilterConfig9 filterConfig = this.videoRenderer as IVMRFilterConfig9;
+                if (filterConfig != null)
+                {
+                    // Configure VMR-9 in Windowsless mode
+                    hr = filterConfig.SetRenderingMode(VMR9Mode.Windowless);
+                    //hr = filterConfig.SetRenderingMode(VMR9Mode.Windowed);
+                    ThrowExceptionForHR("Setting the VMR9 RenderingMode: ", hr);
+
+                    // With 1 input stream
+                    hr = filterConfig.SetNumberOfStreams(numberOfStream);
+                    ThrowExceptionForHR("Setting the VMR9 NumberOfStreams: ", hr);
+                }
+
+                IVMRWindowlessControl9 windowlessControl = this.videoRenderer as IVMRWindowlessControl9;
+                if (windowlessControl != null)
+                {
+                    // The main form is hosting the VMR-9
+                    hr = windowlessControl.SetVideoClippingWindow(this.hostingControl.Handle);
+                    ThrowExceptionForHR("Setting the VMR9 VideoClippingWindow: ", hr);
+
+                    // Keep the aspect-ratio OK
+                    //hr = windowlessControl.SetAspectRatioMode(VMR9AspectRatioMode.LetterBox);
+                    hr = windowlessControl.SetAspectRatioMode(VMR9AspectRatioMode.None);
+                    ThrowExceptionForHR("Setting the VMR9 AspectRatioMode: ", hr);
+                }
+
+                //IVMRMixerControl9 vmrMixerControl9 = this.videoRenderer as IVMRMixerControl9;
+                //if (vmrMixerControl9 != null)
+                //{
+                //    VMR9MixerPrefs dwMixerPrefs;
+                //    hr = vmrMixerControl9.GetMixingPrefs(out dwMixerPrefs);
+                //    //dwMixerPrefs = DirectShowLib.VMR9MixerPrefs.NoDecimation | DirectShowLib.VMR9MixerPrefs.ARAdjustXorY | DirectShowLib.VMR9MixerPrefs.GaussianQuadFiltering | DirectShowLib.VMR9MixerPrefs.RenderTargetRGB;
+                //    //dwMixerPrefs = DirectShowLib.VMR9MixerPrefs.NoDecimation | DirectShowLib.VMR9MixerPrefs.ARAdjustXorY | DirectShowLib.VMR9MixerPrefs.GaussianQuadFiltering | DirectShowLib.VMR9MixerPrefs.RenderTargetRGB;
+
+                //    dwMixerPrefs &= ~DirectShowLib.VMR9MixerPrefs.DecimateMask;
+                //    dwMixerPrefs |= DirectShowLib.VMR9MixerPrefs.NoDecimation; //Default
+                //    //dwMixerPrefs |= DirectShowLib.VMR9MixerPrefs.DecimateOutput;
+                //    dwMixerPrefs |= DirectShowLib.VMR9MixerPrefs.ARAdjustXorY; //Default
+                //    //dwMixerPrefs |= DirectShowLib.VMR9MixerPrefs.NonSquareMixing;
+
+                //    dwMixerPrefs &= ~DirectShowLib.VMR9MixerPrefs.FilteringMask;
+                //    dwMixerPrefs |= DirectShowLib.VMR9MixerPrefs.BiLinearFiltering; //Default
+                //    //dwMixerPrefs |= DirectShowLib.VMR9MixerPrefs.PointFiltering;
+                //    //dwMixerPrefs |= DirectShowLib.VMR9MixerPrefs.AnisotropicFiltering;
+                //    //dwMixerPrefs |= DirectShowLib.VMR9MixerPrefs.PyramidalQuadFiltering;
+                //    //dwMixerPrefs |= DirectShowLib.VMR9MixerPrefs.GaussianQuadFiltering;
+
+                //    dwMixerPrefs &= ~DirectShowLib.VMR9MixerPrefs.RenderTargetMask;
+                //    //dwMixerPrefs |= DirectShowLib.VMR9MixerPrefs.RenderTargetRGB; //Default
+                //    dwMixerPrefs |= DirectShowLib.VMR9MixerPrefs.RenderTargetYUV;
+
+                //    hr = vmrMixerControl9.SetMixingPrefs(dwMixerPrefs);
+                //}
+
+            }
 
             // Init the VMR-9 with default size values
             OnResizeMoveHandler(null, null);
@@ -665,7 +803,18 @@ namespace CodeTV
 			int width, height, arW, arH;
 			NormalizedRect rect = new NormalizedRect();
 
-			hr = (this.videoRenderer as IVMRWindowlessControl9).GetNativeVideoSize(out width, out height, out arW, out arH);
+            if (useEVR)
+            {
+                Size videoSize = new Size(), arVideoSize = new Size();
+                hr = evrVideoDisplayControl.GetNativeVideoSize(out videoSize, out arVideoSize);
+                //hr = evrVideoDisplayControl.GetIdealVideoSize(out videoSize, out arVideoSize);
+                width = videoSize.Width;
+                height = videoSize.Height;
+                arW = arVideoSize.Width;
+                arH = arVideoSize.Height;
+            }
+            else
+    			hr = (this.videoRenderer as IVMRWindowlessControl9).GetNativeVideoSize(out width, out height, out arW, out arH);
 			DsError.ThrowExceptionForHR(hr);
 
 			// Position the bitmap in the middle of the video stream.
@@ -858,6 +1007,8 @@ namespace CodeTV
 
 				FilterGraphTools.RemoveAllFilters(this.graphBuilder);
 
+                if (this.evrVideoDisplayControl != null) Marshal.ReleaseComObject(this.evrVideoDisplayControl); this.evrVideoDisplayControl = null;
+
 				if (this.audioRenderer != null) Marshal.ReleaseComObject(this.audioRenderer); this.audioRenderer = null;
 				if (this.videoRenderer != null) Marshal.ReleaseComObject(this.videoRenderer); this.videoRenderer = null;
 
@@ -889,12 +1040,23 @@ namespace CodeTV
 		{
 			if (this.videoRenderer != null)
 			{
-				//Trace.WriteLineIf(trace.TraceInfo, "PaintBlackBands()");
+				Trace.WriteLineIf(trace.TraceInfo, "PaintBlackBands()");
 
-				IVMRWindowlessControl9 vmrWindowlessControl9 = this.videoRenderer as IVMRWindowlessControl9;
 				Rectangle outerRectangle = this.hostingControl.ClientRectangle;
 				DsRect innerDsRect = new DsRect();
-				vmrWindowlessControl9.GetVideoPosition(null, innerDsRect);
+                int hr;
+                if (useEVR)
+                {
+                    MFVideoNormalizedRect pnrcSource = new MFVideoNormalizedRect();
+                    MediaFoundation.Misc.MFRect prcDest = new MediaFoundation.Misc.MFRect();
+                    hr = evrVideoDisplayControl.GetVideoPosition(pnrcSource, prcDest);
+                    innerDsRect = DsRect.FromRectangle((Rectangle)prcDest);
+                }
+                else
+                {
+                    IVMRWindowlessControl9 vmrWindowlessControl9 = this.videoRenderer as IVMRWindowlessControl9;
+                    hr = vmrWindowlessControl9.GetVideoPosition(null, innerDsRect);
+                }
 				Rectangle innerRectangle = innerDsRect.ToRectangle();
 
 				//Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\tvideoRenderer.GetVideoPosition({0})"), innerRectangle.ToString()));
@@ -936,22 +1098,29 @@ namespace CodeTV
 			{
 				//Trace.WriteLineIf(trace.TraceInfo, "VideoRefresh()");
 
+                VideoResizer(this.videoZoomMode, this.videoKeepAspectRatio, this.videoOffset, this.videoZoom, this.videoAspectRatioFactor);
+
 				if (!useWPF)
 				{
-					VideoResizer(this.videoZoomMode, this.videoKeepAspectRatio, this.videoOffset, this.videoZoom, this.videoAspectRatioFactor);
-
-					Graphics g = this.hostingControl.CreateGraphics();
-					IntPtr hdc = g.GetHdc();
 					try
 					{
-						int hr = (this.videoRenderer as IVMRWindowlessControl9).RepaintVideo(this.hostingControl.Handle, hdc);
+                        int hr;
+                        if (useEVR)
+                        {
+                            hr = this.evrVideoDisplayControl.RepaintVideo();
+                        }
+                        else
+                        {
+                            Graphics g = this.hostingControl.CreateGraphics();
+                            IntPtr hdc = g.GetHdc();
+                            hr = (this.videoRenderer as IVMRWindowlessControl9).RepaintVideo(this.hostingControl.Handle, hdc);
+                            g.ReleaseHdc(hdc);
+
+                            PaintBlackBands(g);
+                            g.Dispose();
+                        }
 					}
 					catch { }
-					g.ReleaseHdc(hdc);
-
-					PaintBlackBands(g);
-
-					g.Dispose();
 				}
 			}
 		}
@@ -974,7 +1143,20 @@ namespace CodeTV
 					int arX, arY;
 					int arX2 = 0, arY2 = 0;
 
-					hr = (this.videoRenderer as IVMRWindowlessControl9).GetNativeVideoSize(out arX, out arY, out arX2, out arY2);
+                    if (useEVR)
+                    {
+                        Size videoSize = new Size(), arVideoSize = new Size();
+                        hr = evrVideoDisplayControl.GetNativeVideoSize(out videoSize, out arVideoSize);
+                        //IMFVideoDisplayControlEx evrVideoDisplayControlPlus = evrVideoDisplayControl as IMFVideoDisplayControlEx;
+                        //hr = evrVideoDisplayControlPlus.GetNativeVideoSize(out videoSize, out arVideoSize);
+                        //hr = evrVideoDisplayControlPlus.GetIdealVideoSize(videoSize, arVideoSize);
+                        arX = videoSize.Width;
+                        arY = videoSize.Height;
+                        arX2 = arVideoSize.Width;
+                        arY2 = arVideoSize.Height;
+                    }
+                    else
+    					hr = (this.videoRenderer as IVMRWindowlessControl9).GetNativeVideoSize(out arX, out arY, out arX2, out arY2);
 					if (hr >= 0 && arY > 0)
 					{
 						//DsError.ThrowExceptionForHR(hr);
@@ -1020,7 +1202,14 @@ namespace CodeTV
 				}
 			}
 
-			hr = (this.videoRenderer as IVMRWindowlessControl9).SetVideoPosition(null, DsRect.FromRectangle(currentVideoTargetRectangle));
+            if (useEVR)
+            {
+                //hr = evrVideoDisplayControl.SetVideoWindow(this.hostingControl.Handle);
+                MFVideoNormalizedRect pnrcSource = new MFVideoNormalizedRect(0.0f, 0.0f, 1.0f, 1.0f);
+                hr = this.evrVideoDisplayControl.SetVideoPosition(pnrcSource, (MediaFoundation.Misc.MFRect)currentVideoTargetRectangle);
+            }
+            else
+    			hr = (this.videoRenderer as IVMRWindowlessControl9).SetVideoPosition(null, DsRect.FromRectangle(currentVideoTargetRectangle));
 			//Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\tPos {0:F2} {1:F2}, Zoom {2:F2}, ARF {4:F2}, AR {4:F2}"), offset.X, offset.Y, zoom, aspectRatioFactor, (float)videoTargetRect.Width / videoTargetRect.Height));
 			Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\tvideoRenderer.SetVideoPosition({0})"), currentVideoTargetRectangle.ToString()));
 		}
@@ -1033,9 +1222,11 @@ namespace CodeTV
 
 				VideoResizer(this.videoZoomMode, this.videoKeepAspectRatio, this.videoOffset, this.videoZoom, this.videoAspectRatioFactor);
 
-				Graphics g = this.hostingControl.CreateGraphics();
-				PaintBlackBands(g);
-				g.Dispose();
+                if (!useEVR) {
+                    Graphics g = this.hostingControl.CreateGraphics();
+                    PaintBlackBands(g);
+                    g.Dispose();
+                }
 			}
 		}
 
@@ -1044,6 +1235,7 @@ namespace CodeTV
 			// The OnPaintBackground is call a lot often than OnPaintHandler!!!!
 			if (this.videoRenderer != null)
 			{
+                //PaintBlackBands(e.Graphics);
 				//Trace.WriteLineIf(trace.TraceInfo, "OnPaintBackground()");
 				return false;
 			}
@@ -1054,18 +1246,26 @@ namespace CodeTV
 		{
 			if (this.videoRenderer != null)
 			{
-				//Trace.WriteLineIf(trace.TraceInfo, "OnPaintHandler()");
+				Trace.WriteLineIf(trace.TraceInfo, "OnPaintHandler()");
 
-				IntPtr hdc = e.Graphics.GetHdc();
 				try
 				{
-					int hr = (this.videoRenderer as IVMRWindowlessControl9).RepaintVideo(this.hostingControl.Handle, hdc);
+                    int hr;
+                    if (useEVR)
+                    {
+                        //PaintBlackBands(e.Graphics);
+                        hr = this.evrVideoDisplayControl.RepaintVideo();
+                        //PaintBlackBands(e.Graphics);
+                    }
+                    else
+                    {
+                        IntPtr hdc = e.Graphics.GetHdc();
+                        hr = (this.videoRenderer as IVMRWindowlessControl9).RepaintVideo(this.hostingControl.Handle, hdc);
+                        e.Graphics.ReleaseHdc(hdc);
+                        PaintBlackBands(e.Graphics);
+                    }
 				}
 				catch { }
-
-				e.Graphics.ReleaseHdc(hdc);
-
-				PaintBlackBands(e.Graphics);
 			}
 		}
 
@@ -1074,8 +1274,9 @@ namespace CodeTV
 			if (this.videoRenderer != null)
 			{
 				//Trace.WriteLineIf(trace.TraceInfo, "OnDisplayChangedHandler()");
-
-				int hr = (this.videoRenderer as IVMRWindowlessControl9).DisplayModeChanged();
+                int hr;
+                if (!useEVR)
+                    hr = (this.videoRenderer as IVMRWindowlessControl9).DisplayModeChanged();
 			}
 		}
 
@@ -1093,209 +1294,387 @@ namespace CodeTV
 			//3=Best
 			//Log("vmr9:SetDeinterlace() SetDeinterlaceMode(%d)",mode);
 			IVMRDeinterlaceControl9 pDeint = (this.videoRenderer as IVMRDeinterlaceControl9);
-			//VMR9VideoDesc VideoDesc;
-			//uint dwNumModes = 0;
-			Guid deintMode;
-			int hr;
-			if (mode==0)
-			{
-				//off
-				hr = pDeint.SetDeinterlaceMode(-1, Guid.Empty);
-				//if (!SUCCEEDED(hr)) Log("vmr9:SetDeinterlace() failed hr:0x%x",hr);
-				hr = pDeint.GetDeinterlaceMode(0, out deintMode);
-				//if (!SUCCEEDED(hr)) Log("vmr9:GetDeinterlaceMode() failed hr:0x%x",hr);
-				//Log("vmr9:SetDeinterlace() deinterlace mode OFF: 0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x",
-				//		deintMode.Data1,deintMode.Data2,deintMode.Data3, deintMode.Data4[0], deintMode.Data4[1], deintMode.Data4[2], deintMode.Data4[3], deintMode.Data4[4], deintMode.Data4[5], deintMode.Data4[6], deintMode.Data4[7]);
+            if (pDeint != null)
+            {
+                //VMR9VideoDesc VideoDesc;
+                //uint dwNumModes = 0;
+                Guid deintMode;
+                int hr;
+                if (mode == 0)
+                {
+                    //off
+                    hr = pDeint.SetDeinterlaceMode(-1, Guid.Empty);
+                    //if (!SUCCEEDED(hr)) Log("vmr9:SetDeinterlace() failed hr:0x%x",hr);
+                    hr = pDeint.GetDeinterlaceMode(0, out deintMode);
+                    //if (!SUCCEEDED(hr)) Log("vmr9:GetDeinterlaceMode() failed hr:0x%x",hr);
+                    //Log("vmr9:SetDeinterlace() deinterlace mode OFF: 0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x",
+                    //		deintMode.Data1,deintMode.Data2,deintMode.Data3, deintMode.Data4[0], deintMode.Data4[1], deintMode.Data4[2], deintMode.Data4[3], deintMode.Data4[4], deintMode.Data4[5], deintMode.Data4[6], deintMode.Data4[7]);
 
-				return ;
-			}
-			if (mode==1)
-			{
-				//BOB
+                    return;
+                }
+                if (mode == 1)
+                {
+                    //BOB
 
-				hr = pDeint.SetDeinterlaceMode(-1, bobDxvaGuid);
-				//if (!SUCCEEDED(hr)) Log("vmr9:SetDeinterlace() failed hr:0x%x",hr);
-				hr = pDeint.GetDeinterlaceMode(0, out deintMode);
-				//if (!SUCCEEDED(hr)) Log("vmr9:GetDeinterlaceMode() failed hr:0x%x",hr);
-				//Log("vmr9:SetDeinterlace() deinterlace mode BOB: 0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x",
-				//        deintMode.Data1,deintMode.Data2,deintMode.Data3, deintMode.Data4[0], deintMode.Data4[1], deintMode.Data4[2], deintMode.Data4[3], deintMode.Data4[4], deintMode.Data4[5], deintMode.Data4[6], deintMode.Data4[7]);
+                    hr = pDeint.SetDeinterlaceMode(-1, bobDxvaGuid);
+                    //if (!SUCCEEDED(hr)) Log("vmr9:SetDeinterlace() failed hr:0x%x",hr);
+                    hr = pDeint.GetDeinterlaceMode(0, out deintMode);
+                    //if (!SUCCEEDED(hr)) Log("vmr9:GetDeinterlaceMode() failed hr:0x%x",hr);
+                    //Log("vmr9:SetDeinterlace() deinterlace mode BOB: 0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x",
+                    //        deintMode.Data1,deintMode.Data2,deintMode.Data3, deintMode.Data4[0], deintMode.Data4[1], deintMode.Data4[2], deintMode.Data4[3], deintMode.Data4[4], deintMode.Data4[5], deintMode.Data4[6], deintMode.Data4[7]);
 
-				return ;
-			}
-			if (mode==2)
-			{
-				//WEAVE
-				hr = pDeint.SetDeinterlaceMode(-1, Guid.Empty);
-				//if (!SUCCEEDED(hr)) Log("vmr9:SetDeinterlace() failed hr:0x%x",hr);
-				hr = pDeint.GetDeinterlaceMode(0, out deintMode);
-				//if (!SUCCEEDED(hr)) Log("vmr9:GetDeinterlaceMode() failed hr:0x%x",hr);
-				//Log("vmr9:SetDeinterlace() deinterlace mode WEAVE: 0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x",
-				//        deintMode.Data1,deintMode.Data2,deintMode.Data3, deintMode.Data4[0], deintMode.Data4[1], deintMode.Data4[2], deintMode.Data4[3], deintMode.Data4[4], deintMode.Data4[5], deintMode.Data4[6], deintMode.Data4[7]);
+                    return;
+                }
+                if (mode == 2)
+                {
+                    //WEAVE
+                    hr = pDeint.SetDeinterlaceMode(-1, Guid.Empty);
+                    //if (!SUCCEEDED(hr)) Log("vmr9:SetDeinterlace() failed hr:0x%x",hr);
+                    hr = pDeint.GetDeinterlaceMode(0, out deintMode);
+                    //if (!SUCCEEDED(hr)) Log("vmr9:GetDeinterlaceMode() failed hr:0x%x",hr);
+                    //Log("vmr9:SetDeinterlace() deinterlace mode WEAVE: 0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x",
+                    //        deintMode.Data1,deintMode.Data2,deintMode.Data3, deintMode.Data4[0], deintMode.Data4[1], deintMode.Data4[2], deintMode.Data4[3], deintMode.Data4[4], deintMode.Data4[5], deintMode.Data4[6], deintMode.Data4[7]);
 
-				return ;
-			}
+                    return;
+                }
 
-		//    AM_MEDIA_TYPE pmt;
-		//    ULONG fetched;
-		//    IPin* pins[10];
-		//    CComPtr<IEnumPins> pinEnum;
-		//    hr=m_pVMR9Filter->EnumPins(&pinEnum);
-		//    pinEnum->Reset();
-		//    pinEnum->Next(1,&pins[0],&fetched);
-		//    hr=pins[0]->ConnectionMediaType(&pmt);
-		//    pins[0]->Release();
+                //    AM_MEDIA_TYPE pmt;
+                //    ULONG fetched;
+                //    IPin* pins[10];
+                //    CComPtr<IEnumPins> pinEnum;
+                //    hr=m_pVMR9Filter->EnumPins(&pinEnum);
+                //    pinEnum->Reset();
+                //    pinEnum->Next(1,&pins[0],&fetched);
+                //    hr=pins[0]->ConnectionMediaType(&pmt);
+                //    pins[0]->Release();
 
-		//    VIDEOINFOHEADER2* vidInfo2 =(VIDEOINFOHEADER2*)pmt.pbFormat;
-		//    if (vidInfo2==NULL)
-		//    {
-		//        Log("vmr9:SetDeinterlace() VMR9 not connected");
-		//        return ;
-		//    }
-		//    if ((pmt.formattype != FORMAT_VideoInfo2) || (pmt.cbFormat< sizeof(VIDEOINFOHEADER2)))
-		//    {
-		//        Log("vmr9:SetDeinterlace() not using VIDEOINFOHEADER2");
+                //    VIDEOINFOHEADER2* vidInfo2 =(VIDEOINFOHEADER2*)pmt.pbFormat;
+                //    if (vidInfo2==NULL)
+                //    {
+                //        Log("vmr9:SetDeinterlace() VMR9 not connected");
+                //        return ;
+                //    }
+                //    if ((pmt.formattype != FORMAT_VideoInfo2) || (pmt.cbFormat< sizeof(VIDEOINFOHEADER2)))
+                //    {
+                //        Log("vmr9:SetDeinterlace() not using VIDEOINFOHEADER2");
 
-		//        return ;
-		//    }
+                //        return ;
+                //    }
 
-		//    Log("vmr9:SetDeinterlace() resolution:%dx%d planes:%d bitcount:%d fmt:%d %c%c%c%c",
-		//        vidInfo2->bmiHeader.biWidth,vidInfo2->bmiHeader.biHeight,
-		//        vidInfo2->bmiHeader.biPlanes,
-		//        vidInfo2->bmiHeader.biBitCount,
-		//        vidInfo2->bmiHeader.biCompression,
-		//        (char)(vidInfo2->bmiHeader.biCompression&0xff),
-		//        (char)((vidInfo2->bmiHeader.biCompression>>8)&0xff),
-		//        (char)((vidInfo2->bmiHeader.biCompression>>16)&0xff),
-		//        (char)((vidInfo2->bmiHeader.biCompression>>24)&0xff)
-		//        );
-		//    char major[128];
-		//    char subtype[128];
-		//    strcpy(major,"unknown");
-		//    sprintf(subtype,"unknown (0x%x-0x%x-0x%x-0x%x)",pmt.subtype.Data1,pmt.subtype.Data2,pmt.subtype.Data3,pmt.subtype.Data4);
-		//    if (pmt.majortype==MEDIATYPE_AnalogVideo)
-		//        strcpy(major,"Analog video");
-		//    if (pmt.majortype==MEDIATYPE_Video)
-		//        strcpy(major,"video");
-		//    if (pmt.majortype==MEDIATYPE_Stream)
-		//        strcpy(major,"stream");
+                //    Log("vmr9:SetDeinterlace() resolution:%dx%d planes:%d bitcount:%d fmt:%d %c%c%c%c",
+                //        vidInfo2->bmiHeader.biWidth,vidInfo2->bmiHeader.biHeight,
+                //        vidInfo2->bmiHeader.biPlanes,
+                //        vidInfo2->bmiHeader.biBitCount,
+                //        vidInfo2->bmiHeader.biCompression,
+                //        (char)(vidInfo2->bmiHeader.biCompression&0xff),
+                //        (char)((vidInfo2->bmiHeader.biCompression>>8)&0xff),
+                //        (char)((vidInfo2->bmiHeader.biCompression>>16)&0xff),
+                //        (char)((vidInfo2->bmiHeader.biCompression>>24)&0xff)
+                //        );
+                //    char major[128];
+                //    char subtype[128];
+                //    strcpy(major,"unknown");
+                //    sprintf(subtype,"unknown (0x%x-0x%x-0x%x-0x%x)",pmt.subtype.Data1,pmt.subtype.Data2,pmt.subtype.Data3,pmt.subtype.Data4);
+                //    if (pmt.majortype==MEDIATYPE_AnalogVideo)
+                //        strcpy(major,"Analog video");
+                //    if (pmt.majortype==MEDIATYPE_Video)
+                //        strcpy(major,"video");
+                //    if (pmt.majortype==MEDIATYPE_Stream)
+                //        strcpy(major,"stream");
 
-		//    if (pmt.subtype==MEDIASUBTYPE_MPEG2_VIDEO)
-		//        strcpy(subtype,"mpeg2 video");
-		//    if (pmt.subtype==MEDIASUBTYPE_MPEG1System)
-		//        strcpy(subtype,"mpeg1 system");
-		//    if (pmt.subtype==MEDIASUBTYPE_MPEG1VideoCD)
-		//        strcpy(subtype,"mpeg1 videocd");
+                //    if (pmt.subtype==MEDIASUBTYPE_MPEG2_VIDEO)
+                //        strcpy(subtype,"mpeg2 video");
+                //    if (pmt.subtype==MEDIASUBTYPE_MPEG1System)
+                //        strcpy(subtype,"mpeg1 system");
+                //    if (pmt.subtype==MEDIASUBTYPE_MPEG1VideoCD)
+                //        strcpy(subtype,"mpeg1 videocd");
 
-		//    if (pmt.subtype==MEDIASUBTYPE_MPEG1Packet)
-		//        strcpy(subtype,"mpeg1 packet");
-		//    if (pmt.subtype==MEDIASUBTYPE_MPEG1Payload )
-		//        strcpy(subtype,"mpeg1 payload");
-		////	if (pmt.subtype==MEDIASUBTYPE_ATSC_SI)
-		////		strcpy(subtype,"ATSC SI");
-		////	if (pmt.subtype==MEDIASUBTYPE_DVB_SI)
-		////		strcpy(subtype,"DVB SI");
-		////	if (pmt.subtype==MEDIASUBTYPE_MPEG2DATA)
-		////		strcpy(subtype,"MPEG2 Data");
-		//    if (pmt.subtype==MEDIASUBTYPE_MPEG2_TRANSPORT)
-		//        strcpy(subtype,"MPEG2 Transport");
-		//    if (pmt.subtype==MEDIASUBTYPE_MPEG2_PROGRAM)
-		//        strcpy(subtype,"MPEG2 Program");
+                //    if (pmt.subtype==MEDIASUBTYPE_MPEG1Packet)
+                //        strcpy(subtype,"mpeg1 packet");
+                //    if (pmt.subtype==MEDIASUBTYPE_MPEG1Payload )
+                //        strcpy(subtype,"mpeg1 payload");
+                ////	if (pmt.subtype==MEDIASUBTYPE_ATSC_SI)
+                ////		strcpy(subtype,"ATSC SI");
+                ////	if (pmt.subtype==MEDIASUBTYPE_DVB_SI)
+                ////		strcpy(subtype,"DVB SI");
+                ////	if (pmt.subtype==MEDIASUBTYPE_MPEG2DATA)
+                ////		strcpy(subtype,"MPEG2 Data");
+                //    if (pmt.subtype==MEDIASUBTYPE_MPEG2_TRANSPORT)
+                //        strcpy(subtype,"MPEG2 Transport");
+                //    if (pmt.subtype==MEDIASUBTYPE_MPEG2_PROGRAM)
+                //        strcpy(subtype,"MPEG2 Program");
 
-		//    if (pmt.subtype==MEDIASUBTYPE_CLPL)
-		//        strcpy(subtype,"MEDIASUBTYPE_CLPL");
-		//    if (pmt.subtype==MEDIASUBTYPE_YUYV)
-		//        strcpy(subtype,"MEDIASUBTYPE_YUYV");
-		//    if (pmt.subtype==MEDIASUBTYPE_IYUV)
-		//        strcpy(subtype,"MEDIASUBTYPE_IYUV");
-		//    if (pmt.subtype==MEDIASUBTYPE_YVU9)
-		//        strcpy(subtype,"MEDIASUBTYPE_YVU9");
-		//    if (pmt.subtype==MEDIASUBTYPE_Y411)
-		//        strcpy(subtype,"MEDIASUBTYPE_Y411");
-		//    if (pmt.subtype==MEDIASUBTYPE_Y41P)
-		//        strcpy(subtype,"MEDIASUBTYPE_Y41P");
-		//    if (pmt.subtype==MEDIASUBTYPE_YUY2)
-		//        strcpy(subtype,"MEDIASUBTYPE_YUY2");
-		//    if (pmt.subtype==MEDIASUBTYPE_YVYU)
-		//        strcpy(subtype,"MEDIASUBTYPE_YVYU");
-		//    if (pmt.subtype==MEDIASUBTYPE_UYVY)
-		//        strcpy(subtype,"MEDIASUBTYPE_UYVY");
-		//    if (pmt.subtype==MEDIASUBTYPE_Y211)
-		//        strcpy(subtype,"MEDIASUBTYPE_Y211");
-		//    if (pmt.subtype==MEDIASUBTYPE_RGB565)
-		//        strcpy(subtype,"MEDIASUBTYPE_RGB565");
-		//    if (pmt.subtype==MEDIASUBTYPE_RGB32)
-		//        strcpy(subtype,"MEDIASUBTYPE_RGB32");
-		//    if (pmt.subtype==MEDIASUBTYPE_ARGB32)
-		//        strcpy(subtype,"MEDIASUBTYPE_ARGB32");
-		//    if (pmt.subtype==MEDIASUBTYPE_RGB555)
-		//        strcpy(subtype,"MEDIASUBTYPE_RGB555");
-		//    if (pmt.subtype==MEDIASUBTYPE_RGB24)
-		//        strcpy(subtype,"MEDIASUBTYPE_RGB24");
-		//    if (pmt.subtype==MEDIASUBTYPE_AYUV)
-		//        strcpy(subtype,"MEDIASUBTYPE_AYUV");
-		//    if (pmt.subtype==MEDIASUBTYPE_YV12)
-		//        strcpy(subtype,"MEDIASUBTYPE_YV12");
-		////	if (pmt.subtype==MEDIASUBTYPE_NV12)
-		////		strcpy(subtype,"MEDIASUBTYPE_NV12");
-		//    Log("vmr9:SetDeinterlace() major:%s subtype:%s", major,subtype);
-		//    VideoDesc.dwSize = sizeof(VMR9VideoDesc);
-		//    VideoDesc.dwFourCC=vidInfo2->bmiHeader.biCompression;
-		//    VideoDesc.dwSampleWidth=vidInfo2->bmiHeader.biWidth;
-		//    VideoDesc.dwSampleHeight=vidInfo2->bmiHeader.biHeight;
-		//    VideoDesc.SampleFormat=ConvertInterlaceFlags(vidInfo2->dwInterlaceFlags);
-		//    VideoDesc.InputSampleFreq.dwDenominator=(DWORD)vidInfo2->AvgTimePerFrame;
-		//    VideoDesc.InputSampleFreq.dwNumerator=10000000;
-		//    VideoDesc.OutputFrameFreq.dwDenominator=(DWORD)vidInfo2->AvgTimePerFrame;
-		//    VideoDesc.OutputFrameFreq.dwNumerator=VideoDesc.InputSampleFreq.dwNumerator;
-		//    if (VideoDesc.SampleFormat != VMR9_SampleProgressiveFrame)
-		//    {
-		//        VideoDesc.OutputFrameFreq.dwNumerator=2*VideoDesc.InputSampleFreq.dwNumerator;
-		//    }
+                //    if (pmt.subtype==MEDIASUBTYPE_CLPL)
+                //        strcpy(subtype,"MEDIASUBTYPE_CLPL");
+                //    if (pmt.subtype==MEDIASUBTYPE_YUYV)
+                //        strcpy(subtype,"MEDIASUBTYPE_YUYV");
+                //    if (pmt.subtype==MEDIASUBTYPE_IYUV)
+                //        strcpy(subtype,"MEDIASUBTYPE_IYUV");
+                //    if (pmt.subtype==MEDIASUBTYPE_YVU9)
+                //        strcpy(subtype,"MEDIASUBTYPE_YVU9");
+                //    if (pmt.subtype==MEDIASUBTYPE_Y411)
+                //        strcpy(subtype,"MEDIASUBTYPE_Y411");
+                //    if (pmt.subtype==MEDIASUBTYPE_Y41P)
+                //        strcpy(subtype,"MEDIASUBTYPE_Y41P");
+                //    if (pmt.subtype==MEDIASUBTYPE_YUY2)
+                //        strcpy(subtype,"MEDIASUBTYPE_YUY2");
+                //    if (pmt.subtype==MEDIASUBTYPE_YVYU)
+                //        strcpy(subtype,"MEDIASUBTYPE_YVYU");
+                //    if (pmt.subtype==MEDIASUBTYPE_UYVY)
+                //        strcpy(subtype,"MEDIASUBTYPE_UYVY");
+                //    if (pmt.subtype==MEDIASUBTYPE_Y211)
+                //        strcpy(subtype,"MEDIASUBTYPE_Y211");
+                //    if (pmt.subtype==MEDIASUBTYPE_RGB565)
+                //        strcpy(subtype,"MEDIASUBTYPE_RGB565");
+                //    if (pmt.subtype==MEDIASUBTYPE_RGB32)
+                //        strcpy(subtype,"MEDIASUBTYPE_RGB32");
+                //    if (pmt.subtype==MEDIASUBTYPE_ARGB32)
+                //        strcpy(subtype,"MEDIASUBTYPE_ARGB32");
+                //    if (pmt.subtype==MEDIASUBTYPE_RGB555)
+                //        strcpy(subtype,"MEDIASUBTYPE_RGB555");
+                //    if (pmt.subtype==MEDIASUBTYPE_RGB24)
+                //        strcpy(subtype,"MEDIASUBTYPE_RGB24");
+                //    if (pmt.subtype==MEDIASUBTYPE_AYUV)
+                //        strcpy(subtype,"MEDIASUBTYPE_AYUV");
+                //    if (pmt.subtype==MEDIASUBTYPE_YV12)
+                //        strcpy(subtype,"MEDIASUBTYPE_YV12");
+                ////	if (pmt.subtype==MEDIASUBTYPE_NV12)
+                ////		strcpy(subtype,"MEDIASUBTYPE_NV12");
+                //    Log("vmr9:SetDeinterlace() major:%s subtype:%s", major,subtype);
+                //    VideoDesc.dwSize = sizeof(VMR9VideoDesc);
+                //    VideoDesc.dwFourCC=vidInfo2->bmiHeader.biCompression;
+                //    VideoDesc.dwSampleWidth=vidInfo2->bmiHeader.biWidth;
+                //    VideoDesc.dwSampleHeight=vidInfo2->bmiHeader.biHeight;
+                //    VideoDesc.SampleFormat=ConvertInterlaceFlags(vidInfo2->dwInterlaceFlags);
+                //    VideoDesc.InputSampleFreq.dwDenominator=(DWORD)vidInfo2->AvgTimePerFrame;
+                //    VideoDesc.InputSampleFreq.dwNumerator=10000000;
+                //    VideoDesc.OutputFrameFreq.dwDenominator=(DWORD)vidInfo2->AvgTimePerFrame;
+                //    VideoDesc.OutputFrameFreq.dwNumerator=VideoDesc.InputSampleFreq.dwNumerator;
+                //    if (VideoDesc.SampleFormat != VMR9_SampleProgressiveFrame)
+                //    {
+                //        VideoDesc.OutputFrameFreq.dwNumerator=2*VideoDesc.InputSampleFreq.dwNumerator;
+                //    }
 
-		//    // Fill in the VideoDesc structure (not shown).
-		//    hr = pDeint->GetNumberOfDeinterlaceModes(&VideoDesc, &dwNumModes, NULL);
-		//    if (SUCCEEDED(hr) && (dwNumModes != 0))
-		//    {
-		//        // Allocate an array for the GUIDs that identify the modes.
-		//        GUID *pModes = new GUID[dwNumModes];
-		//        if (pModes)
-		//        {
-		//            Log("vmr9:SetDeinterlace() found %d deinterlacing modes", dwNumModes);
-		//            // Fill the array.
-		//            hr = pDeint->GetNumberOfDeinterlaceModes(&VideoDesc, &dwNumModes, pModes);
-		//            if (SUCCEEDED(hr))
-		//            {
-		//                // Loop through each item and get the capabilities.
-		//                for (int i = 0; i < dwNumModes; i++)
-		//                {
-		//                    hr=pDeint->SetDeinterlaceMode(0xFFFFFFFF,&pModes[0]);
-		//                    if (SUCCEEDED(hr))
-		//                    {
-		//                        Log("vmr9:SetDeinterlace() set deinterlace mode:%d",i);
+                //    // Fill in the VideoDesc structure (not shown).
+                //    hr = pDeint->GetNumberOfDeinterlaceModes(&VideoDesc, &dwNumModes, NULL);
+                //    if (SUCCEEDED(hr) && (dwNumModes != 0))
+                //    {
+                //        // Allocate an array for the GUIDs that identify the modes.
+                //        GUID *pModes = new GUID[dwNumModes];
+                //        if (pModes)
+                //        {
+                //            Log("vmr9:SetDeinterlace() found %d deinterlacing modes", dwNumModes);
+                //            // Fill the array.
+                //            hr = pDeint->GetNumberOfDeinterlaceModes(&VideoDesc, &dwNumModes, pModes);
+                //            if (SUCCEEDED(hr))
+                //            {
+                //                // Loop through each item and get the capabilities.
+                //                for (int i = 0; i < dwNumModes; i++)
+                //                {
+                //                    hr=pDeint->SetDeinterlaceMode(0xFFFFFFFF,&pModes[0]);
+                //                    if (SUCCEEDED(hr))
+                //                    {
+                //                        Log("vmr9:SetDeinterlace() set deinterlace mode:%d",i);
 
 
 
-		//                        pDeint->GetDeinterlaceMode(0,&deintMode);
-		//                        if (deintMode.Data1==pModes[0].Data1 &&
-		//                            deintMode.Data2==pModes[0].Data2 &&
-		//                            deintMode.Data3==pModes[0].Data3 &&
-		//                            deintMode.Data4==pModes[0].Data4)
-		//                        {
-		//                            Log("vmr9:SetDeinterlace() succeeded");
-		//                        }
-		//                        else
-		//                            Log("vmr9:SetDeinterlace() deinterlace mode set to: 0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x",
-		//                                    deintMode.Data1,deintMode.Data2,deintMode.Data3, deintMode.Data4[0], deintMode.Data4[1], deintMode.Data4[2], deintMode.Data4[3], deintMode.Data4[4], deintMode.Data4[5], deintMode.Data4[6], deintMode.Data4[7]);
-		//                        break;
-		//                    }
-		//                    else
-		//                        Log("vmr9:SetDeinterlace() deinterlace mode:%d failed 0x:%x",i,hr);
+                //                        pDeint->GetDeinterlaceMode(0,&deintMode);
+                //                        if (deintMode.Data1==pModes[0].Data1 &&
+                //                            deintMode.Data2==pModes[0].Data2 &&
+                //                            deintMode.Data3==pModes[0].Data3 &&
+                //                            deintMode.Data4==pModes[0].Data4)
+                //                        {
+                //                            Log("vmr9:SetDeinterlace() succeeded");
+                //                        }
+                //                        else
+                //                            Log("vmr9:SetDeinterlace() deinterlace mode set to: 0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x-0x%x",
+                //                                    deintMode.Data1,deintMode.Data2,deintMode.Data3, deintMode.Data4[0], deintMode.Data4[1], deintMode.Data4[2], deintMode.Data4[3], deintMode.Data4[4], deintMode.Data4[5], deintMode.Data4[6], deintMode.Data4[7]);
+                //                        break;
+                //                    }
+                //                    else
+                //                        Log("vmr9:SetDeinterlace() deinterlace mode:%d failed 0x:%x",i,hr);
 
-		//                }
-		//            }
-		//            delete [] pModes;
-		//        }
-		//    }
+                //                }
+                //            }
+                //            delete [] pModes;
+                //        }
+                //    }
+            }
 		}
 	}
+
+    //[Guid("A490B1E4-AB84-4D31-A1B2-181E03B1077A")]
+    //[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    //[System.Security.SuppressUnmanagedCodeSecurity]
+    //public interface IMFVideoDisplayControlEx
+    //{
+    //    int GetAspectRatioMode(out MFVideoAspectRatioMode pdwAspectRatioMode);
+    //    int GetBorderColor(out int pClr);
+    //    int GetCurrentImage(BitmapInfoHeader pBih, out IntPtr pDib, out int pcbDib, out long pTimeStamp);
+    //    int GetFullscreen(out bool pfFullscreen);
+    //    int GetIdealVideoSize(Size pszMin, Size pszMax);
+    //    //int GetNativeVideoSize(Size pszVideo, Size pszARVideo);
+    //    int GetNativeVideoSize(out Size pszVideo, out Size pszARVideo);
+    //    int GetRenderingPrefs(out MFVideoRenderPrefs pdwRenderFlags);
+    //    int GetVideoPosition(MFVideoNormalizedRect pnrcSource, MediaFoundation.Misc.MFRect prcDest);
+    //    int GetVideoWindow(out IntPtr phwndVideo);
+    //    int RepaintVideo();
+    //    int SetAspectRatioMode(MFVideoAspectRatioMode dwAspectRatioMode);
+    //    int SetBorderColor(int Clr);
+    //    int SetFullscreen(bool fFullscreen);
+    //    int SetRenderingPrefs(MFVideoRenderPrefs dwRenderFlags);
+    //    int SetVideoPosition(MFVideoNormalizedRect pnrcSource, MediaFoundation.Misc.MFRect prcDest);
+    //    int SetVideoWindow(IntPtr hwndVideo);
+    //}
+
+    [ComImport, System.Security.SuppressUnmanagedCodeSecurity,
+    Guid("A490B1E4-AB84-4D31-A1B2-181E03B1077A"),
+    InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IMFVideoDisplayControl
+    {
+        //[PreserveSig]
+        //int GetNativeVideoSize(
+        //    [Out] Size pszVideo,
+        //    [Out] Size pszARVideo
+        //    );
+        [PreserveSig]
+        int GetNativeVideoSize(
+            out Size pszVideo,
+            out Size pszARVideo
+            );
+
+        [PreserveSig]
+        int GetIdealVideoSize(
+            [Out] Size pszMin,
+            [Out] Size pszMax
+            );
+
+        [PreserveSig]
+        int SetVideoPosition(
+            [In] MFVideoNormalizedRect pnrcSource,
+            [In] MediaFoundation.Misc.MFRect prcDest
+            );
+
+        [PreserveSig]
+        int GetVideoPosition(
+            [Out] MFVideoNormalizedRect pnrcSource,
+            [Out] MediaFoundation.Misc.MFRect prcDest
+            );
+
+        [PreserveSig]
+        int SetAspectRatioMode(
+            [In] MFVideoAspectRatioMode dwAspectRatioMode
+            );
+
+        [PreserveSig]
+        int GetAspectRatioMode(
+            out MFVideoAspectRatioMode pdwAspectRatioMode
+            );
+
+        [PreserveSig]
+        int SetVideoWindow(
+            [In] IntPtr hwndVideo
+            );
+
+        [PreserveSig]
+        int GetVideoWindow(
+            out IntPtr phwndVideo
+            );
+
+        [PreserveSig]
+        int RepaintVideo();
+
+        [PreserveSig]
+        int GetCurrentImage(
+            [In, Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(BMMarshaler))] BitmapInfoHeader pBih,
+            out IntPtr pDib,
+            out int pcbDib,
+            out long pTimeStamp
+            );
+
+        [PreserveSig]
+        int SetBorderColor(
+            [In] int Clr
+            );
+
+        [PreserveSig]
+        int GetBorderColor(
+            out int pClr
+            );
+
+        [PreserveSig]
+        int SetRenderingPrefs(
+            [In] MFVideoRenderPrefs dwRenderFlags
+            );
+
+        [PreserveSig]
+        int GetRenderingPrefs(
+            out MFVideoRenderPrefs pdwRenderFlags
+            );
+
+        [PreserveSig]
+        int SetFullscreen(
+            [In, MarshalAs(UnmanagedType.Bool)] bool fFullscreen
+            );
+
+        [PreserveSig]
+        int GetFullscreen(
+            [MarshalAs(UnmanagedType.Bool)] out bool pfFullscreen
+            );
+    }
+
+    // Class to handle BITMAPINFO
+    internal class BMMarshaler : ICustomMarshaler
+    {
+        protected MediaFoundation.Misc.BitmapInfoHeader m_bmi;
+
+        public IntPtr MarshalManagedToNative(object managedObj)
+        {
+            m_bmi = managedObj as MediaFoundation.Misc.BitmapInfoHeader;
+
+            IntPtr ip = m_bmi.GetPtr();
+
+            return ip;
+        }
+
+        // Called just after invoking the COM method.  The IntPtr is the same one that just got returned
+        // from MarshalManagedToNative.  The return value is unused.
+        public object MarshalNativeToManaged(IntPtr pNativeData)
+        {
+            MediaFoundation.Misc.BitmapInfoHeader bmi = MediaFoundation.Misc.BitmapInfoHeader.PtrToBMI(pNativeData);
+
+            // If we this call is In+Out, the return value is ignored.  If
+            // this is out, then m_bmi will be null.
+            if (m_bmi != null)
+            {
+                m_bmi.CopyFrom(bmi);
+                bmi = null;
+            }
+
+            return bmi;
+        }
+
+        public void CleanUpManagedData(object ManagedObj)
+        {
+            m_bmi = null;
+        }
+
+        public void CleanUpNativeData(IntPtr pNativeData)
+        {
+            Marshal.FreeCoTaskMem(pNativeData);
+        }
+
+        // The number of bytes to marshal out - never called
+        public int GetNativeDataSize()
+        {
+            return -1;
+        }
+
+        // This method is called by interop to create the custom marshaler.  The (optional)
+        // cookie is the value specified in MarshalCookie="asdf", or "" is none is specified.
+        public static ICustomMarshaler GetInstance(string cookie)
+        {
+            return new BMMarshaler();
+        }
+    }
 }
