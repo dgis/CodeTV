@@ -475,49 +475,49 @@ namespace CodeTV
 				if (audioDvrIn != null) Marshal.ReleaseComObject(audioDvrIn);
 			}
 
-			if (false) //Not working anymore on Windows 7!! this.mpeg2VideoStreamAnalyzer != null)
-			{
-				IPin videoDemuxOut = null, videoVSAIn = null;
-				try
-				{
-					videoDemuxOut = DsFindPin.ByName(this.mpeg2Demux, this.H264DecoderDevice == null ? "MPG2" : "H264");
-					videoVSAIn = DsFindPin.ByDirection(this.mpeg2VideoStreamAnalyzer, PinDirection.Input, 0);
-					FilterGraphTools.ConnectFilters(this.graphBuilder, videoDemuxOut, videoVSAIn, false);
-				}
-				finally
-				{
-					if (videoDemuxOut != null) Marshal.ReleaseComObject(videoDemuxOut);
-					if (videoVSAIn != null) Marshal.ReleaseComObject(videoVSAIn);
-				}
+            //if (false) //Not working anymore on Windows 7!! this.mpeg2VideoStreamAnalyzer != null)
+            //{
+            //    IPin videoDemuxOut = null, videoVSAIn = null;
+            //    try
+            //    {
+            //        videoDemuxOut = DsFindPin.ByName(this.mpeg2Demux, this.H264DecoderDevice == null ? "MPG2" : "H264");
+            //        videoVSAIn = DsFindPin.ByDirection(this.mpeg2VideoStreamAnalyzer, PinDirection.Input, 0);
+            //        FilterGraphTools.ConnectFilters(this.graphBuilder, videoDemuxOut, videoVSAIn, false);
+            //    }
+            //    finally
+            //    {
+            //        if (videoDemuxOut != null) Marshal.ReleaseComObject(videoDemuxOut);
+            //        if (videoVSAIn != null) Marshal.ReleaseComObject(videoVSAIn);
+            //    }
 
-				IPin videoVSAOut = null, videoDvrIn = null;
-				try
-				{
-					videoVSAOut = DsFindPin.ByDirection(this.mpeg2VideoStreamAnalyzer, PinDirection.Output, 0);
-					videoDvrIn = DsFindPin.ByDirection(this.streamBufferSink, PinDirection.Input, 1);
-					FilterGraphTools.ConnectFilters(this.graphBuilder, videoVSAOut, videoDvrIn, false);
-				}
-				finally
-				{
-					if (videoVSAOut != null) Marshal.ReleaseComObject(videoVSAOut);
-					if (videoDvrIn != null) Marshal.ReleaseComObject(videoDvrIn);
-				}
-			}
-			else
-			{
-				IPin videoDemuxOut = null, videoDvrIn = null;
-				try
-				{
-					videoDemuxOut = DsFindPin.ByName(this.mpeg2Demux, this.H264DecoderDevice == null ? "MPG2" : "H264");
-					videoDvrIn = DsFindPin.ByDirection(this.streamBufferSink, PinDirection.Input, 1);
-					FilterGraphTools.ConnectFilters(this.graphBuilder, videoDemuxOut, videoDvrIn, false);
-				}
-				finally
-				{
-					if (videoDemuxOut != null) Marshal.ReleaseComObject(videoDemuxOut);
-					if (videoDvrIn != null) Marshal.ReleaseComObject(videoDvrIn);
-				}
-			}
+            //    IPin videoVSAOut = null, videoDvrIn = null;
+            //    try
+            //    {
+            //        videoVSAOut = DsFindPin.ByDirection(this.mpeg2VideoStreamAnalyzer, PinDirection.Output, 0);
+            //        videoDvrIn = DsFindPin.ByDirection(this.streamBufferSink, PinDirection.Input, 1);
+            //        FilterGraphTools.ConnectFilters(this.graphBuilder, videoVSAOut, videoDvrIn, false);
+            //    }
+            //    finally
+            //    {
+            //        if (videoVSAOut != null) Marshal.ReleaseComObject(videoVSAOut);
+            //        if (videoDvrIn != null) Marshal.ReleaseComObject(videoDvrIn);
+            //    }
+            //}
+            //else
+            //{
+            IPin videoDemuxOut = null, videoDvrIn = null;
+            try
+            {
+                videoDemuxOut = DsFindPin.ByName(this.mpeg2Demux, this.H264DecoderDevice == null ? "MPG2" : "H264");
+                videoDvrIn = DsFindPin.ByDirection(this.streamBufferSink, PinDirection.Input, 1);
+                FilterGraphTools.ConnectFilters(this.graphBuilder, videoDemuxOut, videoDvrIn, false);
+            }
+            finally
+            {
+                if (videoDemuxOut != null) Marshal.ReleaseComObject(videoDemuxOut);
+                if (videoDvrIn != null) Marshal.ReleaseComObject(videoDvrIn);
+            }
+            //}
 		}
 
 		private void ConnectStreamBufferSourceFilter()

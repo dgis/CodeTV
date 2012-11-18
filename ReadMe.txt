@@ -114,7 +114,7 @@ TODO LIST:
 
 CHANGES:
 
-version 0.3 (2012-11-19)
+version 0.3 (2012-11-18)
 - Add support for AC3 and EAC3 audio.
 - Add support for EVR instead of VMR. EVR gives a better quality on Vista or Seven.
 - The DVB frequency scanner now wait 500ms before trying to get the channels.

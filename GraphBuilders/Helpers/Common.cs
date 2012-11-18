@@ -596,7 +596,7 @@ namespace CodeTV
                             {
                                 hashtableMediaSubTypeByGUID.Add(fieldInfo.GetValue(null), mi.Name);
                             }
-                            catch (Exception ex)
+                            catch (Exception)
                             {
                             }
 						}

@@ -539,7 +539,7 @@ namespace CodeTV
                                                         }
                                                     }
                                                 }
-                                                catch (Exception ex)
+                                                catch (Exception)
                                                 {
                                                 }
 

@@ -759,7 +759,7 @@ namespace CodeTV
 
 		//private Color colorKey = Color.Violet; // The color use as ColorKey for GDI operations
 		private System.Drawing.Color colorKey = System.Drawing.Color.Violet; // The color use as ColorKey for GDI operations
-		private Bitmap colorKeyBitmap; // A RGB bitmap used for GDI operations.
+		//private Bitmap colorKeyBitmap; // A RGB bitmap used for GDI operations.
 		//private Bitmap alphaBitmap; // A ARGB bitmap used for Direct3D operations
 
 		//// Managed Direct3D magic number to retrieve unmanaged Direct3D interfaces
