@@ -592,7 +592,13 @@ namespace CodeTV
 						if (mi.MemberType == MemberTypes.Field && ((FieldInfo)mi).FieldType == typeof(Guid))
 						{
 							FieldInfo fieldInfo = type.GetField(mi.Name, BindingFlags.Public | BindingFlags.Static);
-							hashtableMediaSubTypeByGUID.Add(fieldInfo.GetValue(null), mi.Name);
+                            try
+                            {
+                                hashtableMediaSubTypeByGUID.Add(fieldInfo.GetValue(null), mi.Name);
+                            }
+                            catch (Exception ex)
+                            {
+                            }
 						}
 					}
 				}

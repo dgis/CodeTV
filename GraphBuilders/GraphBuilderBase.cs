@@ -47,7 +47,7 @@ namespace CodeTV
 
 		protected VideoControl hostingControl;
         protected bool useWPF = true;
-        protected bool useEVR = true;
+        protected bool useEVR = false;
 		//protected DirectDraw directDraw = new DirectDraw();
 
 		protected static Dictionary<string, DsDevice> audioRendererDevices;
@@ -336,52 +336,57 @@ namespace CodeTV
 
 			// To see something
 
-			if (useWPF)
-			{
-				// Get the SampleGrabber interface
-				ISampleGrabber sampleGrabber = new SampleGrabber() as ISampleGrabber;
-				this.videoRenderer = sampleGrabber as IBaseFilter;
-
-				// Set the media type to Video
-				AMMediaType media = new AMMediaType();
-				media.majorType = MediaType.Video;
-				//media.subType = MediaSubType.YUY2; // RGB24;
-				//media.formatType = FormatType.Null;
-				//media.sampleSize = 1;
-				//media.temporalCompression = false;
-				//media.fixedSizeSamples = false;
-				//media.unkPtr = IntPtr.Zero;
-				//media.formatType = FormatType.None;
-				//media.formatSize = 0;
-				//media.formatPtr = IntPtr.Zero;
-				media.subType = MediaSubType.RGB32; // RGB24;
-				media.formatType = FormatType.VideoInfo;
-				hr = sampleGrabber.SetMediaType(media);
-				ThrowExceptionForHR("Setting the MediaType on the SampleGrabber: ", hr);
-				DsUtils.FreeAMMediaType(media);
-
-				// Configure the samplegrabber
-				hr = sampleGrabber.SetCallback(this, 1);
-				DsError.ThrowExceptionForHR(hr);
-
-
-				// Add the frame grabber to the graph
-				hr = graphBuilder.AddFilter(this.videoRenderer, "SampleGrabber");
-				ThrowExceptionForHR("Adding the SampleGrabber: ", hr);
-
-				//hr = ConnectFilters(this.videoRenderer, nullRenderer);
-			}
-            else if (useEVR)
+            if (useWPF)
             {
-                this.videoRenderer = (IBaseFilter)new EnhancedVideoRenderer();
-                hr = graphBuilder.AddFilter(this.videoRenderer, "Enhanced Video Renderer");
-                ThrowExceptionForHR("Adding the VMR9: ", hr);
+                // Get the SampleGrabber interface
+                ISampleGrabber sampleGrabber = new SampleGrabber() as ISampleGrabber;
+                this.videoRenderer = sampleGrabber as IBaseFilter;
+
+                // Set the media type to Video
+                AMMediaType media = new AMMediaType();
+                media.majorType = MediaType.Video;
+                //media.subType = MediaSubType.YUY2; // RGB24;
+                //media.formatType = FormatType.Null;
+                //media.sampleSize = 1;
+                //media.temporalCompression = false;
+                //media.fixedSizeSamples = false;
+                //media.unkPtr = IntPtr.Zero;
+                //media.formatType = FormatType.None;
+                //media.formatSize = 0;
+                //media.formatPtr = IntPtr.Zero;
+                media.subType = MediaSubType.RGB32; // RGB24;
+                media.formatType = FormatType.VideoInfo;
+                hr = sampleGrabber.SetMediaType(media);
+                ThrowExceptionForHR("Setting the MediaType on the SampleGrabber: ", hr);
+                DsUtils.FreeAMMediaType(media);
+
+                // Configure the samplegrabber
+                hr = sampleGrabber.SetCallback(this, 1);
+                DsError.ThrowExceptionForHR(hr);
+
+
+                // Add the frame grabber to the graph
+                hr = graphBuilder.AddFilter(this.videoRenderer, "SampleGrabber");
+                ThrowExceptionForHR("Adding the SampleGrabber: ", hr);
+
+                //hr = ConnectFilters(this.videoRenderer, nullRenderer);
             }
             else
             {
-                this.videoRenderer = (IBaseFilter)new VideoMixingRenderer9();
-                hr = graphBuilder.AddFilter(this.videoRenderer, "Video Mixing Renderer 9");
-                ThrowExceptionForHR("Adding the VMR9: ", hr);
+                try
+                {
+                    this.videoRenderer = (IBaseFilter)new EnhancedVideoRenderer();
+                    hr = graphBuilder.AddFilter(this.videoRenderer, "Enhanced Video Renderer");
+                    ThrowExceptionForHR("Adding the EVR: ", hr);
+                    useEVR = true;
+                }
+                catch (Exception) { }
+                if (!useEVR)
+                {
+                    this.videoRenderer = (IBaseFilter)new VideoMixingRenderer9();
+                    hr = graphBuilder.AddFilter(this.videoRenderer, "Video Mixing Renderer 9");
+                    ThrowExceptionForHR("Adding the VMR9: ", hr);
+                }
             }
             //IReferenceClock clock = this.audioRenderer as IReferenceClock;
 			//if(clock != null)
@@ -797,116 +802,116 @@ namespace CodeTV
 		//    base.Dispose(disposing);
 		//}
 
-		private NormalizedRect GetDestRectangle()
-		{
-			int hr = 0;
-			int width, height, arW, arH;
-			NormalizedRect rect = new NormalizedRect();
+        //private NormalizedRect GetDestRectangle()
+        //{
+        //    int hr = 0;
+        //    int width, height, arW, arH;
+        //    NormalizedRect rect = new NormalizedRect();
 
-            if (useEVR)
-            {
-                Size videoSize = new Size(), arVideoSize = new Size();
-                hr = evrVideoDisplayControl.GetNativeVideoSize(out videoSize, out arVideoSize);
-                //hr = evrVideoDisplayControl.GetIdealVideoSize(out videoSize, out arVideoSize);
-                width = videoSize.Width;
-                height = videoSize.Height;
-                arW = arVideoSize.Width;
-                arH = arVideoSize.Height;
-            }
-            else
-    			hr = (this.videoRenderer as IVMRWindowlessControl9).GetNativeVideoSize(out width, out height, out arW, out arH);
-			DsError.ThrowExceptionForHR(hr);
+        //    if (useEVR)
+        //    {
+        //        Size videoSize = new Size(), arVideoSize = new Size();
+        //        hr = evrVideoDisplayControl.GetNativeVideoSize(out videoSize, out arVideoSize);
+        //        //hr = evrVideoDisplayControl.GetIdealVideoSize(out videoSize, out arVideoSize);
+        //        width = videoSize.Width;
+        //        height = videoSize.Height;
+        //        arW = arVideoSize.Width;
+        //        arH = arVideoSize.Height;
+        //    }
+        //    else
+        //        hr = (this.videoRenderer as IVMRWindowlessControl9).GetNativeVideoSize(out width, out height, out arW, out arH);
+        //    DsError.ThrowExceptionForHR(hr);
 
-			// Position the bitmap in the middle of the video stream.
-			if (width >= height)
-			{
-				rect.top = 0.0f;
-				rect.left = (1.0f - ((float)height / (float)width)) / 2;
-				rect.bottom = 1.0f;
-				rect.right = rect.left + (float)height / (float)width;
-			}
-			else
-			{
-				rect.top = (1.0f - ((float)width / (float)height)) / 2;
-				rect.left = 0.0f;
-				rect.right = rect.top + (float)width / (float)height;
-				rect.bottom = 1.0f;
-			}
+        //    // Position the bitmap in the middle of the video stream.
+        //    if (width >= height)
+        //    {
+        //        rect.top = 0.0f;
+        //        rect.left = (1.0f - ((float)height / (float)width)) / 2;
+        //        rect.bottom = 1.0f;
+        //        rect.right = rect.left + (float)height / (float)width;
+        //    }
+        //    else
+        //    {
+        //        rect.top = (1.0f - ((float)width / (float)height)) / 2;
+        //        rect.left = 0.0f;
+        //        rect.right = rect.top + (float)width / (float)height;
+        //        rect.bottom = 1.0f;
+        //    }
 
-			return rect;
-		}
+        //    return rect;
+        //}
 
 		public void StartOSD()
 		{
-			// Get the colorkeyed bitmap without antialiasing
-			colorKeyBitmap = BitmapGenerator.GenerateColorKeyBitmap(colorKey, false);
-			//// Get the bitmap with alpha transparency
-			//alphaBitmap = BitmapGenerator.GenerateAlphaBitmap();
+            //// Get the colorkeyed bitmap without antialiasing
+            //colorKeyBitmap = BitmapGenerator.GenerateColorKeyBitmap(colorKey, false);
+            ////// Get the bitmap with alpha transparency
+            ////alphaBitmap = BitmapGenerator.GenerateAlphaBitmap();
 
 
-			IVMRMixerBitmap9 mixerBitmap = this.videoRenderer as IVMRMixerBitmap9;
+            //IVMRMixerBitmap9 mixerBitmap = this.videoRenderer as IVMRMixerBitmap9;
 
-			//if (usingGDI)
-			//{
-				// Old school GDI stuff...
-				Graphics g = Graphics.FromImage(colorKeyBitmap);
-				IntPtr hdc = g.GetHdc();
-				IntPtr memDC = NativeMethodes.CreateCompatibleDC(hdc);
-				IntPtr hBitmap = colorKeyBitmap.GetHbitmap();
-				NativeMethodes.SelectObject(memDC, hBitmap);
+            ////if (usingGDI)
+            ////{
+            //    // Old school GDI stuff...
+            //    Graphics g = Graphics.FromImage(colorKeyBitmap);
+            //    IntPtr hdc = g.GetHdc();
+            //    IntPtr memDC = NativeMethodes.CreateCompatibleDC(hdc);
+            //    IntPtr hBitmap = colorKeyBitmap.GetHbitmap();
+            //    NativeMethodes.SelectObject(memDC, hBitmap);
 
-				// Set Alpha Bitmap Parameters for using a GDI DC
-				VMR9AlphaBitmap alphaBmp = new VMR9AlphaBitmap();
-				alphaBmp.dwFlags = VMR9AlphaBitmapFlags.hDC | VMR9AlphaBitmapFlags.SrcColorKey | VMR9AlphaBitmapFlags.FilterMode;
-				alphaBmp.hdc = memDC;
-				alphaBmp.rSrc = new DsRect(0, 0, colorKeyBitmap.Size.Width, colorKeyBitmap.Size.Height);
-				alphaBmp.rDest = GetDestRectangle();
-				alphaBmp.clrSrcKey = ColorTranslator.ToWin32(colorKey);
-				alphaBmp.dwFilterMode = VMRMixerPrefs.PointFiltering;
-				alphaBmp.fAlpha = 0.75f;
+            //    // Set Alpha Bitmap Parameters for using a GDI DC
+            //    VMR9AlphaBitmap alphaBmp = new VMR9AlphaBitmap();
+            //    alphaBmp.dwFlags = VMR9AlphaBitmapFlags.hDC | VMR9AlphaBitmapFlags.SrcColorKey | VMR9AlphaBitmapFlags.FilterMode;
+            //    alphaBmp.hdc = memDC;
+            //    alphaBmp.rSrc = new DsRect(0, 0, colorKeyBitmap.Size.Width, colorKeyBitmap.Size.Height);
+            //    alphaBmp.rDest = GetDestRectangle();
+            //    alphaBmp.clrSrcKey = ColorTranslator.ToWin32(colorKey);
+            //    alphaBmp.dwFilterMode = VMRMixerPrefs.PointFiltering;
+            //    alphaBmp.fAlpha = 0.75f;
 
-				// Set Alpha Bitmap Parameters
-				int hr = mixerBitmap.SetAlphaBitmap(ref alphaBmp);
-				DsError.ThrowExceptionForHR(hr);
+            //    // Set Alpha Bitmap Parameters
+            //    int hr = mixerBitmap.SetAlphaBitmap(ref alphaBmp);
+            //    DsError.ThrowExceptionForHR(hr);
 
-				// Release GDI handles
-				NativeMethodes.DeleteObject(hBitmap);
-				NativeMethodes.DeleteDC(memDC);
-				g.ReleaseHdc(hdc);
-				g.Dispose();
-			//}
-			//else // Using a Direct3D surface
-			//{
-			//    // Set Alpha Bitmap Parameters for using a Direct3D surface
-			//    VMR9AlphaBitmap alphaBmp = new VMR9AlphaBitmap();
-			//    alphaBmp.dwFlags = VMR9AlphaBitmapFlags.EntireDDS;
-			//    alphaBmp.pDDS = unmanagedSurface;
-			//    alphaBmp.rDest = GetDestRectangle();
-			//    alphaBmp.fAlpha = 1.0f;
-			//    // Note : Alpha values from the bitmap are cumulative with the fAlpha parameter.
-			//    // Example : texel alpha = 128 (50%) & fAlpha = 0.5f (50%) = effective alpha : 64 (25%)
+            //    // Release GDI handles
+            //    NativeMethodes.DeleteObject(hBitmap);
+            //    NativeMethodes.DeleteDC(memDC);
+            //    g.ReleaseHdc(hdc);
+            //    g.Dispose();
+            ////}
+            ////else // Using a Direct3D surface
+            ////{
+            ////    // Set Alpha Bitmap Parameters for using a Direct3D surface
+            ////    VMR9AlphaBitmap alphaBmp = new VMR9AlphaBitmap();
+            ////    alphaBmp.dwFlags = VMR9AlphaBitmapFlags.EntireDDS;
+            ////    alphaBmp.pDDS = unmanagedSurface;
+            ////    alphaBmp.rDest = GetDestRectangle();
+            ////    alphaBmp.fAlpha = 1.0f;
+            ////    // Note : Alpha values from the bitmap are cumulative with the fAlpha parameter.
+            ////    // Example : texel alpha = 128 (50%) & fAlpha = 0.5f (50%) = effective alpha : 64 (25%)
 
-			//    // Set Alpha Bitmap Parameters
-			//    int hr = mixerBitmap.SetAlphaBitmap(ref alphaBmp);
-			//    DsError.ThrowExceptionForHR(hr);
-			//}
+            ////    // Set Alpha Bitmap Parameters
+            ////    int hr = mixerBitmap.SetAlphaBitmap(ref alphaBmp);
+            ////    DsError.ThrowExceptionForHR(hr);
+            ////}
 		}
 
 		public void StopOSD()
 		{
-			IVMRMixerBitmap9 mixerBitmap = this.videoRenderer as IVMRMixerBitmap9;
+            //IVMRMixerBitmap9 mixerBitmap = this.videoRenderer as IVMRMixerBitmap9;
 
-			// Get current Alpha Bitmap Parameters
-			VMR9AlphaBitmap alphaBmp;
-			int hr = mixerBitmap.GetAlphaBitmapParameters(out alphaBmp);
-			DsError.ThrowExceptionForHR(hr);
+            //// Get current Alpha Bitmap Parameters
+            //VMR9AlphaBitmap alphaBmp;
+            //int hr = mixerBitmap.GetAlphaBitmapParameters(out alphaBmp);
+            //DsError.ThrowExceptionForHR(hr);
 
-			// Disable them
-			alphaBmp.dwFlags = VMR9AlphaBitmapFlags.Disable;
+            //// Disable them
+            //alphaBmp.dwFlags = VMR9AlphaBitmapFlags.Disable;
 
-			// Update the Alpha Bitmap Parameters
-			hr = mixerBitmap.UpdateAlphaBitmapParameters(ref alphaBmp);
-			DsError.ThrowExceptionForHR(hr);
+            //// Update the Alpha Bitmap Parameters
+            //hr = mixerBitmap.UpdateAlphaBitmapParameters(ref alphaBmp);
+            //DsError.ThrowExceptionForHR(hr);
 		}
 
 		protected virtual void ConnectAllOutputFiltersFrom(IBaseFilter fromFilter, IFilterGraph2 graph)
@@ -1036,58 +1041,63 @@ namespace CodeTV
 		//    return innerRectangle;
 		//}
 
+        protected Rectangle[] GetBlackBands()
+		{
+			Rectangle outerRectangle = this.hostingControl.ClientRectangle;
+			DsRect innerDsRect = new DsRect();
+            int hr;
+            if (useEVR)
+            {
+                MFVideoNormalizedRect pnrcSource = new MFVideoNormalizedRect();
+                MediaFoundation.Misc.MFRect prcDest = new MediaFoundation.Misc.MFRect();
+                hr = evrVideoDisplayControl.GetVideoPosition(pnrcSource, prcDest);
+                innerDsRect = DsRect.FromRectangle((Rectangle)prcDest);
+            }
+            else
+            {
+                IVMRWindowlessControl9 vmrWindowlessControl9 = this.videoRenderer as IVMRWindowlessControl9;
+                hr = vmrWindowlessControl9.GetVideoPosition(null, innerDsRect);
+            }
+			Rectangle innerRectangle = innerDsRect.ToRectangle();
+
+			//Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\tvideoRenderer.GetVideoPosition({0})"), innerRectangle.ToString()));
+			//Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\thostingControl.ClientRectangle({0})"), outerRectangle.ToString()));
+
+			List<Rectangle> alRectangles = new List<Rectangle>();
+
+			if (innerRectangle.Top > outerRectangle.Top)
+				alRectangles.Add(new Rectangle(outerRectangle.Left, outerRectangle.Top, outerRectangle.Width - 1, innerRectangle.Top - 1));
+
+			if (innerRectangle.Bottom < outerRectangle.Bottom)
+				alRectangles.Add(new Rectangle(outerRectangle.Left, innerRectangle.Bottom, outerRectangle.Width - 1, outerRectangle.Height - (innerRectangle.Bottom + 1)));
+
+			if (innerRectangle.Left > outerRectangle.Left)
+			{
+				Rectangle rectangleLeft = new Rectangle(outerRectangle.Left, innerRectangle.Top, innerRectangle.Left - 1, innerRectangle.Height - 1);
+				rectangleLeft.Intersect(outerRectangle);
+				alRectangles.Add(rectangleLeft);
+			}
+
+			if (innerRectangle.Right < outerRectangle.Right)
+			{
+				Rectangle rectangleLeft = new Rectangle(innerRectangle.Right, innerRectangle.Top, outerRectangle.Width - (innerRectangle.Right + 1), innerRectangle.Height - 1);
+				rectangleLeft.Intersect(outerRectangle);
+				alRectangles.Add(rectangleLeft);
+			}
+            return alRectangles.ToArray();
+        }
+
 		protected virtual void PaintBlackBands(Graphics g)
 		{
 			if (this.videoRenderer != null)
 			{
 				Trace.WriteLineIf(trace.TraceInfo, "PaintBlackBands()");
 
-				Rectangle outerRectangle = this.hostingControl.ClientRectangle;
-				DsRect innerDsRect = new DsRect();
-                int hr;
-                if (useEVR)
-                {
-                    MFVideoNormalizedRect pnrcSource = new MFVideoNormalizedRect();
-                    MediaFoundation.Misc.MFRect prcDest = new MediaFoundation.Misc.MFRect();
-                    hr = evrVideoDisplayControl.GetVideoPosition(pnrcSource, prcDest);
-                    innerDsRect = DsRect.FromRectangle((Rectangle)prcDest);
-                }
-                else
-                {
-                    IVMRWindowlessControl9 vmrWindowlessControl9 = this.videoRenderer as IVMRWindowlessControl9;
-                    hr = vmrWindowlessControl9.GetVideoPosition(null, innerDsRect);
-                }
-				Rectangle innerRectangle = innerDsRect.ToRectangle();
-
-				//Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\tvideoRenderer.GetVideoPosition({0})"), innerRectangle.ToString()));
-				//Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\thostingControl.ClientRectangle({0})"), outerRectangle.ToString()));
-
-				ArrayList alRectangles = new ArrayList();
-
-				if (innerRectangle.Top > outerRectangle.Top)
-					alRectangles.Add(new Rectangle(outerRectangle.Left, outerRectangle.Top, outerRectangle.Width - 1, innerRectangle.Top - 1));
-
-				if (innerRectangle.Bottom < outerRectangle.Bottom)
-					alRectangles.Add(new Rectangle(outerRectangle.Left, innerRectangle.Bottom, outerRectangle.Width - 1, outerRectangle.Height - (innerRectangle.Bottom + 1)));
-
-				if (innerRectangle.Left > outerRectangle.Left)
+                Rectangle[] alRectangles = GetBlackBands();
+                if (alRectangles.Length > 0)
 				{
-					Rectangle rectangleLeft = new Rectangle(outerRectangle.Left, innerRectangle.Top, innerRectangle.Left - 1, innerRectangle.Height - 1);
-					rectangleLeft.Intersect(outerRectangle);
-					alRectangles.Add(rectangleLeft);
-				}
-
-				if (innerRectangle.Right < outerRectangle.Right)
-				{
-					Rectangle rectangleLeft = new Rectangle(innerRectangle.Right, innerRectangle.Top, outerRectangle.Width - (innerRectangle.Right + 1), innerRectangle.Height - 1);
-					rectangleLeft.Intersect(outerRectangle);
-					alRectangles.Add(rectangleLeft);
-				}
-
-				if (alRectangles.Count > 0)
-				{
-					g.FillRectangles(new SolidBrush(Settings.VideoBackgroundColor), (Rectangle[])alRectangles.ToArray(typeof(Rectangle)));
-					g.DrawRectangles(new System.Drawing.Pen(Settings.VideoBackgroundColor), (Rectangle[])alRectangles.ToArray(typeof(Rectangle)));
+					g.FillRectangles(new SolidBrush(Settings.VideoBackgroundColor), alRectangles);
+					g.DrawRectangles(new System.Drawing.Pen(Settings.VideoBackgroundColor), alRectangles);
 				}
 			}
 		}
@@ -1108,6 +1118,7 @@ namespace CodeTV
                         if (useEVR)
                         {
                             hr = this.evrVideoDisplayControl.RepaintVideo();
+                            this.hostingControl.ModifyBlackBands(GetBlackBands(), Settings.VideoBackgroundColor);
                         }
                         else
                         {
@@ -1135,11 +1146,11 @@ namespace CodeTV
 			currentVideoTargetRectangle = windowRect;
 			currentVideoSourceSize = new Size();
 
-			if (videoZoomMode != VideoSizeMode.StretchToWindow)
-			{
-				FilterState filterState = GetGraphState();
-				if (filterState == FilterState.Paused || filterState == FilterState.Running)
-				{
+            FilterState filterState = GetGraphState();
+            if (filterState == FilterState.Paused || filterState == FilterState.Running)
+            {
+                if (videoZoomMode != VideoSizeMode.StretchToWindow)
+			    {
 					int arX, arY;
 					int arX2 = 0, arY2 = 0;
 
@@ -1154,6 +1165,7 @@ namespace CodeTV
                         arY = videoSize.Height;
                         arX2 = arVideoSize.Width;
                         arY2 = arVideoSize.Height;
+                        Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\tvideoRenderer.GetNativeVideoSize({0}, {1})"), videoSize.ToString(), arVideoSize.ToString()));
                     }
                     else
     					hr = (this.videoRenderer as IVMRWindowlessControl9).GetNativeVideoSize(out arX, out arY, out arX2, out arY2);
@@ -1200,18 +1212,18 @@ namespace CodeTV
 						currentVideoTargetRectangle = new Rectangle(pos, size);
 					}
 				}
-			}
-
-            if (useEVR)
-            {
-                //hr = evrVideoDisplayControl.SetVideoWindow(this.hostingControl.Handle);
-                MFVideoNormalizedRect pnrcSource = new MFVideoNormalizedRect(0.0f, 0.0f, 1.0f, 1.0f);
-                hr = this.evrVideoDisplayControl.SetVideoPosition(pnrcSource, (MediaFoundation.Misc.MFRect)currentVideoTargetRectangle);
+                if (useEVR)
+                {
+                    //hr = evrVideoDisplayControl.SetVideoWindow(this.hostingControl.Handle);
+                    MFVideoNormalizedRect pnrcSource = new MFVideoNormalizedRect(0.0f, 0.0f, 1.0f, 1.0f);
+                    hr = this.evrVideoDisplayControl.SetVideoPosition(pnrcSource, (MediaFoundation.Misc.MFRect)currentVideoTargetRectangle);
+                    this.hostingControl.ModifyBlackBands(GetBlackBands(), Settings.VideoBackgroundColor);
+                }
+                else
+                    hr = (this.videoRenderer as IVMRWindowlessControl9).SetVideoPosition(null, DsRect.FromRectangle(currentVideoTargetRectangle));
+                //Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\tPos {0:F2} {1:F2}, Zoom {2:F2}, ARF {4:F2}, AR {4:F2}"), offset.X, offset.Y, zoom, aspectRatioFactor, (float)videoTargetRect.Width / videoTargetRect.Height));
+                Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\tvideoRenderer.SetVideoPosition({0})"), currentVideoTargetRectangle.ToString()));
             }
-            else
-    			hr = (this.videoRenderer as IVMRWindowlessControl9).SetVideoPosition(null, DsRect.FromRectangle(currentVideoTargetRectangle));
-			//Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\tPos {0:F2} {1:F2}, Zoom {2:F2}, ARF {4:F2}, AR {4:F2}"), offset.X, offset.Y, zoom, aspectRatioFactor, (float)videoTargetRect.Width / videoTargetRect.Height));
-			Trace.WriteLineIf(trace.TraceVerbose, string.Format(("\tvideoRenderer.SetVideoPosition({0})"), currentVideoTargetRectangle.ToString()));
 		}
 
 		protected virtual void OnResizeMoveHandler(object sender, EventArgs e)

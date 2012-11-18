@@ -104,7 +104,7 @@ TODO LIST:
 
 CHANGES:
 
-version 0.3 (2012-11-11)
+version 0.3 (2012-11-19)
 - Add support for AC3 and EAC3 audio.
 - Add support for EVR instead of VMR on OS >= 6.0. EVR gives a better quality on Vista or Seven.
 - Add the project to GitHub: https://github.com/dgis/CodeTV
@@ -112,15 +112,13 @@ version 0.3 (2012-11-11)
 - Add DirectShowNet version 2.1
 - Fix the proppage.dll on 64bit system.
 - Add the Hervé changes:
-	*Parser
-		- Le parser de tables est maintenant dans une dll externe afin d'être réutilisé dans d'autre programme
-		- Parsing de la table NIT
-		- Parsing des descripteurs logical_channel_number et HD_simulcast_logical_channel_number
-	*Interface
-		- Ajout du logical_channel_number au nunero de chaine lors du scan
-		- Ajout des infos de la table NIT dans les infos du tranponder et du channel
-	*Autre
-		- Mise en commentaire de code que je pense inutile
+	* Parser
+		- The parser tables is now in an external dll to be reused in another program.
+		- Parsing of NIT table.
+		- Parsing the descriptors logical_channel_number and HD_simulcast_logical_channel_number.
+	* Interface
+		- Add the logical_channel_number to the channels.
+		- Add data from the NIT table in the channel and the tranponder.
 
 version 0.2 (2007-11-04)
 - Change the WPF initialization if used

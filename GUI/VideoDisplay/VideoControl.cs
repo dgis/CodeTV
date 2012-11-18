@@ -31,9 +31,13 @@ namespace CodeTV
 	{
 		//private OSDControl osdControl;
 		//private OSDForm osdForm;
-		private bool useWPF = true;
+		
+        private bool useWPF = true;
 		private VideoWPF wpfVideo = null;
 		private ElementHost wpfElementhost = null;
+
+        private bool useBlackBands = false;
+        private List<Control> blackBands = null;
 
 		public VideoControl()
 		{
@@ -196,6 +200,80 @@ namespace CodeTV
 				}
 			}
 		}
+
+        public bool UseBlackBands
+		{
+			get { return this.useBlackBands; }
+			set
+			{
+				if (this.useBlackBands != value)
+				{
+					if (this.useBlackBands)
+                        RemoveSpecialBorder();
+					else
+                        AddSpecialBorder();
+					this.useBlackBands = value;
+					this.Invalidate();
+				}
+			}
+		}
+
+        public void ModifyBlackBands(Rectangle[] borders, Color videoBackgroundColor)
+        {
+            if (!this.UseBlackBands)
+                this.UseBlackBands = true;
+
+            if (borders.Length >= 2)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    Control control = this.blackBands[i];
+                    if (control != null)
+                    {
+                        if (!control.Visible) control.Visible = true;
+                        if (control.BackColor != videoBackgroundColor)
+                            control.BackColor = videoBackgroundColor;
+                        if (control.Location.X != borders[i].X || control.Location.Y != borders[i].Y)
+                            control.Location = new System.Drawing.Point(borders[i].X, borders[i].Y);
+                        if (control.Size.Width + 1 != borders[i].Width + 1 || control.Size.Height + 1 != borders[i].Height + 1)
+                            control.Size = new System.Drawing.Size(borders[i].Width + 1, borders[i].Height + 1);
+                    }
+                }
+            }
+        }
+
+        private void AddSpecialBorder()
+		{
+			if (this.blackBands == null)
+            {
+				this.blackBands = new List<Control>();
+
+                for (int i = 0; i < 2; i++)
+                {
+                    Control control = new Control();
+                    control.BackColor = System.Drawing.Color.Black;
+                    control.Location = new System.Drawing.Point(0, 0);
+                    control.Size = new System.Drawing.Size(1, 1);
+                    control.TabStop = false;
+                    control.Visible = false;
+                    this.Controls.Add(control);
+                    this.blackBands.Add(control);
+                }
+            }
+		}
+
+        private void RemoveSpecialBorder()
+        {
+            if (this.blackBands != null)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    Control control = this.blackBands[0];
+                    this.blackBands.RemoveAt(0);
+                    this.Controls.Remove(control);
+                }
+            }
+        }
 
 		public System.Windows.Controls.Image WPFImage { get { return this.wpfVideo.WPFImage; } }
 	}

@@ -1294,8 +1294,8 @@ namespace CodeTV
 				//videoPinFormat.hdr.InterlaceFlags |= AMInterlace.Field1First;
 
 				videoPinFormat.hdr.CopyProtectFlags = AMCopyProtect.None;	//0x00, 0x00, 0x00, 0x00,                         //30  .hdr.dwCopyProtectFlags         = 0x00000000
-				videoPinFormat.hdr.PictAspectRatioX = 4;					//0x04, 0x00, 0x00, 0x00,                         //34  .hdr.dwPictAspectRatioX         = 0x00000004
-				videoPinFormat.hdr.PictAspectRatioY = 3;					//0x03, 0x00, 0x00, 0x00,                         //38  .hdr.dwPictAspectRatioY         = 0x00000003
+                videoPinFormat.hdr.PictAspectRatioX = 16; // 4;					//0x04, 0x00, 0x00, 0x00,                         //34  .hdr.dwPictAspectRatioX         = 0x00000004
+                videoPinFormat.hdr.PictAspectRatioY = 9; // 3;					//0x03, 0x00, 0x00, 0x00,                         //38  .hdr.dwPictAspectRatioY         = 0x00000003
 				videoPinFormat.hdr.ControlFlags = AMControl.None;			//0x00, 0x00, 0x00, 0x00,                         //3c  .hdr.dwReserved1                = 0x00000000
 				videoPinFormat.hdr.Reserved2 = 0;							//0x00, 0x00, 0x00, 0x00,                         //40  .hdr.dwReserved2                = 0x00000000
 				videoPinFormat.hdr.BmiHeader = new BitmapInfoHeader();
@@ -1349,8 +1349,8 @@ namespace CodeTV
                 //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.FieldPatBothRegular | AMInterlace.DisplayModeWeaveOnly;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
                 //videoPinFormat.hdr.InterlaceFlags = AMInterlace.IsInterlaced | AMInterlace.DisplayModeBobOrWeave;		//0x00, 0x00, 0x00, 0x00,                         //2c  .hdr.dwInterlaceFlags           = 0x00000000
                 videoPinFormat.hdr.CopyProtectFlags = AMCopyProtect.None;	//0x00, 0x00, 0x00, 0x00,                         //30  .hdr.dwCopyProtectFlags         = 0x00000000
-                videoPinFormat.hdr.PictAspectRatioX = 4;					//0x04, 0x00, 0x00, 0x00,                         //34  .hdr.dwPictAspectRatioX         = 0x00000004
-                videoPinFormat.hdr.PictAspectRatioY = 3;					//0x03, 0x00, 0x00, 0x00,                         //38  .hdr.dwPictAspectRatioY         = 0x00000003
+                videoPinFormat.hdr.PictAspectRatioX = 16; // 4;					//0x04, 0x00, 0x00, 0x00,                         //34  .hdr.dwPictAspectRatioX         = 0x00000004
+                videoPinFormat.hdr.PictAspectRatioY = 9; // 3;					//0x03, 0x00, 0x00, 0x00,                         //38  .hdr.dwPictAspectRatioY         = 0x00000003
                 videoPinFormat.hdr.ControlFlags = AMControl.None;			//0x00, 0x00, 0x00, 0x00,                         //3c  .hdr.dwReserved1                = 0x00000000
                 videoPinFormat.hdr.Reserved2 = 0;							//0x00, 0x00, 0x00, 0x00,                         //40  .hdr.dwReserved2                = 0x00000000
                 videoPinFormat.hdr.BmiHeader = new BitmapInfoHeader();

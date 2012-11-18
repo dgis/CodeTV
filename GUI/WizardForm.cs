@@ -375,6 +375,7 @@ namespace CodeTV
 					IBDA graphBuilderBDA = MainForm.GraphBuilder as IBDA;
 					bool locked, present;
 					int strength, quality;
+                    System.Threading.Thread.Sleep(500);
 					if ((graphBuilderBDA as ITV).GetSignalStatistics(out locked, out present, out strength, out quality))
 					{
 						if (locked && present)
