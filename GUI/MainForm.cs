@@ -51,8 +51,15 @@ namespace CodeTV
 		public static Settings Settings { get { return settings; } }
 		private static MainForm mainForm = null;
 		public static MainForm Form { get { return mainForm; } }
-		private static string assemblyName = null;
-		public static string AssemblyName { get { return assemblyName == null ? assemblyName = Assembly.GetExecutingAssembly().GetName().Name : assemblyName; } }
+		//private static string assemblyName = null;
+		public static string AssemblyName
+        {
+            get
+            {
+                //return assemblyName == null ? assemblyName = Assembly.GetExecutingAssembly().GetName().Name : assemblyName;
+                return "CodeTV";
+            }
+        }
 		private static string registryBaseKey = "SOFTWARE\\La compagnie du bonheur :)\\CodeTV";
 		public static string RegistryBaseKey { get { return registryBaseKey; } }
 
