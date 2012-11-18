@@ -272,6 +272,7 @@ namespace CodeTV
                     this.blackBands.RemoveAt(0);
                     this.Controls.Remove(control);
                 }
+                this.blackBands = null;
             }
         }
 

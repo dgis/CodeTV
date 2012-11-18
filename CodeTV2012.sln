@@ -1,5 +1,5 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeTV2010", "CodeTV2010.csproj", "{94CCA23F-C9B8-4FDC-BA87-7C6578040CE5}"
 EndProject

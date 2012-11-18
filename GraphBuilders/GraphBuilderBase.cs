@@ -992,6 +992,7 @@ namespace CodeTV
 			this.hostingControl.Paint -= new PaintEventHandler(OnPaintHandler); // for WM_PAINT
             this.hostingControl.Resize -= new EventHandler(OnResizeMoveHandler); // for WM_SIZE
             //this.hostingControl.Move -= new EventHandler(OnResizeMoveHandler); // for WM_MOVE
+            this.hostingControl.UseBlackBands = false;
             SystemEvents.DisplaySettingsChanged -= new EventHandler(OnDisplayChangedHandler); // for WM_DISPLAYCHANGE
         }
 

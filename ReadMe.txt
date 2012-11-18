@@ -2,33 +2,33 @@
 The home page is located at http://regis.cosnier.free.fr.
 
 
-Version 0.4 Copyright (c) 2006-2012 Regis Cosnier, All Rights Reserved.
+Version 0.3 Copyright (c) 2006-2012 Regis Cosnier, All Rights Reserved.
 This program is free software and may be distributed according to the terms of the GNU General Public License (GPL).
 
 
 FEATURES:
 
 - GPL
-- Need of the Microsoft Framework.NET 3.0 (if not already install)
-- Display analog and digital live video
+- Need of the Microsoft Framework.NET 3.5 (if not already install).
+- Display analog and digital live video.
 	* Analog tv or webcam device with WDM drivers.
 	* Digital tv (DVB-T, DVB-S, DVB-C) device with BDA drivers.
-- As fast as possible channel switching (This is the reason why I made this software)
-- Still image capture (snapshot)
-- Timeshifting (DVB only)
+- As fast as possible channel switching (This is the reason why I made this software).
+- Still image capture (snapshot).
+- Timeshifting (DVB only).
 - Video recording (DVB only) in a ".dvr-ms" Microsoft proprietary file format
  (Because of the use of the DirectShow StreamBufferEngine).
-	* Can be playback with any DirectShow Media Player.
+	* Can be played with any DirectShow media player.
 	* Information on Wikipedia http://en.wikipedia.org/wiki/DVR-MS
 	* A tools to convert in mpeg2 http://msmvps.com/blogs/chrisl/archive/2006/08/10/107296.aspx
 
 
 QUICK START:
 
-- Launch the channel wizard
-- Select the parameters like the capture/tuner devices
-- Scan the channel over a frequency range
-- Double click on a channel and I hope for you it will work
+- Launch the channel wizard.
+- Select the parameters like the capture/tuner devices.
+- Scan the channel over a frequency range.
+- Double click on a channel and I hope for you it will work/
 
 
 KEYBOARD SHORTCUTS:
@@ -46,6 +46,17 @@ TIPS:
 - Some DVB drivers use 1 or 2 codecs.
 	* With a 2 drivers model, fill the "Tuner Device" and the "Capture Device" channel settings.
 	* With a 1 driver model, fill the "Tuner Device" and leave the "Capture Device" blank.
+- Codecs
+	* Video
+		- MPEG2 Decoder Device="ffdshow Video Decoder" (http://ffdshow-tryout.sourceforge.net/)
+		- MPEG2 Decoder Device="Microsoft DTV-DVD Video Decoder" found in Windows 7.
+		- H264 Decoder Device="ffdshow Video Decoder"
+		- H264 Decoder Device="Microsoft DTV-DVD Video Decoder".
+		- H264 Decoder Device="CyberLink H.264/AVC Decoder (PDVD7)" found in PowerDVD.
+	* Audio
+		- Audio Decoder Device="ffdshow Audio Decoder"
+			but AC3Filter Lite (http://ac3filter.net/) must be installed for HD audio (AC3 or EAC3).
+
 - Select several channels (with CONTROL and/or SHIFT keys) and select "Property" with
 	the contextual menu to change the common properties (i.e.: If you want to change the
 	video decoder device for several channels at once).
@@ -55,9 +66,8 @@ TIPS:
 	try the ReClock filter (http://reclock.free.fr/main.htm)
 - For european, in order to avoid some jerky video you should put the monitor frequency to be
 	a multiple of 25. For instance:
-	 * A PAL DVB video with 25 frames per second should be fluid on a LCD monitor set to 75 Hz.
-	 * A NTSC DVB video with 30 frames per second should be fluid on a LCD monitor set to 60 Hz.
-- DVB HD signal can be decoded with the "CyberLink H.264/AVC Decoder (PDVD7)" found in PowerDVD 7.
+	* A PAL DVB video with 25 frames per second should be fluid on a LCD monitor set to 75 Hz.
+	* A NTSC DVB video with 30 frames per second should be fluid on a LCD monitor set to 60 Hz.
 - If an aspect ratio issue occurs, try another Mpeg2 codec (Mpeg2Dec, DScaler Mpeg2 decoder,
 	Elecard Mpeg-2 decoder, ...), or try to adjust the ratio and save it to the channel.
 - The GeForce 6600GT TV out seems a lot better than the ATI 9600.
@@ -106,9 +116,10 @@ CHANGES:
 
 version 0.3 (2012-11-19)
 - Add support for AC3 and EAC3 audio.
-- Add support for EVR instead of VMR on OS >= 6.0. EVR gives a better quality on Vista or Seven.
+- Add support for EVR instead of VMR. EVR gives a better quality on Vista or Seven.
+- The DVB frequency scanner now wait 500ms before trying to get the channels.
 - Add the project to GitHub: https://github.com/dgis/CodeTV
-- Clean up the project file to target the corresponding Visual Studio version (2005, 2008 or 2010)
+- Clean up the project file to target the corresponding Visual Studio version (2005, 2008, 2010, 2012)
 - Add DirectShowNet version 2.1
 - Fix the proppage.dll on 64bit system.
 - Add the Hervé changes:

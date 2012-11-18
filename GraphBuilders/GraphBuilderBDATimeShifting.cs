@@ -169,8 +169,11 @@ namespace CodeTV
             //For Windows Vista or later the IStreamBufferSink::LockProfile method requires administrator privileges,
             // unless you first call IStreamBufferConfigure3::SetNamespace with the value NULL.
             IStreamBufferConfigure3 streamBufferConfigure3 = streamBufferConfig as IStreamBufferConfigure3;
-            hr = streamBufferConfigure3.SetNamespace(null);
-            DsError.ThrowExceptionForHR(hr);
+            if (streamBufferConfigure3 != null)
+            {
+                hr = streamBufferConfigure3.SetNamespace(null);
+                DsError.ThrowExceptionForHR(hr);
+            }
 
 			// Set the TimeShifting configuration
 			//hr = streamBufferConfigure.SetDirectory("C:\\MyDirectory");
@@ -182,9 +185,9 @@ namespace CodeTV
 
 			hr = streamBufferConfigure.SetBackingFileDuration(600); // Min 15 seconds
             //TODO not working anymore!!
-            //hr = streamBufferConfigure.SetBackingFileCount(
-            //    Math.Min(100, Math.Max(4, Settings.TimeShiftingBufferLengthMin / 10)),  // 4-100
-            //    Math.Min(102, Math.Max(6, Settings.TimeShiftingBufferLengthMax / 10))); // 6-102
+            hr = streamBufferConfigure.SetBackingFileCount(
+                Math.Min(100, Math.Max(4, Settings.TimeShiftingBufferLengthMin / 10)),  // 4-100
+                Math.Min(102, Math.Max(6, Settings.TimeShiftingBufferLengthMax / 10))); // 6-102
 		}
 
 
@@ -407,8 +410,12 @@ namespace CodeTV
 
 		private void AddStreamBufferSinkFilter()
 		{
-            this.streamBufferSink = (IBaseFilter)new SBE2Sink();
-            if (this.streamBufferSink == null) // In case SBE2Sink is not supported, fallback to the former filter.
+            try
+            {
+                this.streamBufferSink = (IBaseFilter)new SBE2Sink();
+            }
+            catch { }
+			if (this.streamBufferSink == null) // In case SBE2Sink is not supported, fallback to the former filter.
                 this.streamBufferSink = (IBaseFilter)new StreamBufferSink();
 
 			int hr = this.graphBuilder.AddFilter(this.streamBufferSink, "Stream Buffer Sink");
